@@ -3,7 +3,8 @@
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./landing.css";
-import { Header } from "../../components/layout/Header";
+import { Header } from "../../components/layout/Header/Header";
+import { Footer } from "../../components/layout/Footer/Footer";
 
 const Landing = () => {
   return (
@@ -31,6 +32,7 @@ const Landing = () => {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </div>
   );
 };

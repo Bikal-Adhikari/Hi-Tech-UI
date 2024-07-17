@@ -1,0 +1,40 @@
+.footer-wrapper {
+  width: 100%;
+  background-color: rgb(244, 244, 244);
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.footer-container {
+  box-sizing: border-box;
+  font-family: "Josefin Sans", sans-serif;
+  text-align: center;
+  color: rgb(59, 64, 69);
+}
+
+.footer-logo {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.footer-menu .nav-link {
+  color: black;
+  font-size: 18px;
+  margin: 0 10px;
+}
+
+.footer-menu .nav-link:hover {
+  text-decoration: underline;
+}
+
+.footer-container .copyright-text {
+  color: grey;
+  margin-top: 20px;
+  flex-grow: 1;
+}
+
+.footer-container .copyright-text a {
+  text-decoration: none;
+}
