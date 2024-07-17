@@ -14,12 +14,15 @@ const Landing = () => {
         <Row className="align-items-center">
           <Col md={6} className="info">
             <h1>
-              job <span className="text-primary">tracking</span> app
+              Hi <span className="text-primary">Tech</span>
             </h1>
             <p>
-              Find your perfect job easily. Create a profile, browse top
-              opportunities, and apply with one click. Start your career journey
-              today!
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam
+              ipsum sint repellat ex hic nostrum velit dolor, dicta tempora sunt
+              illo ipsa ullam laudantium quasi debitis, quos aperiam omnis ad
+              error saepe temporibus labore architecto voluptate. Ipsa totam
+              reiciendis at atque! Accusantium eaque ipsa reprehenderit velit
+              aperiam dolorem esse repudiandae!
             </p>
             <Link to="/sign-in">
               <Button variant="primary" className="btn-hero">
