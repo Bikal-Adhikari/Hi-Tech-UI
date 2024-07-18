@@ -1,53 +1,55 @@
-import { Container, Row, Col, Carousel } from "react-bootstrap";
+import { Container, Row, Col, Carousel, Button } from "react-bootstrap";
 import "./landing.css";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
+import { FaShip, FaUndo, FaShieldAlt } from "react-icons/fa";
 
 const Landing = () => {
   return (
     <>
       <Header />
-      {/* Hero Section */}
-      <Container className="mt-4">
+
+      <Container fluid className="px-0 mt-4">
         <Carousel>
           <Carousel.Item>
             <img
               className="d-block w-100"
-              src="path-to-your-image"
-              alt="First slide"
+              src="path-to-your-smartwatch-image"
+              alt="Smart Watches"
             />
-            <Carousel.Caption>
-              <h3>Million products in our store!</h3>
-              <p>Explore the new range</p>
-              <button className="btn btn-dark">Discover Now</button>
+            <Carousel.Caption className="text-start">
+              <h6 className="text-uppercase">Explore the new range</h6>
+              <h1 className="display-4">
+                Million products
+                <br />
+                in our store!
+              </h1>
+              <Button variant="dark" className="mt-3">
+                DISCOVER NOW
+              </Button>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
       </Container>
 
-      {/* Information Section */}
-      <Container className="mt-4 text-center">
-        <Row>
-          <Col>
-            <div>
-              <i className="bi bi-truck"></i>
-              <p>Shipping Worldwide</p>
-            </div>
+      <Container className="mt-4">
+        <Row className="text-center">
+          <Col md={4}>
+            <FaShip size={30} />
+            <h6 className="mt-2">Shipping Worldwide</h6>
+            <p className="text-muted">Special financing and earn rewards</p>
           </Col>
-          <Col>
-            <div>
-              <i className="bi bi-arrow-return-left"></i>
-              <p>14 Days Return</p>
-            </div>
+          <Col md={4}>
+            <FaUndo size={30} />
+            <h6 className="mt-2">14 Days Return</h6>
           </Col>
-          <Col>
-            <div>
-              <i className="bi bi-shield-lock"></i>
-              <p>Security Payment</p>
-            </div>
+          <Col md={4}>
+            <FaShieldAlt size={30} />
+            <h6 className="mt-2">Security Payment</h6>
           </Col>
         </Row>
       </Container>
+
       <Footer />
     </>
   );

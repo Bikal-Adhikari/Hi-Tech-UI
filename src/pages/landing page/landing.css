@@ -5,14 +5,14 @@
   justify-content: center;
 }
 
-.navbar {
+/* .navbar {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   height: 70px;
   display: flex;
   align-items: center;
-}
+} */
 
 .page {
   min-height: calc(100vh - 70px);
