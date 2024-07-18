@@ -1,42 +1,55 @@
-// import main from "../../assets/images/main.svg";
-// import Logo from "../../components/Logo";
-import { Link } from "react-router-dom";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Carousel } from "react-bootstrap";
 import "./landing.css";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
 
 const Landing = () => {
   return (
-    <div className="landing-wrapper">
+    <>
       <Header />
-      <Container className="page">
-        <Row className="align-items-center">
-          <Col md={6} className="info">
-            <h1>
-              Hi <span className="text-primary">Tech</span>
-            </h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam
-              ipsum sint repellat ex hic nostrum velit dolor, dicta tempora sunt
-              illo ipsa ullam laudantium quasi debitis, quos aperiam omnis ad
-              error saepe temporibus labore architecto voluptate. Ipsa totam
-              reiciendis at atque! Accusantium eaque ipsa reprehenderit velit
-              aperiam dolorem esse repudiandae!
-            </p>
-            <Link to="/sign-in">
-              <Button variant="primary" className="btn-hero">
-                Login/Register
-              </Button>
-            </Link>
+      {/* Hero Section */}
+      <Container className="mt-4">
+        <Carousel>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src="path-to-your-image"
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>Million products in our store!</h3>
+              <p>Explore the new range</p>
+              <button className="btn btn-dark">Discover Now</button>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+      </Container>
+
+      {/* Information Section */}
+      <Container className="mt-4 text-center">
+        <Row>
+          <Col>
+            <div>
+              <i className="bi bi-truck"></i>
+              <p>Shipping Worldwide</p>
+            </div>
           </Col>
-          <Col md={6} className="text-center">
-            <img src="" alt="abc" className="img-fluid main-img" />
+          <Col>
+            <div>
+              <i className="bi bi-arrow-return-left"></i>
+              <p>14 Days Return</p>
+            </div>
+          </Col>
+          <Col>
+            <div>
+              <i className="bi bi-shield-lock"></i>
+              <p>Security Payment</p>
+            </div>
           </Col>
         </Row>
       </Container>
       <Footer />
-    </div>
+    </>
   );
 };
 

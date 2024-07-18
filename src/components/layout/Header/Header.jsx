@@ -1,33 +1,28 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { FaUser } from "react-icons/fa";
-
-import { Link } from "react-router-dom";
-
+import { Navbar, Nav, Container } from "react-bootstrap";
 export const Header = () => {
   return (
-    <Navbar expand="md" className="bg-dark " data-bs-theme="dark">
-      <Container>
-        <Navbar.Brand href="#home"> </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <NavDropdown title={<FaUser />} id="basic-nav-dropdown">
-              <Link
-                to="admin/profile"
-                style={{ textDecoration: "none", color: "white" }}
-                className="p-3"
-              >
-                Profile
-              </Link>
-              {/* <NavDropdown.Item href="admin/profile">Profile</NavDropdown.Item> */}
-              <NavDropdown.Item href="#">Logout</NavDropdown.Item>
-            </NavDropdown>
+    <div>
+      {/* Header */}
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand href="#">Hi-Tech</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#catalog">Catalog</Nav.Link>
+              <Nav.Link href="#other-pages">Other pages</Nav.Link>
+              <Nav.Link href="#sale">Sale</Nav.Link>
+              <Nav.Link href="#blog">Blog</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+          <Nav>
+            <Nav.Link href="#search">Search</Nav.Link>
+            <Nav.Link href="#account">Account</Nav.Link>
+            <Nav.Link href="#cart">Cart</Nav.Link>
           </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        </Container>
+      </Navbar>
+    </div>
   );
 };
