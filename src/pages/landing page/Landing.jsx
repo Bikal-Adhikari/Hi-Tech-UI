@@ -31,7 +31,7 @@ const Landing = () => {
             </Link>
           </Col>
           <Col md={6} className="text-center">
-            <img src="" alt="jobHunt" className="img-fluid main-img" />
+            <img src="" alt="abc" className="img-fluid main-img" />
           </Col>
         </Row>
       </Container>

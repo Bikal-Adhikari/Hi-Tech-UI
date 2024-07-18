@@ -21,12 +21,9 @@
 
 .footer-menu .nav-link {
   color: black;
-  font-size: 18px;
+  font-size: 13px;
   margin: 0 10px;
-}
-
-.footer-menu .nav-link:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .footer-container .copyright-text {
