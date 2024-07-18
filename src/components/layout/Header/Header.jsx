@@ -47,9 +47,9 @@ export const Header = () => {
             <Nav className="mx-auto">
               <Nav.Link href="#home">Home</Nav.Link>
               <Nav.Link href="#catalog">Catalog</Nav.Link>
-              <Nav.Link href="#other-pages">Other pages</Nav.Link>
-              <Nav.Link href="#sale">Sale</Nav.Link>
-              <Nav.Link href="#blog">Blog</Nav.Link>
+              <Nav.Link href="#other-pages">Sale</Nav.Link>
+              <Nav.Link href="#sale">Services</Nav.Link>
+              <Nav.Link href="#blog">Contact</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
@@ -88,9 +88,9 @@ export const Header = () => {
             <Nav className="me-auto">
               <Nav.Link href="#home">Home</Nav.Link>
               <Nav.Link href="#catalog">Catalog</Nav.Link>
-              <Nav.Link href="#other-pages">Other pages</Nav.Link>
-              <Nav.Link href="#sale">Sale</Nav.Link>
-              <Nav.Link href="#blog">Blog</Nav.Link>
+              <Nav.Link href="#other-pages">Sale</Nav.Link>
+              <Nav.Link href="#sale">Services</Nav.Link>
+              <Nav.Link href="#blog">Contact</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
