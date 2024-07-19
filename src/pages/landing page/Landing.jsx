@@ -3,24 +3,26 @@ import "./landing.css";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { FaShip, FaUndo, FaShieldAlt } from "react-icons/fa";
-import watchBackground from "../../assets/images/watch.webp"
+import watchBackground from "../../assets/images/watch.webp";
 
 const Landing = () => {
   return (
     <>
       <Header />
 
-      <Container fluid className="px-0 mt-4">
+      <Container className="px-0 mt-4">
         <Carousel>
           <Carousel.Item>
             <img
-              className="d-block w-100"
+              className="d-block w-100 img-fluid" // Bootstrap class for responsive image
               src={watchBackground}
               alt="Smart Watches"
             />
             <Carousel.Caption className="text-start">
-              <h6 className="text-uppercase">Explore the new range</h6>
-              <h1 className="display-4">
+              <h6 className="text-uppercase text-black">
+                Explore the new range
+              </h6>
+              <h1 className="display-4 text-black">
                 Million products
                 <br />
                 in our store!
