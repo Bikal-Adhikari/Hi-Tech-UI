@@ -3,6 +3,7 @@ import "./landing.css";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { FaShip, FaUndo, FaShieldAlt } from "react-icons/fa";
+import watchBackground from "../../assets/images/watch.webp"
 
 const Landing = () => {
   return (
@@ -14,7 +15,7 @@ const Landing = () => {
           <Carousel.Item>
             <img
               className="d-block w-100"
-              src="path-to-your-smartwatch-image"
+              src={watchBackground}
               alt="Smart Watches"
             />
             <Carousel.Caption className="text-start">
