@@ -4,6 +4,7 @@ import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { FaShip, FaUndo, FaShieldAlt } from "react-icons/fa";
 import watchBackground from "../../assets/images/watch.webp";
+import laptopImg from "../../assets/images/laptop.jpg";
 
 const Landing = () => {
   return (
@@ -14,9 +15,10 @@ const Landing = () => {
         <Carousel>
           <Carousel.Item>
             <img
-              className="d-block w-100 img-fluid" // Bootstrap class for responsive image
+              className="d-block w-100 " // Bootstrap class for responsive image
               src={watchBackground}
               alt="Smart Watches"
+              height={"600px"}
             />
             <Carousel.Caption className="text-start">
               <h6 className="text-uppercase text-black">
@@ -26,6 +28,25 @@ const Landing = () => {
                 Million products
                 <br />
                 in our store!
+              </h1>
+              <Button variant="dark" className="mt-3">
+                DISCOVER NOW
+              </Button>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100 "
+              src={laptopImg}
+              alt="Laptops"
+              height={"600px"}
+            />
+            <Carousel.Caption className="text-start caption-2">
+              <h6 className="text-uppercase text-black">Best Sellers</h6>
+              <h1 className="display-4 text-black">
+                All favourite items
+                <br />
+                in one place
               </h1>
               <Button variant="dark" className="mt-3">
                 DISCOVER NOW
