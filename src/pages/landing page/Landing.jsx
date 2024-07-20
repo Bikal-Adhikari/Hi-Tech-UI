@@ -4,7 +4,7 @@ import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { FaShip, FaUndo, FaShieldAlt } from "react-icons/fa";
 import watchBackground from "../../assets/images/watch.webp";
-import laptopImg from "../../assets/images/laptop.jpg";
+import laptopImg from "../../assets/images/laptops.jpg";
 import headphoneImg from "../../assets/images/headphone.jpg";
 
 const Landing = () => {
@@ -25,7 +25,7 @@ const Landing = () => {
               <h6 className="text-uppercase text-black">
                 Explore the new range
               </h6>
-              <h1 className="display-4 text-black">
+              <h1 className="display-4 text-black fw-bolder">
                 Million products
                 <br />
                 in our store!
@@ -42,9 +42,11 @@ const Landing = () => {
               alt="Laptops"
               height={"600px"}
             />
-            <Carousel.Caption className="centered">
-              <h6 className="text-uppercase text-black">Unbeatable Prices</h6>
-              <h1 className="display-4 text-black">
+            <Carousel.Caption className="centered caption-2">
+              <h6 className="text-uppercase text-black fw-bolder">
+                Unbeatable Prices
+              </h6>
+              <h1 className="display-4 text-black fw-bolder">
                 Top Quality Laptops
                 <br />
                 Just For You!
@@ -61,9 +63,9 @@ const Landing = () => {
               alt="Headphones"
               height={"600px"}
             />
-            <Carousel.Caption className="centered">
+            <Carousel.Caption className="centered caption-2">
               <h6 className="text-uppercase text-black">Crystal Clear Sound</h6>
-              <h1 className="display-4 text-black">
+              <h1 className="display-4 text-black fw-bolder">
                 Experience Music
                 <br />
                 Like Never Before
