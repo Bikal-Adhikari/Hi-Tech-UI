@@ -22,7 +22,7 @@ const Landing = () => {
               height={"600px"}
             />
             <Carousel.Caption className="text-start">
-              <h6 className="text-uppercase text-black">
+              <h6 className="text-uppercase text-black fw-bolder">
                 Explore the new range
               </h6>
               <h1 className="display-4 text-black fw-bolder">
@@ -64,7 +64,9 @@ const Landing = () => {
               height={"600px"}
             />
             <Carousel.Caption className="centered caption-2">
-              <h6 className="text-uppercase text-black">Crystal Clear Sound</h6>
+              <h6 className="text-uppercase text-black fw-bolder">
+                Crystal Clear Sound
+              </h6>
               <h1 className="display-4 text-black fw-bolder">
                 Experience Music
                 <br />
