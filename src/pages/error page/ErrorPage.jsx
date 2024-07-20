@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 // import img from "../../assets/images/page_not_found.svg";
-// import "./error.css";
+import "./error.css";
 
 const ErrorPage = () => {
   return (
