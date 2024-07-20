@@ -5,6 +5,7 @@ import { Footer } from "../../components/layout/Footer/Footer";
 import { FaShip, FaUndo, FaShieldAlt } from "react-icons/fa";
 import watchBackground from "../../assets/images/watch.webp";
 import laptopImg from "../../assets/images/laptop.jpg";
+import headphoneImg from "../../assets/images/headphone.jpg";
 
 const Landing = () => {
   return (
@@ -15,7 +16,7 @@ const Landing = () => {
         <Carousel>
           <Carousel.Item>
             <img
-              className="d-block w-100 " // Bootstrap class for responsive image
+              className="d-block w-100" // Bootstrap class for responsive image
               src={watchBackground}
               alt="Smart Watches"
               height={"600px"}
@@ -36,20 +37,39 @@ const Landing = () => {
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className="d-block w-100 "
+              className="d-block w-100"
               src={laptopImg}
               alt="Laptops"
               height={"600px"}
             />
-            <Carousel.Caption className="text-start caption-2">
-              <h6 className="text-uppercase text-black">Best Sellers</h6>
+            <Carousel.Caption className="centered">
+              <h6 className="text-uppercase text-black">Unbeatable Prices</h6>
               <h1 className="display-4 text-black">
-                All favourite items
+                Top Quality Laptops
                 <br />
-                in one place
+                Just For You!
               </h1>
               <Button variant="dark" className="mt-3">
-                DISCOVER NOW
+                SHOP NOW
+              </Button>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src={headphoneImg}
+              alt="Headphones"
+              height={"600px"}
+            />
+            <Carousel.Caption className="centered">
+              <h6 className="text-uppercase text-black">Crystal Clear Sound</h6>
+              <h1 className="display-4 text-black">
+                Experience Music
+                <br />
+                Like Never Before
+              </h1>
+              <Button variant="dark" className="mt-3">
+                BUY NOW
               </Button>
             </Carousel.Caption>
           </Carousel.Item>
