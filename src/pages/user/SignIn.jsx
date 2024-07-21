@@ -2,12 +2,12 @@ import { useEffect, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { CustomInput } from "../../components/common/custom-input/CustomInput";
 
-import { loginAdminAction } from "../../features/users/userAction";
+// import { loginAdminAction } from "../../features/users/userAction";
 import { toast } from "react-toastify";
 // import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const SignIn = () => {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
   const location = useLocation();
@@ -80,4 +80,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;
