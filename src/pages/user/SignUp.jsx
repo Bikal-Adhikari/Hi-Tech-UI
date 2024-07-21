@@ -1,12 +1,11 @@
 import { Button, Form } from "react-bootstrap";
 
-import useForm from "../../Hooks/useForm";
-import { createNewAdminAction } from "../../features/users/userAction";
 import { toast } from "react-toastify";
 import {
   CustomInput,
   CustomSelect,
 } from "../../components/common/custom-input/CustomInput";
+import useForm from "../../Hooks/useForm";
 
 const SignUp = () => {
   const { form, setForm, handleOnChange } = useForm({});
@@ -17,7 +16,7 @@ const SignUp = () => {
     if (confirmPassword !== rest.password) {
       return toast.error("Password do not match");
     }
-    createNewAdminAction(rest);
+    console.log(rest);
   };
 
   const inputs = [
@@ -86,7 +85,7 @@ const SignUp = () => {
     <div className="d-flex justify-content-center align-items-center vh-100  ">
       <div className="" style={{ width: "450px" }}>
         <Form className="shadow-lg p-3 rounded  " onSubmit={handleOnSubmit}>
-          <h3>Admin Registration</h3>
+          <h3>User Registration</h3>
           {inputs.map((item, i) =>
             item.isSelectType ? (
               <CustomSelect key={i} {...item} onChange={handleOnChange} />
@@ -96,7 +95,7 @@ const SignUp = () => {
           )}
 
           <div className="d-grid">
-            <Button type="submit">Register New Admin</Button>
+            <Button type="submit">Register New User</Button>
           </div>
         </Form>
       </div>

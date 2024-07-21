@@ -3,14 +3,18 @@ import "./App.css";
 import Landing from "./pages/landing page/Landing";
 import ErrorPage from "./pages/error page/ErrorPage";
 import SignUp from "./pages/user/SignUp";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/signUp" element={<SignUp />} />
-      <Route path="*" element={<ErrorPage />} />
-    </Routes>
+    <div>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+      <ToastContainer position="top-center" />
+    </div>
   );
 }
 
