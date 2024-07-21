@@ -25,14 +25,14 @@ const SignUp = () => {
       name: "fName",
       type: "text",
       required: true,
-      placeholder: "Sam",
+      placeholder: "Enter your First Name",
     },
     {
       label: "Last Name",
       name: "lName",
       type: "text",
       required: true,
-      placeholder: "Smith",
+      placeholder: "Enter your last Name",
     },
     {
       label: "phone",

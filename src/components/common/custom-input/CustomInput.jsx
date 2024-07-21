@@ -22,9 +22,9 @@ export const CustomSelect = ({
       {label && <Form.Label>{label}</Form.Label>}
 
       <Form.Select {...rest} ref={forwardRef}>
-        {options?.map(({ value, text }, i) => (
+        {options?.map(({ value, label }, i) => (
           <option key={i} value={value}>
-            {text}
+            {label}
           </option>
         ))}
       </Form.Select>
