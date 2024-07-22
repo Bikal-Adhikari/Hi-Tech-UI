@@ -14,7 +14,7 @@ const ProfileLanding = () => {
             <h1>
               Hi-Tech <span>Solutions</span>
             </h1>
-            <p>
+            <p className="fw-bolder">
               Embrace the future with our cutting-edge technology solutions.
               Create your profile, explore innovative opportunities, and join
               the tech revolution today!
