@@ -31,10 +31,10 @@ export const Header = () => {
               </Button>
             </Form>
             <Nav className="ms-auto">
-              <Nav.Link href="#profile">
+              <Nav.Link href="/profile">
                 <FaUser />
               </Nav.Link>
-              <Nav.Link href="#cart">
+              <Nav.Link href="/cart">
                 <FaShoppingCart />
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
                   0
@@ -64,10 +64,10 @@ export const Header = () => {
             Hi-Tech
           </Navbar.Brand>
           <Nav>
-            <Nav.Link href="#profile">
+            <Nav.Link href="/profile">
               <FaUser />
             </Nav.Link>
-            <Nav.Link href="#cart">
+            <Nav.Link href="/cart">
               <FaShoppingCart className="position-absolute" />
               <span className="position-relative top-0 start-80 translate-middle badge rounded-pill bg-dark">
                 0

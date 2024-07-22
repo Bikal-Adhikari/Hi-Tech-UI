@@ -6,6 +6,8 @@ import { CustomInput } from "../../components/common/custom-input/CustomInput";
 import { toast } from "react-toastify";
 // import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Header } from "../../components/layout/Header/Header";
+import { Footer } from "../../components/layout/Footer/Footer";
 
 const SignIn = () => {
   // const dispatch = useDispatch();
@@ -55,28 +57,32 @@ const SignIn = () => {
   ];
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100  bg-dark">
-      <div className="" style={{ width: "450px" }}>
-        <Form
-          className="shadow-lg p-3 rounded  bg-light"
-          onSubmit={handleOnSubmit}
-        >
-          <h3 className="text-center">Admin Login</h3>
-          <hr />
-          {inputs.map((item, i) => (
-            <CustomInput key={i} {...item} />
-          ))}
+    <>
+      <Header />
+      <div className="d-flex justify-content-center align-items-center vh-100  bg-dark">
+        <div className="" style={{ width: "450px" }}>
+          <Form
+            className="shadow-lg p-3 rounded  bg-light"
+            onSubmit={handleOnSubmit}
+          >
+            <h3 className="text-center">Admin Login</h3>
+            <hr />
+            {inputs.map((item, i) => (
+              <CustomInput key={i} {...item} />
+            ))}
 
-          <div className="d-grid mt-3">
-            <Button type="submit"> Login Now</Button>
-          </div>
-          <div className="text-end">
-            Forget password ? {""}
-            <a href="/forget-password">Reset Now</a>
-          </div>
-        </Form>
+            <div className="d-grid mt-3">
+              <Button type="submit"> Login Now</Button>
+            </div>
+            <div className="text-end">
+              Forget password ? {""}
+              <a href="/forget-password">Reset Now</a>
+            </div>
+          </Form>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
