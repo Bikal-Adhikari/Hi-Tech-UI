@@ -19,7 +19,7 @@ const ProfileLanding = () => {
               Create your profile, explore innovative opportunities, and join
               the tech revolution today!
             </p>
-            <Link to="/sign-in">
+            <Link to="/signIn">
               <Button className="btn-hero">Login/Register</Button>
             </Link>
           </Col>
