@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, ProgressBar } from "react-bootstrap";
 import { toast } from "react-toastify";
 import {
   CustomInput,
@@ -8,9 +8,11 @@ import useForm from "../../Hooks/useForm";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Header } from "../../components/layout/Header/Header";
 import PasswordRegex from "../../helpers/PasswordRegex";
+import { useEffect, useState } from "react";
 
 const SignUp = () => {
   const { form, setForm, handleOnChange } = useForm({});
+  const [passwordMatch, setPasswordMatch] = useState(false);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +22,13 @@ const SignUp = () => {
     }
     console.log(rest);
   };
+  useEffect(() => {
+    if (form.password && form.confirmPassword) {
+      setPasswordMatch(form.password === form.confirmPassword);
+    } else {
+      setPasswordMatch(false);
+    }
+  }, [form.password, form.confirmPassword]);
 
   const inputs = [
     {
@@ -86,9 +95,9 @@ const SignUp = () => {
   return (
     <>
       <Header />
-      <div className="d-flex justify-content-center align-items-center vh-100  ">
-        <div className="" style={{ width: "450px" }}>
-          <Form className="shadow-lg p-3 rounded  " onSubmit={handleOnSubmit}>
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div style={{ width: "450px" }}>
+          <Form className="shadow-lg p-3 rounded" onSubmit={handleOnSubmit}>
             <h3>User Registration</h3>
             {inputs.map((item, i) => (
               <div key={i}>
@@ -102,9 +111,19 @@ const SignUp = () => {
                 )}
               </div>
             ))}
-
-            <div className="d-grid">
-              <Button type="submit">Register New User</Button>
+            {form.password && form.confirmPassword && (
+              <ProgressBar
+                now={100}
+                variant={passwordMatch ? "success" : "danger"}
+                label={
+                  passwordMatch ? "Passwords match" : "Passwords do not match"
+                }
+              />
+            )}
+            <div className="d-grid mt-2">
+              <Button type="submit" disabled={!passwordMatch}>
+                Register New User
+              </Button>
             </div>
           </Form>
         </div>
