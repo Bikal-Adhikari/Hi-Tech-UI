@@ -59,7 +59,7 @@ const SignIn = () => {
   return (
     <>
       <Header />
-      <div className="d-flex justify-content-center align-items-center vh-100  bg-dark">
+      <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="" style={{ width: "450px" }}>
           <Form
             className="shadow-lg p-3 rounded  bg-light"

@@ -1,11 +1,13 @@
 import { Button, Form } from "react-bootstrap";
-
 import { toast } from "react-toastify";
 import {
   CustomInput,
   CustomSelect,
 } from "../../components/common/custom-input/CustomInput";
 import useForm from "../../Hooks/useForm";
+import { Footer } from "../../components/layout/Footer/Footer";
+import { Header } from "../../components/layout/Header/Header";
+import PasswordRegex from "../../helpers/PasswordRegex";
 
 const SignUp = () => {
   const { form, setForm, handleOnChange } = useForm({});
@@ -82,24 +84,33 @@ const SignUp = () => {
   ];
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100  ">
-      <div className="" style={{ width: "450px" }}>
-        <Form className="shadow-lg p-3 rounded  " onSubmit={handleOnSubmit}>
-          <h3>User Registration</h3>
-          {inputs.map((item, i) =>
-            item.isSelectType ? (
-              <CustomSelect key={i} {...item} onChange={handleOnChange} />
-            ) : (
-              <CustomInput key={i} {...item} onChange={handleOnChange} />
-            )
-          )}
+    <>
+      <Header />
+      <div className="d-flex justify-content-center align-items-center vh-100  ">
+        <div className="" style={{ width: "450px" }}>
+          <Form className="shadow-lg p-3 rounded  " onSubmit={handleOnSubmit}>
+            <h3>User Registration</h3>
+            {inputs.map((item, i) => (
+              <div key={i}>
+                {item.isSelectType ? (
+                  <CustomSelect {...item} onChange={handleOnChange} />
+                ) : (
+                  <CustomInput {...item} onChange={handleOnChange} />
+                )}
+                {item.name === "password" && (
+                  <PasswordRegex password={form.password || ""} />
+                )}
+              </div>
+            ))}
 
-          <div className="d-grid">
-            <Button type="submit">Register New User</Button>
-          </div>
-        </Form>
+            <div className="d-grid">
+              <Button type="submit">Register New User</Button>
+            </div>
+          </Form>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
