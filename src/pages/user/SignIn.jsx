@@ -72,11 +72,15 @@ const SignIn = () => {
             ))}
 
             <div className="d-grid mt-3">
+              <div className="text-start pb-1">
+                Forget password ? {""}
+                <a href="/forget-password">Reset Now</a>
+              </div>
               <Button type="submit"> Login Now</Button>
             </div>
-            <div className="text-end">
-              Forget password ? {""}
-              <a href="/forget-password">Reset Now</a>
+            <div className="text-end pb-1">
+              Don't have an account? {""}
+              <a href="/signUp">Create Now</a>
             </div>
           </Form>
         </div>
