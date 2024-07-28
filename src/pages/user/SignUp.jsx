@@ -9,6 +9,7 @@ import { Footer } from "../../components/layout/Footer/Footer";
 import { Header } from "../../components/layout/Header/Header";
 import PasswordRegex from "../../helpers/PasswordRegex";
 import { useEffect, useState } from "react";
+import { createNewUserAction } from "../../features/users/userAction";
 
 const SignUp = () => {
   const { form, setForm, handleOnChange } = useForm({});
@@ -20,7 +21,7 @@ const SignUp = () => {
     if (confirmPassword !== rest.password) {
       return toast.error("Password do not match");
     }
-    console.log(rest);
+    createNewUserAction(rest);
   };
   useEffect(() => {
     if (form.password && form.confirmPassword) {

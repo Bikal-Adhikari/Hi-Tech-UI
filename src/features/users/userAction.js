@@ -20,7 +20,7 @@ const apiProcessWithToast = async (obj, func) => {
   return response;
 };
 
-export const createNewAdminAction = async (userData) => {
+export const createNewUserAction = async (userData) => {
   apiProcessWithToast(userData, postNewUser);
   // further stuff
 };
