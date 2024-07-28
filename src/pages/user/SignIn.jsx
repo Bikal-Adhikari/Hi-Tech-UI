@@ -1,28 +1,27 @@
 import { useEffect, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { CustomInput } from "../../components/common/custom-input/CustomInput";
-
-// import { loginAdminAction } from "../../features/users/userAction";
 import { toast } from "react-toastify";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
+import { loginUserAction } from "../../features/users/userAction";
 
 const SignIn = () => {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
 
-  // const { user } = useSelector((state) => state.userInfo);
+  const { user } = useSelector((state) => state.userInfo);
 
   const redirectTo = location?.state?.from?.pathname || "/";
-  // useEffect(() => {
-  //   user?._id && navigate(redirectTo);
-  // }, [user?._id, navigate, redirectTo]);
+  useEffect(() => {
+    user?._id && navigate(redirectTo);
+  }, [user?._id, navigate, redirectTo]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +33,7 @@ const SignIn = () => {
     }
 
     //call server to process the authentication
-    // dispatch(loginAdminAction({ email, password }));
+    dispatch(loginUserAction({ email, password }));
   };
 
   const inputs = [

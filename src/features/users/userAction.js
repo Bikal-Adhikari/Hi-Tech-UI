@@ -29,7 +29,7 @@ export const verifyUserLinkAction = async (data) => {
   return apiProcessWithToast(data, verifyUserLink);
 };
 
-export const loginAdminAction = (data) => async (dispatch) => {
+export const loginUserAction = (data) => async (dispatch) => {
   const { status, jwts } = await userLogin(data);
 
   if (jwts?.accessJWT && jwts?.refreshJWT) {
