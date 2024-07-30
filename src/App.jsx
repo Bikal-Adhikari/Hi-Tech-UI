@@ -8,6 +8,7 @@ import SignIn from "./pages/user/SignIn";
 import ProfileLanding from "./pages/user/profileLanding/ProfileLanding";
 import Cart from "./pages/cart/Cart";
 import ForgetPassword from "./pages/user/ForgetPassword";
+import UserVerification from "./pages/user/UserVerification";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/profile" element={<ProfileLanding />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/verify-user" element={<UserVerification />} />
         <Route path="/cart" element={<Cart />} />
 
         <Route path="*" element={<ErrorPage />} />
