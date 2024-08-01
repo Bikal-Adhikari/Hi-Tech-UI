@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-// import { requestOTP, resetPassword } from "../../features/users/userAxios";
+
 import { Alert, Button } from "react-bootstrap";
 import { RequestOTP } from "../../components/password-reset/RequestOTP";
 import { ResetPass } from "../../components/password-reset/ResetPass";
+import { requestOTP, resetPassword } from "../../features/users/userAxios";
 
 const ForgetPassword = () => {
   const [showForm, setShowForm] = useState("otp");
