@@ -1,5 +1,6 @@
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import "./Footer.css"; // Import the CSS file
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -7,22 +8,27 @@ export const Footer = () => {
       <Container fluid className="text-center footer-container">
         <Row>
           <Col>
-            <div className="footer-logo mb-4">Hi-Tech</div>
+            <div className="footer-logo mb-4">
+              <Link to="/">Hi-Tech</Link>
+            </div>
           </Col>
         </Row>
         <Row>
-          <Nav className="justify-content-center footer-menu d-flex">
+          <Nav className="justify-content-evenly footer-menu d-flex">
             <Nav.Item>
-              <Nav.Link href="#">HOME</Nav.Link>
+              <Link to="/">Home</Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#about">ABOUT</Nav.Link>
+              <Link to="/">ABOUT</Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#service">SERVICES</Nav.Link>
+              <Link to="/">CONTACT</Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#contact">CONTACT</Nav.Link>
+              <Link to="/">FAQ</Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link to="/">SERVICES</Link>
             </Nav.Item>
           </Nav>
         </Row>

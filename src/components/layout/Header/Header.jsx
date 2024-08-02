@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap";
 import { FaSearch, FaUser, FaShoppingCart } from "react-icons/fa";
 import "./Header.css";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   return (
@@ -16,8 +17,8 @@ export const Header = () => {
       <div className="d-none d-md-block">
         <Navbar bg="white" className="border-bottom">
           <Container fluid>
-            <Navbar.Brand href="#" className="me-auto h-logo">
-              Hi-Tech
+            <Navbar.Brand className="me-auto h-logo">
+              <Link className="" to="/"> Hi-Tech</Link>
             </Navbar.Brand>
             <Form className="d-flex mx-auto" style={{ width: "50%" }}>
               <FormControl

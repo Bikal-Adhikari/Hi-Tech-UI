@@ -17,11 +17,16 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
+  a {
+    text-decoration: none;
+    color: #333;
+  }
 }
 
-.footer-menu .nav-link {
+.footer-menu a {
   color: black;
-  font-size: 13px;
+  font-size: 16px;
+  font-weight: bold;
   margin: 0 10px;
   text-decoration: none;
 }
