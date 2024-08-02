@@ -28,7 +28,7 @@ export const Footer = () => {
               <Link to="/faq">FAQ</Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/services">SERVICES</Link>
+              <Link to="/service">SERVICES</Link>
             </Nav.Item>
           </Nav>
         </Row>

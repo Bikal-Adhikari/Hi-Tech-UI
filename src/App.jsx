@@ -11,6 +11,7 @@ import ForgetPassword from "./pages/user/ForgetPassword";
 import UserVerification from "./pages/user/UserVerification";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
+import Service from "./pages/services/Service";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/service" element={<Service />} />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>
