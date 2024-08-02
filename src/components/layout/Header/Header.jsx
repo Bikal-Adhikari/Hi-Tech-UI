@@ -18,7 +18,10 @@ export const Header = () => {
         <Navbar bg="white" className="border-bottom">
           <Container fluid>
             <Navbar.Brand className="me-auto h-logo">
-              <Link className="" to="/"> Hi-Tech</Link>
+              <Link className="" to="/">
+                {" "}
+                Hi-Tech
+              </Link>
             </Navbar.Brand>
             <Form className="d-flex mx-auto" style={{ width: "50%" }}>
               <FormControl
@@ -51,7 +54,7 @@ export const Header = () => {
               <Nav.Link href="#catalog">Catalog</Nav.Link>
               <Nav.Link href="#other-pages">Sale</Nav.Link>
               <Nav.Link href="#sale">Services</Nav.Link>
-              <Nav.Link href="#blog">Contact</Nav.Link>
+              <Nav.Link href="/contact">Contact</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
