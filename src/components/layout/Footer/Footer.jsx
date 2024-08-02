@@ -19,16 +19,16 @@ export const Footer = () => {
               <Link to="/">Home</Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/">ABOUT</Link>
+              <Link to="/about">ABOUT</Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/">CONTACT</Link>
+              <Link to="/contact">CONTACT</Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/">FAQ</Link>
+              <Link to="/faq">FAQ</Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/">SERVICES</Link>
+              <Link to="/services">SERVICES</Link>
             </Nav.Item>
           </Nav>
         </Row>
