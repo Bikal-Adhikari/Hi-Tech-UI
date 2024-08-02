@@ -12,6 +12,7 @@ import UserVerification from "./pages/user/UserVerification";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
 import Service from "./pages/services/Service";
+import Faq from "./pages/faq/Faq";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/service" element={<Service />} />
+        <Route path="/faq" element={<Faq />} />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>
