@@ -16,6 +16,7 @@ import Faq from "./pages/faq/Faq";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { autoLoginAction } from "./features/users/userAction";
+import Sales from "./pages/sale/Sales";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/service" element={<Service />} />
         <Route path="/faq" element={<Faq />} />
+        <Route path="/sale" element={<Sales />} />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>
