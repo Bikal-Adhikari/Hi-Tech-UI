@@ -1,6 +1,4 @@
 import { useState } from "react";
-
-
 import { Alert, Button } from "react-bootstrap";
 import { RequestOTP } from "../../components/password-reset/RequestOTP";
 import { ResetPass } from "../../components/password-reset/ResetPass";

@@ -51,32 +51,32 @@ export const fetchUserProfileAction = () => async (dispatch) => {
     dispatch(setUser(userInfo));
   }
 };
-// export const editUserProfileAction = (userObj) => async (dispatch) => {
-//   const { status, userInfo } = await editUserProfile(userObj);
+export const editUserProfileAction = (userObj) => async (dispatch) => {
+  const { status, userInfo } = await editUserProfile(userObj);
 
-//   if (status === "success") {
-//     //mount user in the redux store
+  if (status === "success") {
+    //mount user in the redux store
 
-//     dispatch(setUser(userInfo));
-//   }
-// };
+    dispatch(setUser(userInfo));
+  }
+};
 
-// export const autoLoginAction = () => async (dispatch) => {
-//   const accessJWT = sessionStorage.getItem("accessJWT");
+export const autoLoginAction = () => async (dispatch) => {
+  const accessJWT = sessionStorage.getItem("accessJWT");
 
-//   if (accessJWT) {
-//     return dispatch(fetchUserProfileAction());
-//   }
-//   const refreshJWT = localStorage.getItem("refreshJWT");
-//   if (refreshJWT) {
-//     // get a new access jwt then call get user method
-//     const response = await getNewAccessJWT();
-//     if (response.status === "success") {
-//       sessionStorage.setItem("accessJWT", response.accessJWT);
-//       dispatch(fetchUserProfileAction());
-//     }
-//   }
-// };
+  if (accessJWT) {
+    return dispatch(fetchUserProfileAction());
+  }
+  const refreshJWT = localStorage.getItem("refreshJWT");
+  if (refreshJWT) {
+    // get a new access jwt then call get user method
+    const response = await getNewAccessJWT();
+    if (response.status === "success") {
+      sessionStorage.setItem("accessJWT", response.accessJWT);
+      dispatch(fetchUserProfileAction());
+    }
+  }
+};
 
 // export const logOutUserAction = () => async (dispatch) => {
 //   // call api with authorization for backend logout

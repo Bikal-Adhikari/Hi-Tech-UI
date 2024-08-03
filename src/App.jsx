@@ -13,8 +13,15 @@ import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
 import Service from "./pages/services/Service";
 import Faq from "./pages/faq/Faq";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { autoLoginAction } from "./features/users/userAction";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(autoLoginAction());
+  }, [dispatch]);
   return (
     <div>
       <Routes>
