@@ -37,9 +37,15 @@ export const Header = () => {
               </Button>
             </Form>
             <Nav className="ms-auto">
-              <Nav.Link href="/profile">
-                <FaUser />
-              </Nav.Link>
+              {user ? (
+                <Nav.Link as={Link} to="/Userprofile">
+                  <FaUser />
+                </Nav.Link>
+              ) : (
+                <Nav.Link href="/profile">
+                  <FaUser />
+                </Nav.Link>
+              )}
               <Nav.Link href="/cart">
                 <FaShoppingCart />
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
@@ -52,11 +58,21 @@ export const Header = () => {
         <Navbar bg="dark" variant="dark">
           <Container fluid>
             <Nav className="mx-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#catalog">Catalog</Nav.Link>
-              <Nav.Link href="#other-pages">Sale</Nav.Link>
-              <Nav.Link href="#sale">Services</Nav.Link>
-              <Nav.Link href="/contact">Contact</Nav.Link>
+              <Nav.Link as={Link} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={Link} to="/catalog">
+                Catalog
+              </Nav.Link>
+              <Nav.Link as={Link} to="/sale">
+                Sale
+              </Nav.Link>
+              <Nav.Link as={Link} to="/service">
+                Services
+              </Nav.Link>
+              <Nav.Link as={Link} to="/contact">
+                Contact
+              </Nav.Link>
             </Nav>
           </Container>
         </Navbar>
@@ -70,9 +86,15 @@ export const Header = () => {
             Hi-Tech
           </Navbar.Brand>
           <Nav>
-            <Nav.Link href="/profile">
-              <FaUser />
-            </Nav.Link>
+            {user ? (
+              <Nav.Link as={Link} to="/profile">
+                <FaUser />
+              </Nav.Link>
+            ) : (
+              <Nav.Link href="/profile">
+                <FaUser />
+              </Nav.Link>
+            )}
             <Nav.Link href="/cart">
               <FaShoppingCart className="position-absolute" />
               <span className="position-relative top-0 start-80 translate-middle badge rounded-pill bg-dark">
