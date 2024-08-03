@@ -9,8 +9,10 @@ import {
 import { FaSearch, FaUser, FaShoppingCart } from "react-icons/fa";
 import "./Header.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const Header = () => {
+  const { user } = useSelector((state) => state.userInfo);
   return (
     <>
       {/* Header for larger screens */}
