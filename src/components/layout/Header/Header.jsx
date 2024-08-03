@@ -87,15 +87,15 @@ export const Header = () => {
           </Navbar.Brand>
           <Nav>
             {user ? (
-              <Nav.Link as={Link} to="/profile">
+              <Nav.Link as={Link} to="/Userprofile">
                 <FaUser />
               </Nav.Link>
             ) : (
-              <Nav.Link href="/profile">
+              <Nav.Link as={Link} to="/profile">
                 <FaUser />
               </Nav.Link>
             )}
-            <Nav.Link href="/cart">
+            <Nav.Link as={Link} to="/cart">
               <FaShoppingCart className="position-absolute" />
               <span className="position-relative top-0 start-80 translate-middle badge rounded-pill bg-dark">
                 0
@@ -115,11 +115,21 @@ export const Header = () => {
               </Button>
             </Form>
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#catalog">Catalog</Nav.Link>
-              <Nav.Link href="#other-pages">Sale</Nav.Link>
-              <Nav.Link href="#sale">Services</Nav.Link>
-              <Nav.Link href="#blog">Contact</Nav.Link>
+              <Nav.Link as={Link} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={Link} to="/catalog">
+                Catalog
+              </Nav.Link>
+              <Nav.Link as={Link} to="/sale">
+                Sale
+              </Nav.Link>
+              <Nav.Link as={Link} to="/service">
+                Services
+              </Nav.Link>
+              <Nav.Link as={Link} to="/contact">
+                Contact
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
