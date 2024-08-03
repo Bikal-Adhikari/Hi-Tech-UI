@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import {
   Container,
   Row,
@@ -9,8 +9,8 @@ import {
   Form,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { editUserProfileAction } from "../../../features/users/userAction";
 // Assume you have actions and reducers set up for user profile
-import { updateUserProfile } from "./actions/userActions";
 
 const ProfilePage = () => {
   const { user } = useSelector((state) => state.userInfo);
@@ -36,7 +36,7 @@ const ProfilePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUserProfile(formData));
+    dispatch(editUserProfileAction(formData));
     handleClose();
   };
 

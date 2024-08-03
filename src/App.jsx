@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { autoLoginAction } from "./features/users/userAction";
 import Sales from "./pages/sale/Sales";
+import ProfilePage from "./pages/user/profileLanding/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/profile" element={<ProfileLanding />} />
+        <Route path="/Userprofile" element={<ProfilePage />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/verify-user" element={<UserVerification />} />
         <Route path="/cart" element={<Cart />} />
