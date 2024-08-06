@@ -78,12 +78,12 @@ export const autoLoginAction = () => async (dispatch) => {
   }
 };
 
-// export const logOutUserAction = () => async (dispatch) => {
-//   // call api with authorization for backend logout
-//   logoutUser();
+export const logOutUserAction = () => async (dispatch) => {
+  // call api with authorization for backend logout
+  logoutUser();
 
-//   // frontend logout
-//   dispatch(setUser({}));
-//   localStorage.removeItem("refreshJWT");
-//   sessionStorage.removeItem("accessJWT");
-// };
+  // frontend logout
+  dispatch(setUser({}));
+  localStorage.removeItem("refreshJWT");
+  sessionStorage.removeItem("accessJWT");
+};

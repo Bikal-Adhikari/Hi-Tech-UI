@@ -19,6 +19,7 @@ import { autoLoginAction } from "./features/users/userAction";
 import Sales from "./pages/sale/Sales";
 import ProfilePage from "./pages/user/profileLanding/ProfilePage";
 import ChangePassword from "./pages/user/ChangePassword";
+import EditProfile from "./pages/user/EditProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +35,8 @@ function App() {
         <Route path="/profile" element={<ProfileLanding />} />
         <Route path="/Userprofile" element={<ProfilePage />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
-        <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/change-password/:_id" element={<ChangePassword />} />
+        <Route path="/edit-profile/:_id" element={<EditProfile />} />
         <Route path="/verify-user" element={<UserVerification />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<About />} />

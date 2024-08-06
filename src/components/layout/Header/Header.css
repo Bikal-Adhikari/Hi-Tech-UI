@@ -7,3 +7,24 @@
     color: #333;
   }
 }
+
+.custom-dropdown .dropdown-menu {
+  right: 10;
+  left: auto;
+  position: absolute;
+  transform: translate3d(-100%, 0, 0);
+}
+
+.navbar .nav-link .fa-user {
+  cursor: pointer;
+}
+
+.custom-dropdown .dropdown-menu {
+  max-width: 300px; /* Adjust as needed */
+  overflow: hidden; /* Prevents overflow */
+}
+
+/* Ensure the body doesn't scroll */
+body {
+  overflow-x: hidden;
+}

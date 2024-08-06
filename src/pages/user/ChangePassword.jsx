@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
+import { useParams } from "react-router-dom";
 
 const ChangePassword = () => {
+  const { _id } = useParams();
   const [email, setEmail] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");

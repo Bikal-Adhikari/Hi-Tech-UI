@@ -117,12 +117,16 @@ const ProfilePage = () => {
               <Button
                 variant="primary"
                 as={Link}
-                to="/edit-profile"
+                to={"/edit-profile/:" + user._id}
                 className="me-2"
               >
                 Edit Profile
               </Button>
-              <Button variant="secondary" as={Link} to="/change-password">
+              <Button
+                variant="secondary"
+                as={Link}
+                to={"/change-password/:" + user._id}
+              >
                 Change Password
               </Button>
             </Col>

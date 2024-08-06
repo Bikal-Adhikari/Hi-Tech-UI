@@ -5,6 +5,7 @@ import {
   Form,
   FormControl,
   Button,
+  NavDropdown,
 } from "react-bootstrap";
 import { FaSearch, FaUser, FaShoppingCart } from "react-icons/fa";
 import "./Header.css";
@@ -13,6 +14,7 @@ import { useSelector } from "react-redux";
 
 export const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
+
   return (
     <>
       {/* Header for larger screens */}
@@ -37,16 +39,31 @@ export const Header = () => {
               </Button>
             </Form>
             <Nav className="ms-auto">
-              {user ? (
-                <Nav.Link as={Link} to="/Userprofile">
-                  <FaUser />
-                </Nav.Link>
-              ) : (
-                <Nav.Link href="/profile">
-                  <FaUser />
-                </Nav.Link>
-              )}
-              <Nav.Link href="/cart">
+              <NavDropdown
+                title={<FaUser />}
+                id="basic-nav-dropdown"
+                align="center"
+                className="custom-dropdown"
+              >
+                {user ? (
+                  <>
+                    <NavDropdown.Item as={Link} to="/Userprofile">
+                      Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/change-password">
+                      Change Password
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/logout">
+                      Logout
+                    </NavDropdown.Item>
+                  </>
+                ) : (
+                  <NavDropdown.Item as={Link} to="/login">
+                    Login
+                  </NavDropdown.Item>
+                )}
+              </NavDropdown>
+              <Nav.Link as={Link} to="/cart">
                 <FaShoppingCart />
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
                   0
@@ -86,15 +103,30 @@ export const Header = () => {
             Hi-Tech
           </Navbar.Brand>
           <Nav>
-            {user ? (
-              <Nav.Link as={Link} to="/Userprofile">
-                <FaUser />
-              </Nav.Link>
-            ) : (
-              <Nav.Link as={Link} to="/profile">
-                <FaUser />
-              </Nav.Link>
-            )}
+            <NavDropdown
+              title={<FaUser />}
+              id="basic-nav-dropdown"
+              align="end"
+              className="custom-dropdown"
+            >
+              {user ? (
+                <>
+                  <NavDropdown.Item as={Link} to="/Userprofile">
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/change-password">
+                    Change Password
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/logout">
+                    Logout
+                  </NavDropdown.Item>
+                </>
+              ) : (
+                <NavDropdown.Item as={Link} to="/login">
+                  Login
+                </NavDropdown.Item>
+              )}
+            </NavDropdown>
             <Nav.Link as={Link} to="/cart">
               <FaShoppingCart className="position-absolute" />
               <span className="position-relative top-0 start-80 translate-middle badge rounded-pill bg-dark">
