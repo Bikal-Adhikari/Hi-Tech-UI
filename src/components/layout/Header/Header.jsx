@@ -10,9 +10,11 @@ import {
 import { FaSearch, FaUser, FaShoppingCart } from "react-icons/fa";
 import "./Header.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logOutUserAction } from "../../../features/users/userAction";
 
 export const Header = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInfo);
 
   return (
@@ -53,7 +55,11 @@ export const Header = () => {
                     <NavDropdown.Item as={Link} to="/change-password">
                       Change Password
                     </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/logout">
+                    <NavDropdown.Item
+                      as={Link}
+                      to="/"
+                      onClick={() => dispatch(logOutUserAction())}
+                    >
                       Logout
                     </NavDropdown.Item>
                   </>
@@ -117,7 +123,11 @@ export const Header = () => {
                   <NavDropdown.Item as={Link} to="/change-password">
                     Change Password
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/logout">
+                  <NavDropdown.Item
+                    as={Link}
+                    to="/"
+                    onClick={() => dispatch(logOutUserAction())}
+                  >
                     Logout
                   </NavDropdown.Item>
                 </>
