@@ -17,6 +17,7 @@ const Service = () => {
     name: "",
     email: "",
     phone: "",
+    serviceType: "",
     preferredDate: "",
     message: "",
   });
@@ -153,6 +154,30 @@ const Service = () => {
                       onChange={handleChange}
                       required
                     />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="formServiceType">
+                    <Form.Label>Type of Service</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="serviceType"
+                      value={formData.serviceType}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Select Service Type</option>
+                      <option value="Product Installation">
+                        Product Installation
+                      </option>
+                      <option value="Fast Shipping">Fast Shipping</option>
+                      <option value="Easy Returns">Easy Returns</option>
+                      <option value="24/7 Customer Support">
+                        24/7 Customer Support
+                      </option>
+                      <option value="Warranty Services">
+                        Warranty Services
+                      </option>
+                      <option value="Secure Payments">Secure Payments</option>
+                    </Form.Control>
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="formPreferredDate">
                     <Form.Label>Preferred Date</Form.Label>
