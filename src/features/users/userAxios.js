@@ -42,6 +42,15 @@ export const fetchUserProfile = () => {
 
   return apiProcessor(obj);
 };
+export const fetchSingleUserProfile = (_id) => {
+  const obj = {
+    url: `${userEP}/${_id}`,
+    method: "get",
+    // isPrivate: true,
+  };
+
+  return apiProcessor(obj);
+};
 export const editUserProfile = (userobj) => {
   const obj = {
     url: userEP,

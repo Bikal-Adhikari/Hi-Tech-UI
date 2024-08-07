@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ChangePassword = () => {
   const { _id } = useParams();
@@ -29,9 +29,12 @@ const ChangePassword = () => {
   return (
     <div>
       <Header />
+      <h4 className="py-4">Change Password</h4>
+      <Link to="/Userprofile">
+        <Button variant="secondary">&lt; Back</Button>
+      </Link>
       <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
-          <h2 className="my-4 text-center">Change Password</h2>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formEmail" className="mb-3">
               <Form.Label>Email</Form.Label>

@@ -117,7 +117,7 @@ const ProfilePage = () => {
               <Button
                 variant="primary"
                 as={Link}
-                to={"/edit-profile/:" + user._id}
+                to={`/edit-profile/${user._id}`}
                 className="me-2"
               >
                 Edit Profile
@@ -125,7 +125,7 @@ const ProfilePage = () => {
               <Button
                 variant="secondary"
                 as={Link}
-                to={"/change-password/:" + user._id}
+                to={`/change-password/${user._id}`}
               >
                 Change Password
               </Button>
@@ -134,51 +134,6 @@ const ProfilePage = () => {
         </Col>
       </Row>
       <Footer />
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Profile</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter your email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formPhone">
-              <Form.Label>Phone</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your phone number"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-              Save Changes
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };
