@@ -47,7 +47,7 @@ export const Header = () => {
                 align="center"
                 className="custom-dropdown"
               >
-                {user ? (
+                {user._id ? (
                   <>
                     <NavDropdown.Item as={Link} to="/Userprofile">
                       Profile
@@ -64,9 +64,14 @@ export const Header = () => {
                     </NavDropdown.Item>
                   </>
                 ) : (
-                  <NavDropdown.Item as={Link} to="/login">
-                    Login
-                  </NavDropdown.Item>
+                  <>
+                    <NavDropdown.Item as={Link} to="/profile">
+                      Profile Landing
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/signIn">
+                      Login
+                    </NavDropdown.Item>
+                  </>
                 )}
               </NavDropdown>
               <Nav.Link as={Link} to="/cart">
@@ -115,7 +120,7 @@ export const Header = () => {
               align="end"
               className="custom-dropdown"
             >
-              {user ? (
+              {user._id ? (
                 <>
                   <NavDropdown.Item as={Link} to="/Userprofile">
                     Profile
@@ -132,9 +137,14 @@ export const Header = () => {
                   </NavDropdown.Item>
                 </>
               ) : (
-                <NavDropdown.Item as={Link} to="/login">
-                  Login
-                </NavDropdown.Item>
+                <>
+                  <NavDropdown.Item as={Link} to="/profile">
+                    Profile Landing
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/signIn">
+                    Login
+                  </NavDropdown.Item>
+                </>
               )}
             </NavDropdown>
             <Nav.Link as={Link} to="/cart">
