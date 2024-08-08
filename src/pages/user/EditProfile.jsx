@@ -8,7 +8,7 @@ import {
   editUserProfileAction,
   fetchSingleUserProfileAction,
 } from "../../features/users/userAction";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import { CustomInput } from "../../components/common/custom-input/CustomInput";
 
 const EditProfile = () => {
@@ -27,7 +27,7 @@ const EditProfile = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const { __v, createdAt, updatedAt, role, email, ...rest } = form;
+    const { __v, createdAt, updatedAt, role, email, gender, ...rest } = form;
 
     if (window.confirm("Are you sure you want to make this changes?")) {
       dispatch(editUserProfileAction(rest));
@@ -72,13 +72,7 @@ const EditProfile = () => {
       placeholder: "Gender",
       disabled: true,
     },
-    {
-      label: "Password",
-      name: "password",
-      type: "password",
-      required: true,
-      placeholder: "Enter your current password",
-    },
+
     {
       label: "Address",
       name: "address",
@@ -92,12 +86,21 @@ const EditProfile = () => {
       type: "textarea",
       required: false,
       placeholder: "Write a short bio",
+      rows:4,
+    },
+    {
+      label: "Password",
+      name: "password",
+      type: "password",
+      required: true,
+      placeholder: "Enter your current password",
     },
   ];
 
   return (
     <div>
       <Header />
+      <Container>
       <h4 className="py-4">Profile Update</h4>
       <Link to="/Userprofile">
         <Button variant="secondary">&lt; Back</Button>
@@ -111,10 +114,11 @@ const EditProfile = () => {
             value={form[input.name] || ""}
           />
         ))}
-        <div className="d-grid mt-3">
+        <div className="d-grid mt-3 mb-3">
           <Button type="submit">Update your Profile</Button>
         </div>
       </Form>
+      </Container>
       <Footer />
     </div>
   );
