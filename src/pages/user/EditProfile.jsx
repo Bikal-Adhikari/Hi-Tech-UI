@@ -10,11 +10,11 @@ import {
 } from "../../features/users/userAction";
 import { Button, Container, Form } from "react-bootstrap";
 import { CustomInput } from "../../components/common/custom-input/CustomInput";
+import AddressInput from "../../components/autoAddress/AddressInput";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
   const { _id } = useParams();
-
   const { user } = useSelector((state) => state.userInfo);
   const { form, handleOnChange, setForm } = useForm({ user });
 
@@ -27,9 +27,20 @@ const EditProfile = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const { __v, createdAt, updatedAt, role, email, gender, ...rest } = form;
+    const {
+      __v,
+      createdAt,
+      updatedAt,
+      role,
+      email,
+      gender,
+      status,
+      isEmailVerified,
+      refreshJWT,
+      ...rest
+    } = form;
 
-    if (window.confirm("Are you sure you want to make this changes?")) {
+    if (window.confirm("Are you sure you want to make these changes?")) {
       dispatch(editUserProfileAction(rest));
     }
   };
@@ -72,28 +83,13 @@ const EditProfile = () => {
       placeholder: "Gender",
       disabled: true,
     },
-
-    {
-      label: "Address",
-      name: "address",
-      type: "text",
-      required: false,
-      placeholder: "Enter your address",
-    },
     {
       label: "Bio",
       name: "bio",
       type: "textarea",
       required: false,
       placeholder: "Write a short bio",
-      rows:4,
-    },
-    {
-      label: "Password",
-      name: "password",
-      type: "password",
-      required: true,
-      placeholder: "Enter your current password",
+      rows: "4",
     },
   ];
 
@@ -101,23 +97,38 @@ const EditProfile = () => {
     <div>
       <Header />
       <Container>
-      <h4 className="py-4">Profile Update</h4>
-      <Link to="/Userprofile">
-        <Button variant="secondary">&lt; Back</Button>
-      </Link>
-      <Form onSubmit={handleOnSubmit}>
-        {inputs?.map((input, i) => (
-          <CustomInput
-            key={i}
-            {...input}
+        <h4 className="py-4">Profile Update</h4>
+        <Link to="/Userprofile">
+          <Button variant="secondary">&lt; Back</Button>
+        </Link>
+        <Form onSubmit={handleOnSubmit}>
+          {inputs?.map((input, i) => (
+            <CustomInput
+              key={i}
+              {...input}
+              onChange={handleOnChange}
+              value={form[input.name] || ""}
+            />
+          ))}
+          <AddressInput
+            label="Address"
+            name="address"
+            value={form.address || ""}
             onChange={handleOnChange}
-            value={form[input.name] || ""}
           />
-        ))}
-        <div className="d-grid mt-3 mb-3">
-          <Button type="submit">Update your Profile</Button>
-        </div>
-      </Form>
+          <CustomInput
+            label="Password"
+            name="password"
+            type="password"
+            required={true}
+            placeholder="Enter your current password"
+            onChange={handleOnChange}
+            value={form.password || ""}
+          />
+          <div className="d-grid mt-3 mb-3">
+            <Button type="submit">Update your Profile</Button>
+          </div>
+        </Form>
       </Container>
       <Footer />
     </div>

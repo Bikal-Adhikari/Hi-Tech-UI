@@ -62,12 +62,12 @@ export const fetchSingleUserProfileAction = (_id) => async (dispatch) => {
   }
 };
 export const editUserProfileAction = (userObj) => async (dispatch) => {
-  const { status, userInfo } = await editUserProfile(userObj);
+  const { status, user } = await editUserProfile(userObj);
 
   if (status === "success") {
     //mount user in the redux store
 
-    dispatch(setUser(userInfo));
+    dispatch(setUser(user));
   }
 };
 

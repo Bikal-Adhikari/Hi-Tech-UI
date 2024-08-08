@@ -53,7 +53,7 @@ export const fetchSingleUserProfile = (_id) => {
 };
 export const editUserProfile = (userobj) => {
   const obj = {
-    url: userEP,
+    url: userEP + "/profile/update",
     method: "put",
     isPrivate: true,
     data: userobj,
