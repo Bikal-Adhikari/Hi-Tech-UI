@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
+import { CustomInput } from "../../components/common/custom-input/CustomInput";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
-import { Link, useParams } from "react-router-dom";
 
 const ChangePassword = () => {
   const { _id } = useParams();
@@ -35,55 +36,47 @@ const ChangePassword = () => {
       </Link>
       <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formEmail" className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <form onSubmit={handleSubmit}>
+            <CustomInput
+              label="Email"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-            <Form.Group controlId="formOldPassword" className="mb-3">
-              <Form.Label>Old Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter your old password"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
+            <CustomInput
+              label="Old Password"
+              type="password"
+              placeholder="Enter your old password"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+              required
+            />
 
-            <Form.Group controlId="formNewPassword" className="mb-3">
-              <Form.Label>New Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter your new password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
+            <CustomInput
+              label="New Password"
+              type="password"
+              placeholder="Enter your new password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+            />
 
-            <Form.Group controlId="formConfirmNewPassword" className="mb-3">
-              <Form.Label>Confirm New Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Confirm your new password"
-                value={confirmNewPassword}
-                onChange={(e) => setConfirmNewPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
+            <CustomInput
+              label="Confirm New Password"
+              type="password"
+              placeholder="Confirm your new password"
+              value={confirmNewPassword}
+              onChange={(e) => setConfirmNewPassword(e.target.value)}
+              required
+            />
 
             <Button variant="primary" type="submit" className="w-100">
               Change Password
             </Button>
-          </Form>
+          </form>
         </Col>
       </Row>
       <Footer />
