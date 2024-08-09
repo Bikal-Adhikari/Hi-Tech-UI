@@ -2,10 +2,14 @@ import { useState } from "react";
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { CustomInput } from "../../components/common/custom-input/CustomInput";
+import { useSelector } from "react-redux";
 
 const ChangePassword = () => {
+  const { _id } = useParams();
+  const { user } = useSelector((state) => state.userInfo);
+
   const [form, setForm] = useState({
     email: "",
     oldPassword: "",
