@@ -1,38 +1,24 @@
-import { useState } from "react";
-import { Row, Col, Button, Modal, Form, Image } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Row, Col, Button, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { editUserProfileAction } from "../../../features/users/userAction";
+
 import { Header } from "../../../components/layout/Header/Header";
 import { Footer } from "../../../components/layout/Footer/Footer";
 import { Link } from "react-router-dom";
+import { fetchSingleUserProfileAction } from "../../../features/users/userAction";
+import useForm from "../../../Hooks/useForm";
 
 const ProfilePage = () => {
   const { user } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
+  const { form, setForm } = useForm({ user });
 
-  const [show, setShow] = useState(false);
-  const [formData, setFormData] = useState({
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-  });
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(editUserProfileAction(formData));
-    handleClose();
-  };
+  useEffect(() => {
+    // fetch user data from API
+    if (user?._id === form._id) {
+      dispatch(fetchSingleUserProfileAction(user._id));
+    }
+  }, [dispatch, user, form]);
 
   return (
     <div>
