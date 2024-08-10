@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { CustomInput } from "../../components/common/custom-input/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import useForm from "../../Hooks/useForm";
@@ -20,6 +20,7 @@ import {
 import PasswordRegex from "../../helpers/PasswordRegex";
 
 const ChangePassword = () => {
+  const navigate = useNavigate();
   const { _id } = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInfo);
@@ -41,25 +42,35 @@ const ChangePassword = () => {
     }
   }, [form.newPassword, form.confirmNewPassword]);
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     const { email, oldPassword, newPassword, confirmNewPassword } = form;
 
-    if (!passwordMatch) {
+    if (newPassword !== confirmNewPassword) {
       alert("New passwords do not match!");
       return;
     }
 
-    // Implement password change logic here
-    if (window.confirm("Are you sure you want change your password?")) {
-      dispatch(
-        updateUserPasswordAction({
-          email,
-          oldPassword,
-          newPassword,
-          confirmNewPassword,
-        })
-      );
+    if (window.confirm("Are you sure you want to change your password?")) {
+      try {
+        const resultAction = await dispatch(
+          updateUserPasswordAction({
+            email,
+            oldPassword,
+            newPassword,
+            confirmNewPassword,
+          })
+        );
+
+        if (resultAction.status === "success") {
+          navigate("/Userprofile");
+        } else {
+          alert("Password change failed. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error changing password:", error);
+        alert("An error occurred. Please try again later.");
+      }
     }
   };
 
