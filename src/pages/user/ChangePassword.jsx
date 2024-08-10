@@ -1,29 +1,25 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Link, useParams } from "react-router-dom";
 import { CustomInput } from "../../components/common/custom-input/CustomInput";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import useForm from "../../Hooks/useForm";
+import { fetchSingleUserProfileAction } from "../../features/users/userAction";
 
 const ChangePassword = () => {
   const { _id } = useParams();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInfo);
+  const { form, handleOnChange, setForm } = useForm({ user });
 
-  const [form, setForm] = useState({
-    email: "",
-    oldPassword: "",
-    newPassword: "",
-    confirmNewPassword: "",
-  });
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: value,
-    }));
-  };
+  useEffect(() => {
+    if (_id !== form?._id) {
+      dispatch(fetchSingleUserProfileAction(_id));
+      user?._id && setForm(user);
+    }
+  }, [dispatch, _id, form, user, setForm]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
