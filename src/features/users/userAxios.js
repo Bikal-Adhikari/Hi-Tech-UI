@@ -57,6 +57,7 @@ export const editUserProfile = (userobj) => {
     method: "put",
     isPrivate: true,
     data: userobj,
+    showToast: true,
   };
 
   return apiProcessor(obj);
@@ -94,6 +95,16 @@ export const resetPassword = (data) => {
   const obj = {
     url: userEP + "/password/reset",
     method: "patch",
+    data,
+  };
+
+  return apiProcessor(obj);
+};
+export const changePassword = (data) => {
+  const obj = {
+    url: userEP + "/password/change",
+    method: "patch",
+    showToast: true,
     data,
   };
 

@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Row, Col, Form, ProgressBar } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  Form,
+  ProgressBar,
+} from "react-bootstrap";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Link, useParams } from "react-router-dom";
 import { CustomInput } from "../../components/common/custom-input/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import useForm from "../../Hooks/useForm";
-import { fetchSingleUserProfileAction } from "../../features/users/userAction";
+import {
+  fetchSingleUserProfileAction,
+  updateUserPasswordAction,
+} from "../../features/users/userAction";
 import PasswordRegex from "../../helpers/PasswordRegex";
 
 const ChangePassword = () => {
@@ -41,12 +51,16 @@ const ChangePassword = () => {
     }
 
     // Implement password change logic here
-    console.log({
-      email,
-      oldPassword,
-      newPassword,
-      confirmNewPassword,
-    });
+    if (window.confirm("Are you sure you want change your password?")) {
+      dispatch(
+        updateUserPasswordAction({
+          email,
+          oldPassword,
+          newPassword,
+          confirmNewPassword,
+        })
+      );
+    }
   };
 
   const inputs = [

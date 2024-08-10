@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import {
+  changePassword,
   editUserProfile,
   fetchSingleUserProfile,
   fetchUserProfile,
@@ -63,6 +64,15 @@ export const fetchSingleUserProfileAction = (_id) => async (dispatch) => {
 };
 export const editUserProfileAction = (userObj) => async (dispatch) => {
   const { status, userInfo } = await editUserProfile(userObj);
+
+  if (status === "success") {
+    //mount user in the redux store
+    dispatch(setUser(userInfo));
+    return status;
+  }
+};
+export const updateUserPasswordAction = (userObj) => async (dispatch) => {
+  const { status, userInfo } = await changePassword(userObj);
 
   if (status === "success") {
     //mount user in the redux store
