@@ -66,8 +66,8 @@ export const editUserProfileAction = (userObj) => async (dispatch) => {
 
   if (status === "success") {
     //mount user in the redux store
-
     dispatch(setUser(userInfo));
+    return status;
   }
 };
 
