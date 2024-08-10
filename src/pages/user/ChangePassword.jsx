@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Button, Container, Row, Col, Form } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Container, Row, Col, Form, ProgressBar } from "react-bootstrap";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Link, useParams } from "react-router-dom";
@@ -7,12 +7,14 @@ import { CustomInput } from "../../components/common/custom-input/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import useForm from "../../Hooks/useForm";
 import { fetchSingleUserProfileAction } from "../../features/users/userAction";
+import PasswordRegex from "../../helpers/PasswordRegex";
 
 const ChangePassword = () => {
   const { _id } = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInfo);
   const { form, handleOnChange, setForm } = useForm({ user });
+  const [passwordMatch, setPasswordMatch] = useState(false);
 
   useEffect(() => {
     if (_id !== form?._id) {
@@ -21,11 +23,19 @@ const ChangePassword = () => {
     }
   }, [dispatch, _id, form, user, setForm]);
 
+  useEffect(() => {
+    if (form.newPassword && form.confirmNewPassword) {
+      setPasswordMatch(form.newPassword === form.confirmNewPassword);
+    } else {
+      setPasswordMatch(false);
+    }
+  }, [form.newPassword, form.confirmNewPassword]);
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const { email, oldPassword, newPassword, confirmNewPassword } = form;
 
-    if (newPassword !== confirmNewPassword) {
+    if (!passwordMatch) {
       alert("New passwords do not match!");
       return;
     }
@@ -83,15 +93,30 @@ const ChangePassword = () => {
           <Col xs={12} md={6}>
             <Form onSubmit={handleOnSubmit}>
               {inputs.map((input, i) => (
-                <CustomInput
-                  key={i}
-                  {...input}
-                  onChange={handleOnChange}
-                  value={form[input.name] || ""}
-                />
+                <div key={i}>
+                  <CustomInput
+                    {...input}
+                    onChange={handleOnChange}
+                    value={form[input.name] || ""}
+                  />
+                  {input.name === "newPassword" && (
+                    <PasswordRegex password={form.newPassword || ""} />
+                  )}
+                </div>
               ))}
+              {form.newPassword && form.confirmNewPassword && (
+                <ProgressBar
+                  now={100}
+                  variant={passwordMatch ? "success" : "danger"}
+                  label={
+                    passwordMatch ? "Passwords match" : "Passwords do not match"
+                  }
+                />
+              )}
               <div className="d-grid mt-3 mb-3">
-                <Button type="submit">Change Password</Button>
+                <Button type="submit" disabled={!passwordMatch}>
+                  Change Password
+                </Button>
               </div>
             </Form>
           </Col>
