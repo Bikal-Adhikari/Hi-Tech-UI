@@ -105,6 +105,8 @@ export const changePassword = (data) => {
     url: userEP + "/password/change",
     method: "patch",
     showToast: true,
+    isPrivate: true,
+    isRefreshJWT: true,
     data,
   };
 
