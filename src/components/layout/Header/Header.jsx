@@ -52,7 +52,10 @@ export const Header = () => {
                     <NavDropdown.Item as={Link} to="/Userprofile">
                       Profile
                     </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/change-password">
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/change-password/${user._id}`}
+                    >
                       Change Password
                     </NavDropdown.Item>
                     <NavDropdown.Item
@@ -125,7 +128,10 @@ export const Header = () => {
                   <NavDropdown.Item as={Link} to="/Userprofile">
                     Profile
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/change-password">
+                  <NavDropdown.Item
+                    as={Link}
+                    to={`/change-password/${user._id}`}
+                  >
                     Change Password
                   </NavDropdown.Item>
                   <NavDropdown.Item
