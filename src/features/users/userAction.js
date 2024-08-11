@@ -7,6 +7,7 @@ import {
   getNewAccessJWT,
   logoutUser,
   postNewUser,
+  uploadProfilePic,
   userLogin,
   verifyUserLink,
 } from "./userAxios";
@@ -73,6 +74,15 @@ export const editUserProfileAction = (userObj) => async (dispatch) => {
 };
 export const updateUserPasswordAction = (userObj) => async (dispatch) => {
   const { status, userInfo } = await changePassword(userObj);
+
+  if (status === "success") {
+    //mount user in the redux store
+    dispatch(setUser(userInfo));
+  }
+  return status;
+};
+export const updateUserProfilePicAction = (userObj) => async (dispatch) => {
+  const { status, userInfo } = await uploadProfilePic(userObj);
 
   if (status === "success") {
     //mount user in the redux store

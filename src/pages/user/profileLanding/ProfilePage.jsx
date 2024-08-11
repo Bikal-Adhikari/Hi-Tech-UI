@@ -1,55 +1,55 @@
 import { useEffect } from "react";
 import { Row, Col, Button, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-
 import { Header } from "../../../components/layout/Header/Header";
 import { Footer } from "../../../components/layout/Footer/Footer";
 import { Link } from "react-router-dom";
-import { fetchSingleUserProfileAction } from "../../../features/users/userAction";
+import {
+  fetchSingleUserProfileAction,
+  updateUserProfilePicAction,
+} from "../../../features/users/userAction";
+import ProfilePicUploader from "../../../components/ProfilePicUploader";
 import useForm from "../../../Hooks/useForm";
 
 const ProfilePage = () => {
   const { user } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
-  const { form, setForm } = useForm({ user });
+  const { form, setForm, setImages } = useForm({ user });
 
   useEffect(() => {
-    // fetch user data from API
-    if (user?._id === form._id) {
+    // Fetch user data from API
+    if (user?._id === form?._id) {
       dispatch(fetchSingleUserProfileAction(user._id));
     }
   }, [dispatch, user, form]);
 
+  const handleProfilePicUpload = (file) => {
+    const formData = new FormData();
+    formData.append("profilePic", file);
+
+    dispatch(updateUserProfilePicAction(user._id, formData));
+  };
+
   return (
     <div>
       <Header />
-      {/* <Row className="justify-content-center">
-        <Col md={6}>
-          <Card>
-            <Card.Header as="h5">User Profile</Card.Header>
-            <Card.Body>
-              <Card.Title>{user.name}</Card.Title>
-              <Card.Text>Email: {user.email}</Card.Text>
-              <Card.Text>Phone: {user.phone}</Card.Text>
-              <Button variant="primary" onClick={handleShow}>
-                Edit Profile
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row> */}
       <Row className="my-4">
         <Col md={4} className="text-center">
+          {/* Display user's profile picture if it exists, otherwise show a placeholder */}
           <Image
-            src="path/to/profile-picture.jpg"
+            src={user.profilePic || "path/to/default-placeholder.jpg"}
             roundedCircle
             fluid
             style={{ maxHeight: "300px", maxWidth: "300px" }}
           />
           <h2 className="mt-3">{`${user.fName} ${user.lName}`}</h2>
-          <Button variant="outline-secondary" className="mt-2">
-            Add Profile Picture
-          </Button>
+
+          <ProfilePicUploader
+            onUpload={handleProfilePicUpload}
+            buttonText={
+              user.profilePic ? "Change Profile Picture" : "Add Profile Picture"
+            }
+          />
         </Col>
         <Col md={8}>
           <Row>
