@@ -11,7 +11,7 @@ const ProfilePicUploader = ({ onUpload, buttonText }) => {
 
   const handleUpload = () => {
     if (images.length) {
-      onUpload(images[0]); // Assuming only one image is selected
+      onUpload(images[0]);
       handleClose();
     } else {
       alert("Please select an image to upload.");

@@ -8,8 +8,9 @@ import {
   fetchSingleUserProfileAction,
   updateUserProfilePicAction,
 } from "../../../features/users/userAction";
-import ProfilePicUploader from "../../../components/ProfilePicUploader";
+
 import useForm from "../../../Hooks/useForm";
+import ProfilePicUploader from "../../../components/common/custom-modal/ProfilePicUploader";
 
 const ProfilePage = () => {
   const { user } = useSelector((state) => state.userInfo);
@@ -27,7 +28,7 @@ const ProfilePage = () => {
     const formData = new FormData();
     formData.append("profilePic", file);
 
-    dispatch(updateUserProfilePicAction(user._id, formData));
+    dispatch(updateUserProfilePicAction(formData));
   };
 
   return (

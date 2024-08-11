@@ -81,14 +81,19 @@ export const updateUserPasswordAction = (userObj) => async (dispatch) => {
   }
   return status;
 };
-export const updateUserProfilePicAction = (userObj) => async (dispatch) => {
-  const { status, userInfo } = await uploadProfilePic(userObj);
+export const updateUserProfilePicAction = (formData) => async (dispatch) => {
+  try {
+    const { status, userInfo } = await uploadProfilePic(formData);
 
-  if (status === "success") {
-    //mount user in the redux store
-    dispatch(setUser(userInfo));
+    if (status === "success") {
+      // Update user in the redux store
+      dispatch(setUser(userInfo));
+    }
+    return status;
+  } catch (error) {
+    console.error("Error updating profile picture:", error);
+    return { status: "error", message: "Failed to update profile picture" };
   }
-  return status;
 };
 
 export const autoLoginAction = () => async (dispatch) => {
