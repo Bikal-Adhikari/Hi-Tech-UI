@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Header } from "../../components/layout/Header/Header";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useForm from "../../Hooks/useForm";
 import { useEffect } from "react";
 import {
@@ -14,6 +14,7 @@ import AddressInput from "../../components/autoAddress/AddressInput";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { _id } = useParams();
   const { user } = useSelector((state) => state.userInfo);
   const { form, handleOnChange, setForm } = useForm({ user });
@@ -25,7 +26,7 @@ const EditProfile = () => {
     }
   }, [dispatch, _id, user, setForm, form]);
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     const {
       __v,
@@ -41,7 +42,18 @@ const EditProfile = () => {
     } = form;
 
     if (window.confirm("Are you sure you want to make these changes?")) {
-      dispatch(editUserProfileAction(rest));
+      try {
+        const status = await dispatch(editUserProfileAction(rest));
+
+        if (status === "success") {
+          navigate("/Userprofile");
+        } else {
+          alert("Profile Update failed. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error Updating profile:", error);
+        alert("An error occurred. Please try again later.");
+      }
     }
   };
 

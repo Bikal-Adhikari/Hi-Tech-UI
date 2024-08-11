@@ -68,8 +68,8 @@ export const editUserProfileAction = (userObj) => async (dispatch) => {
   if (status === "success") {
     //mount user in the redux store
     dispatch(setUser(userInfo));
-    return status;
   }
+  return status;
 };
 export const updateUserPasswordAction = (userObj) => async (dispatch) => {
   const { status, userInfo } = await changePassword(userObj);
@@ -77,8 +77,8 @@ export const updateUserPasswordAction = (userObj) => async (dispatch) => {
   if (status === "success") {
     //mount user in the redux store
     dispatch(setUser(userInfo));
-    return status;
   }
+  return status;
 };
 
 export const autoLoginAction = () => async (dispatch) => {
