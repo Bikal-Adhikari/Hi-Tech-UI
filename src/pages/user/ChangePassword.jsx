@@ -53,7 +53,7 @@ const ChangePassword = () => {
 
     if (window.confirm("Are you sure you want to change your password?")) {
       try {
-        const resultAction = await dispatch(
+        const status = await dispatch(
           updateUserPasswordAction({
             email,
             oldPassword,
@@ -62,8 +62,8 @@ const ChangePassword = () => {
           })
         );
 
-        if (resultAction.status === "success") {
-          navigate("/Userprofile");
+        if (status === "success") {
+          navigate("/Userprofile"); // Redirect to the UserProfile page
         } else {
           alert("Password change failed. Please try again.");
         }
