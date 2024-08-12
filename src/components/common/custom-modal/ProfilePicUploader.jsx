@@ -11,7 +11,7 @@ const ProfilePicUploader = ({ onUpload, buttonText }) => {
 
   const handleUpload = () => {
     if (images.length) {
-      onUpload(images[0]);
+      onUpload(images[0]); // Assuming you want to upload only the first selected image
       handleClose();
     } else {
       alert("Please select an image to upload.");
@@ -29,9 +29,16 @@ const ProfilePicUploader = ({ onUpload, buttonText }) => {
           <Modal.Title>Upload Profile Picture</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Group controlId="formFile">
-            <Form.Label>Select an image to upload:</Form.Label>
-            <Form.Control type="file" onChange={handleOnImgChange} />
+          <Form.Group>
+            <Form.Label>Upload Images</Form.Label>
+            <Form.Control
+              type="file"
+              name="images" // Add the name attribute
+              required={true} // Make the field required
+              accept="image/jpg, image/png, image/gif, image/jpeg" // Accept these file types
+              // multiple // Allow multiple file uploads
+              onChange={handleOnImgChange} // Handle file change
+            />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

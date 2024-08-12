@@ -15,7 +15,10 @@ import Service from "./pages/services/Service";
 import Faq from "./pages/faq/Faq";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { autoLoginAction } from "./features/users/userAction";
+import {
+  autoLoginAction,
+  fetchUserProfileAction,
+} from "./features/users/userAction";
 import Sales from "./pages/sale/Sales";
 import ProfilePage from "./pages/user/profileLanding/ProfilePage";
 import ChangePassword from "./pages/user/ChangePassword";
@@ -25,6 +28,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(autoLoginAction());
+    dispatch(fetchUserProfileAction());
   }, [dispatch]);
   return (
     <div>

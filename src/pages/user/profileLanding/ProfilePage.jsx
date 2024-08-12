@@ -27,6 +27,8 @@ const ProfilePage = () => {
   const handleProfilePicUpload = (file) => {
     const formData = new FormData();
     formData.append("profilePic", file);
+    formData.append("_id", user?._id);
+  
 
     dispatch(updateUserProfilePicAction(formData));
   };
