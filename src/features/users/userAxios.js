@@ -112,14 +112,14 @@ export const changePassword = (data) => {
 
   return apiProcessor(obj);
 };
-export const uploadProfilePic = (formData) => {
+export const uploadProfilePic = (userId, formData) => {
   const obj = {
-    url: `${userEP}/uploadProfilePic`,
+    url: `${userEP}/uploadProfilePic/${userId}`,
     method: "patch",
     showToast: true,
     isPrivate: true,
     isRefreshJWT: true,
-    formData,
+    data: formData,
   };
 
   return apiProcessor(obj);

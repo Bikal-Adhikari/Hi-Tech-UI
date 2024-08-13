@@ -18,11 +18,17 @@ export const apiProcessor = async ({
   showToast,
 }) => {
   try {
-    const headers = isPrivate
-      ? {
-          Authorization: isRefreshJWT ? getRefreshJWT() : getAccessJWT(),
-        }
-      : null;
+    // Determine headers
+    let headers = {};
+    if (isPrivate) {
+      headers.Authorization = isRefreshJWT ? getRefreshJWT() : getAccessJWT();
+    }
+
+    // If data is FormData, set the content type for file upload
+    if (data instanceof FormData) {
+      headers["Content-Type"] = "multipart/form-data";
+    }
+
     const pending = axios({
       method,
       url,
@@ -45,7 +51,7 @@ export const apiProcessor = async ({
     return response.data;
   } catch (error) {
     if (error.response?.data?.message === "jwt expired") {
-      // renew the access token and call the same server again
+      // Renew the access token and retry the request
       const response = await getNewAccessJWT();
       if (response.accessJWT) {
         sessionStorage.setItem("accessJWT", response.accessJWT);

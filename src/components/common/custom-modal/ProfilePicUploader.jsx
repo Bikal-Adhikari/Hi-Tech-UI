@@ -30,7 +30,7 @@ const ProfilePicUploader = ({ onUpload, buttonText }) => {
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
-            <Form.Label>Upload Images</Form.Label>
+            <Form.Label>Upload Image</Form.Label>
             <Form.Control
               type="file"
               name="images" // Add the name attribute

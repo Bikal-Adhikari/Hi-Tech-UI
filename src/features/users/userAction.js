@@ -81,9 +81,9 @@ export const updateUserPasswordAction = (userObj) => async (dispatch) => {
   }
   return status;
 };
-export const updateUserProfilePicAction = (formData) => async (dispatch) => {
+export const updateUserProfilePicAction = (userId,formData) => async (dispatch) => {
   try {
-    const { status, userInfo } = await uploadProfilePic(formData);
+    const { status, userInfo } = await uploadProfilePic(userId,formData);
 
     if (status === "success") {
       // Update user in the redux store

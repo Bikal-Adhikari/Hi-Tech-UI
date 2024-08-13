@@ -12,6 +12,7 @@ import {
 import useForm from "../../../Hooks/useForm";
 import ProfilePicUploader from "../../../components/common/custom-modal/ProfilePicUploader";
 
+const userEp = import.meta.env.VITE_APP_SERVER_ROOT;
 const ProfilePage = () => {
   const { user } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
@@ -27,10 +28,8 @@ const ProfilePage = () => {
   const handleProfilePicUpload = (file) => {
     const formData = new FormData();
     formData.append("profilePic", file);
-    formData.append("_id", user?._id);
-  
 
-    dispatch(updateUserProfilePicAction(formData));
+    dispatch(updateUserProfilePicAction(user._id, formData));
   };
 
   return (
@@ -40,7 +39,10 @@ const ProfilePage = () => {
         <Col md={4} className="text-center">
           {/* Display user's profile picture if it exists, otherwise show a placeholder */}
           <Image
-            src={user.profilePic || "path/to/default-placeholder.jpg"}
+            src={
+              `${userEp}/${user?.profilePic}` ||
+              "path/to/default-placeholder.jpg"
+            }
             roundedCircle
             fluid
             style={{ maxHeight: "300px", maxWidth: "300px" }}
