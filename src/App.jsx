@@ -23,6 +23,7 @@ import Sales from "./pages/sale/Sales";
 import ProfilePage from "./pages/user/profileLanding/ProfilePage";
 import ChangePassword from "./pages/user/ChangePassword";
 import EditProfile from "./pages/user/EditProfile";
+import Products from "./pages/products/Products";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
         <Route path="/service" element={<Service />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/sale" element={<Sales />} />
+        <Route path="/products" element={<Products />} />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>
