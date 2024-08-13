@@ -18,7 +18,7 @@ const Cart = () => {
       <Header />
 
       {/* Cart + Summary */}
-      <section className="bg-light my-5">
+      <main className="bg-light my-5">
         <Container>
           <Row>
             {/* Cart */}
@@ -159,7 +159,7 @@ const Cart = () => {
             </Col>
           </Row>
         </Container>
-      </section>
+      </main>
 
       {/* Recommended */}
       <section>

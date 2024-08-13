@@ -108,7 +108,7 @@ const EditProfile = () => {
   return (
     <div>
       <Header />
-      <Container>
+      <Container className="vh-100">
         <h4 className="py-4">Profile Update</h4>
         <Link to="/Userprofile">
           <Button variant="secondary">&lt; Back</Button>
