@@ -5,7 +5,7 @@ export const fetchUserProfile = () => {
   const obj = {
     url: productEP,
     method: "get",
-    status: "active",
+    data: { status: "active" },
   };
 
   return apiProcessor(obj);
