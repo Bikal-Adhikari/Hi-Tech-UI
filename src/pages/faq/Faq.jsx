@@ -1,5 +1,6 @@
 import {
   Accordion,
+  Button,
   Col,
   Container,
   Form,
@@ -122,23 +123,37 @@ const faqs = [
       "Yes, we offer gift cards in various denominations. You can purchase them through our <a href='/gift-cards'>Gift Cards</a> page.",
   },
 ];
+
 const Faq = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredFAQs, setFilteredFAQs] = useState(faqs);
+  const [currentFAQs, setCurrentFAQs] = useState(faqs.slice(0, 10));
+  const [visibleCount, setVisibleCount] = useState(10);
 
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value);
-    setFilteredFAQs(
-      faqs.filter((faq) => faq.question.toLowerCase().includes(value))
+    setCurrentFAQs(
+      faqs
+        .filter((faq) => faq.question.toLowerCase().includes(value))
+        .slice(0, visibleCount)
     );
   };
+
+  const handleLoadMore = () => {
+    const newVisibleCount = visibleCount + 10;
+    setVisibleCount(newVisibleCount);
+    setCurrentFAQs(
+      faqs
+        .filter((faq) => faq.question.toLowerCase().includes(searchTerm))
+        .slice(0, newVisibleCount)
+    );
+  };
+
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
       <Header />
-      <main className="vh-100">
-        {" "}
-        <Container fluid className="py-5">
+      <main className="flex-fill py-5">
+        <Container fluid>
           <Row className="justify-content-center">
             <Col md={8}>
               <h1 className="text-center mb-4">Frequently Asked Questions</h1>
@@ -153,16 +168,27 @@ const Faq = () => {
               </InputGroup>
 
               <Accordion defaultActiveKey="0">
-                {filteredFAQs.map((faq, index) => (
+                {currentFAQs.map((faq, index) => (
                   <Accordion.Item eventKey={index.toString()} key={index}>
                     <Accordion.Header>{faq.question}</Accordion.Header>
                     <Accordion.Body>
-                      {/* Use `dangerouslySetInnerHTML` to render HTML content */}
                       <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
                     </Accordion.Body>
                   </Accordion.Item>
                 ))}
               </Accordion>
+
+              {faqs.filter((faq) =>
+                faq.question.toLowerCase().includes(searchTerm)
+              ).length > visibleCount && (
+                <Button
+                  variant="primary"
+                  className="mt-4"
+                  onClick={handleLoadMore}
+                >
+                  Load More
+                </Button>
+              )}
             </Col>
           </Row>
         </Container>
