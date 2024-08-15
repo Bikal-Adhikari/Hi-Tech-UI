@@ -7,6 +7,7 @@ import { fetchProductAction } from "../../features/products/productAction";
 const Products = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.productInfo);
+  const imgEp = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
   useEffect(() => {
     dispatch(fetchProductAction());
   }, [dispatch]);
@@ -20,7 +21,7 @@ const Products = () => {
             <div key={product._id} className="col-md-4 mb-4">
               <div className="card h-100">
                 <img
-                  src={product.thumbnail || "placeholder.jpg"}
+                  src={`${imgEp}/${product.thumbnail}` || "placeholder.jpg"}
                   className="card-img-top"
                   alt={product.name}
                 />
