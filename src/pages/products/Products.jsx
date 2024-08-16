@@ -3,14 +3,17 @@ import { Footer } from "../../components/layout/Footer/Footer";
 import { Header } from "../../components/layout/Header/Header";
 import { useEffect } from "react";
 import { fetchProductAction } from "../../features/products/productAction";
+import { fetchCategoryAction } from "../../features/category/categoryAction";
 
 const Products = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.productInfo);
+  const { category } = useSelector((state) => state.categoryInfo);
 
   const imgEp = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
   useEffect(() => {
     dispatch(fetchProductAction());
+    dispatch(fetchCategoryAction());
   }, [dispatch]);
 
   return (
