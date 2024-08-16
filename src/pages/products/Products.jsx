@@ -21,31 +21,51 @@ const Products = () => {
   const { category } = useSelector((state) => state.categoryInfo);
 
   const [search, setSearch] = useState("");
+  const [sortOption, setSortOption] = useState("name"); // Initial sort option
 
   useEffect(() => {
     dispatch(fetchProductAction());
     dispatch(fetchCategoryAction());
   }, [dispatch]);
 
-  const imgEp = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
+  const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
+
+  // Ensure category and products are defined before using them
+  const categoryList = category || [];
+  const productList = products || [];
 
   // Filter products based on search input
-  const filteredProducts = products.filter(
+  const filteredProducts = productList.filter(
     (product) =>
-      product.name.toLowerCase().includes(search.toLowerCase()) ||
-      category.some((cat) =>
-        cat.name.toLowerCase().includes(search.toLowerCase())
+      product.name?.toLowerCase().includes(search.toLowerCase()) ||
+      categoryList.some((cat) =>
+        cat.name?.toLowerCase().includes(search.toLowerCase())
       )
   );
 
+  // Sorting logic
+  const sortedProducts = filteredProducts.sort((a, b) => {
+    if (sortOption === "price") {
+      return a.price - b.price;
+    } else if (sortOption === "name") {
+      return a.name.localeCompare(b.name);
+    }
+    return 0;
+  });
+
   // Limit products to display 3 per category
   const categoryDisplayLimit = 3;
-  const limitedProducts = category.reduce((acc, cat) => {
-    acc[cat._id] = filteredProducts
-      .filter((product) => product.category === cat._id)
-      .slice(0, categoryDisplayLimit);
+  const categorizedProducts = categoryList.reduce((acc, cat) => {
+    const productsInCategory = sortedProducts.filter(
+      (product) => product.parentCatId === cat._id
+    );
+    acc[cat._id] = productsInCategory.slice(0, categoryDisplayLimit);
     return acc;
   }, {});
+
+  const handleSortChange = (option) => {
+    setSortOption(option);
+  };
 
   return (
     <div>
@@ -59,48 +79,67 @@ const Products = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <Button variant="outline-secondary">Search</Button>
+          <Button
+            variant="outline-secondary"
+            disabled={filteredProducts.length === 0}
+          >
+            {filteredProducts.length === 0 ? "No Results" : "Search"}
+          </Button>
+          <Form.Select
+            value={sortOption}
+            onChange={(e) => handleSortChange(e.target.value)}
+            className="ms-2"
+          >
+            <option value="name">Sort by Name</option>
+            <option value="price">Sort by Price</option>
+          </Form.Select>
         </InputGroup>
         <hr />
-        {category.map((cat) => (
-          <div key={cat._id} className="mb-5">
-            <h2 className="mb-4">
-              <Link
-                to={`/category/${cat._id}`}
-                className="text-decoration-none text-dark"
-              >
-                {cat.name}
-              </Link>
-            </h2>
-            <Row>
-              {limitedProducts[cat._id]?.map((product) => (
-                <Col md={4} key={product._id} className="mb-4">
-                  <Card className="h-100">
-                    <Card.Img
-                      variant="top"
-                      src={`${imgEp}/${product.thumbnail}` || "placeholder.jpg"}
-                      alt={product.name}
-                    />
-                    <Card.Body>
-                      <Card.Title>
-                        <Link
-                          to={`/product/${product._id}`}
-                          className="text-decoration-none text-dark"
-                        >
-                          {product.name}
-                        </Link>
-                      </Card.Title>
-                      <Card.Text>{product.description}</Card.Text>
-                      <Card.Text className="text-success">
-                        ${product.price}
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-          </div>
-        ))}
+        {categoryList.length === 0 && productList.length === 0 ? (
+          <p className="text-center">No products or categories available.</p>
+        ) : (
+          categoryList.map((cat) => (
+            <div key={cat._id} className="mb-5">
+              <h2 className="mb-4">
+                <Link
+                  to={`/category/${cat._id}`}
+                  className="text-decoration-none text-dark"
+                >
+                  {cat.title}
+                </Link>
+              </h2>
+              <Row>
+                {categorizedProducts[cat._id]?.map((product) => (
+                  <Col md={4} key={product._id} className="mb-4">
+                    <Card className="h-100">
+                      <Card.Img
+                        variant="top"
+                        src={
+                          `${imgPath}/${product.thumbnail}` || "placeholder.jpg"
+                        }
+                        alt={product.name}
+                      />
+                      <Card.Body>
+                        <Card.Title>
+                          <Link
+                            to={`/product/${product._id}`}
+                            className="text-decoration-none text-dark"
+                          >
+                            {product.name}
+                          </Link>
+                        </Card.Title>
+                        <Card.Text>{product.description}</Card.Text>
+                        <Card.Text className="text-success">
+                          Price: ${product.price}
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          ))
+        )}
       </Container>
       <Footer />
     </div>
