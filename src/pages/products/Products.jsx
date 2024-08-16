@@ -7,10 +7,12 @@ import { fetchProductAction } from "../../features/products/productAction";
 const Products = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.productInfo);
+
   const imgEp = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
   useEffect(() => {
     dispatch(fetchProductAction());
   }, [dispatch]);
+
   return (
     <div>
       <Header />
