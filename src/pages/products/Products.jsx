@@ -4,16 +4,9 @@ import { Header } from "../../components/layout/Header/Header";
 import { useEffect, useState } from "react";
 import { fetchProductAction } from "../../features/products/productAction";
 import { fetchCategoryAction } from "../../features/category/categoryAction";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Form,
-  InputGroup,
-  Button,
-} from "react-bootstrap";
+import { Container, Form, InputGroup, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ProductCard from "../../components/product-card/ProductCard";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -108,35 +101,7 @@ const Products = () => {
                   {cat.title}
                 </Link>
               </h2>
-              <Row>
-                {categorizedProducts[cat._id]?.map((product) => (
-                  <Col md={4} key={product._id} className="mb-4">
-                    <Card className="h-100">
-                      <Card.Img
-                        variant="top"
-                        src={
-                          `${imgPath}/${product.thumbnail}` || "placeholder.jpg"
-                        }
-                        alt={product.name}
-                      />
-                      <Card.Body>
-                        <Card.Title>
-                          <Link
-                            to={`/product/${product._id}`}
-                            className="text-decoration-none text-dark"
-                          >
-                            {product.name}
-                          </Link>
-                        </Card.Title>
-                        <Card.Text>{product.description}</Card.Text>
-                        <Card.Text className="text-success">
-                          Price: ${product.price}
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
+              <ProductCard products={categorizedProducts[cat._id] || []} />
             </div>
           ))
         )}
