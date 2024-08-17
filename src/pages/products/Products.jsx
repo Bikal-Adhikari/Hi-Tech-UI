@@ -7,6 +7,7 @@ import { fetchCategoryAction } from "../../features/category/categoryAction";
 import { Container, Form, InputGroup, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProductCard from "../../components/product-card/ProductCard";
+import MainComponent from "../../components/cart/MainComponent";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -101,7 +102,8 @@ const Products = () => {
                   {cat.title}
                 </Link>
               </h2>
-              <ProductCard products={categorizedProducts[cat._id] || []} />
+              <MainComponent products={categorizedProducts[cat._id] || []} />
+              {/* <ProductCard products={categorizedProducts[cat._id] || []} /> */}
             </div>
           ))
         )}

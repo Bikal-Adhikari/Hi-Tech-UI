@@ -2,12 +2,12 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./productCard.css";
 
-const ProductCard = ({ products }) => {
+const ProductCard = ({ products, onAddToCart }) => {
   const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
   const productsArray = Array.isArray(products) ? products : [products];
 
   return (
-    <Container className="product-card">
+    <Container>
       <Row>
         {productsArray.length === 0 ? (
           <p className="text-center">No products available in this category.</p>
@@ -31,7 +31,12 @@ const ProductCard = ({ products }) => {
                     </Link>
                   </Card.Title>
                   <Card.Text>Price: ${product.price}</Card.Text>
-                  <Button variant="primary">Add to cart</Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => onAddToCart(product)}
+                  >
+                    Add to cart
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
