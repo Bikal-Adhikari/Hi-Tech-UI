@@ -12,7 +12,7 @@ export const fetchAllProducts = () => {
 };
 export const fetchAProduct = (_id) => {
   const obj = {
-    url: `${productEP}/:${_id}`,
+    url: `${productEP}/${_id}`,
     method: "get",
     data: { status: "active" },
   };

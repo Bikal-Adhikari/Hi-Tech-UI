@@ -4,54 +4,51 @@ import { Header } from "../../components/layout/Header/Header";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchProductAction } from "../../features/products/productAction";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
+import { fetchSingleCategoryAction } from "../../features/category/categoryAction";
+import ProductCard from "../../components/product-card/ProductCard";
 
 const CategoryPage = () => {
-  const { categoryId } = useParams();
+  const { _id } = useParams();
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.productInfo);
+  const { cat } = useSelector((state) => state.categoryInfo);
   const imgEp = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
 
   useEffect(() => {
     dispatch(fetchProductAction());
-  }, [dispatch]);
+    if (!cat || cat._id !== _id) {
+      dispatch(fetchSingleCategoryAction(_id));
+    }
+  }, [dispatch, _id, cat]);
+
+  // Ensure the category is loaded before filtering products
+  if (!cat) {
+    return <p>Loading category...</p>;
+  }
 
   const categoryProducts = products.filter(
-    (product) => product.category === categoryId
+    (product) => product.parentCatId === _id
   );
+  console.log(categoryProducts);
 
   return (
     <div>
       <Header />
       <Container className="my-5">
-        <h1 className="text-center mb-4">Category Products</h1>
+        <h1 className="text-center mb-4">{cat.title}</h1>
         <Row>
-          {categoryProducts.map((product) => (
-            <Col md={4} key={product._id} className="mb-4">
-              <Card className="h-100">
-                <Card.Img
-                  variant="top"
-                  src={`${imgEp}/${product.thumbnail}` || "placeholder.jpg"}
-                  alt={product.name}
-                />
-                <Card.Body>
-                  <Card.Title>
-                    <Link
-                      to={`/product/${product._id}`}
-                      className="text-decoration-none text-dark"
-                    >
-                      {product.name}
-                    </Link>
-                  </Card.Title>
-                  <Card.Text>{product.description}</Card.Text>
-                  <Card.Text className="text-success">
-                    ${product.price}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+          {categoryProducts.length === 0 ? (
+            <Col className="text-center">
+              <p>No products available in this category.</p>
             </Col>
-          ))}
+          ) : (
+            categoryProducts?.map((product) => (
+              <div key={product._id} className="mb-5">
+                <ProductCard products={product} />
+              </div>
+            ))
+          )}
         </Row>
       </Container>
       <Footer />

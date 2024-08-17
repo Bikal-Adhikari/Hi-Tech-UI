@@ -24,6 +24,7 @@ import ProfilePage from "./pages/user/profileLanding/ProfilePage";
 import ChangePassword from "./pages/user/ChangePassword";
 import EditProfile from "./pages/user/EditProfile";
 import Products from "./pages/products/Products";
+import CategoryPage from "./pages/products/Category";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ function App() {
         <Route path="/faq" element={<Faq />} />
         <Route path="/sale" element={<Sales />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/category/:_id" element={<CategoryPage />} />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>

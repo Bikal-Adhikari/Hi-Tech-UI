@@ -1,0 +1,22 @@
+
+.card {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  box-sizing: border-box;
+  height: auto; /* Let height adjust based on content */
+  width: 100%; /* Full width of the column */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image styling to ensure it scales properly */
+.card-img-top {
+  width: 100%; /* Full width of the card */
+  height: 200px; /* Consistent height */
+  object-fit: cover; /* Prevents distortion */
+}
+
+/* Ensure columns are consistently sized */
+.col-md-4 {
+  padding: 0 15px; /* Consistent padding */
+}

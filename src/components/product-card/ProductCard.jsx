@@ -1,22 +1,25 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./productCard.css";
 
 const ProductCard = ({ products }) => {
   const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
+  const productsArray = Array.isArray(products) ? products : [products];
 
   return (
-    <Container>
+    <Container className="product-card">
       <Row>
-        {products?.length === 0 ? (
+        {productsArray.length === 0 ? (
           <p className="text-center">No products available in this category.</p>
         ) : (
-          products?.map((product) => (
+          productsArray.map((product) => (
             <Col md={4} key={product._id} className="mb-4">
               <Card className="h-100">
                 <Card.Img
                   variant="top"
                   src={`${imgPath}/${product.thumbnail}` || "placeholder.jpg"}
                   alt={product.name}
+                  className="card-img-top"
                 />
                 <Card.Body>
                   <Card.Title>

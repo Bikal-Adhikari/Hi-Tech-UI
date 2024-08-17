@@ -12,7 +12,7 @@ export const fetchAllCategory = () => {
 };
 export const fetchACategory = (_id) => {
   const obj = {
-    url: `${categoryEP}/:${_id}`,
+    url: `${categoryEP}/${_id}`,
     method: "get",
     data: { status: "active" },
   };
