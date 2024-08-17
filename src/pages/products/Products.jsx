@@ -103,7 +103,6 @@ const Products = () => {
                 </Link>
               </h2>
               <MainComponent products={categorizedProducts[cat._id] || []} />
-              {/* <ProductCard products={categorizedProducts[cat._id] || []} /> */}
             </div>
           ))
         )}

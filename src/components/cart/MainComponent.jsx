@@ -25,7 +25,10 @@ const MainComponent = ({ products }) => {
       <ProductCard onAddToCart={handleAddToCart} products={products} />
 
       {isSideMenuOpen && (
-        <SideMenu cartItems={cartItems} onClose={handleCloseSideMenu} />
+        <SideMenu
+          cartItems={Array.isArray(cartItems) ? cartItems : [cartItems]}
+          onClose={handleCloseSideMenu}
+        />
       )}
     </div>
   );

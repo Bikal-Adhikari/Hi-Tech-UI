@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
-import { removeFromCart, updateCartItem } from "./actions/cartActions";
+
 import { Button, Form } from "react-bootstrap";
-import "./SideMenu.css";
+import "./sidemenu.css";
+import { removeFromCart, updateCartItem } from "../../features/cart/cartAction";
 
 const SideMenu = ({ cartItems, onClose }) => {
   const dispatch = useDispatch();
@@ -29,11 +30,11 @@ const SideMenu = ({ cartItems, onClose }) => {
           X
         </Button>
         <h2>Your Cart</h2>
-        {cartItems.length === 0 ? (
+        {cartItems?.length === 0 ? (
           <p>No items in cart</p>
         ) : (
-          cartItems.map((item) => (
-            <div key={item.id} className="cart-item">
+          cartItems?.map((item) => (
+            <div key={item._id} className="cart-item">
               <img src={item.img} alt={item.name} className="item-img" />
               <div className="item-details">
                 <h4>{item.name}</h4>
