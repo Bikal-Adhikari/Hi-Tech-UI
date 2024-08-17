@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 import { fetchProductAction } from "../../features/products/productAction";
 import { Container, Row, Col } from "react-bootstrap";
 import { fetchSingleCategoryAction } from "../../features/category/categoryAction";
-import ProductCard from "../../components/product-card/ProductCard";
+
+import MainComponent from "../../components/cart/MainComponent";
 
 const CategoryPage = () => {
   const { _id } = useParams();
@@ -45,7 +46,7 @@ const CategoryPage = () => {
           ) : (
             categoryProducts?.map((product) => (
               <div key={product._id} className="mb-5">
-                <ProductCard products={product} />
+                <MainComponent products={product} />
               </div>
             ))
           )}

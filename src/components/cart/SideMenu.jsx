@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-
 import { Button, Form } from "react-bootstrap";
 import "./sidemenu.css";
 import { removeFromCart, updateCartItem } from "../../features/cart/cartAction";
@@ -12,7 +11,7 @@ const SideMenu = ({ cartItems, onClose }) => {
       updateCartItem({
         id,
         quantity,
-        price: cartItems.find((item) => item.id === id).price,
+        price: cartItems.find((item) => item._id === id).price,
       })
     );
   };
@@ -30,10 +29,10 @@ const SideMenu = ({ cartItems, onClose }) => {
           X
         </Button>
         <h2>Your Cart</h2>
-        {cartItems?.length === 0 ? (
+        {cartItems.length === 0 ? (
           <p>No items in cart</p>
         ) : (
-          cartItems?.map((item) => (
+          cartItems.map((item) => (
             <div key={item._id} className="cart-item">
               <img src={item.img} alt={item.name} className="item-img" />
               <div className="item-details">
@@ -42,7 +41,7 @@ const SideMenu = ({ cartItems, onClose }) => {
                 <Form.Select
                   value={item.quantity}
                   onChange={(e) =>
-                    handleQuantityChange(item.id, +e.target.value)
+                    handleQuantityChange(item._id, +e.target.value)
                   }
                 >
                   {[1, 2, 3, 4, 5].map((q) => (
@@ -53,7 +52,7 @@ const SideMenu = ({ cartItems, onClose }) => {
                 </Form.Select>
                 <Button
                   variant="danger"
-                  onClick={() => handleRemoveItem(item.id)}
+                  onClick={() => handleRemoveItem(item._id)}
                 >
                   Remove
                 </Button>
