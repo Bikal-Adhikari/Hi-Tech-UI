@@ -25,6 +25,7 @@ import ChangePassword from "./pages/user/ChangePassword";
 import EditProfile from "./pages/user/EditProfile";
 import Products from "./pages/products/Products";
 import CategoryPage from "./pages/products/Category";
+import ProductPage from "./pages/products/ProductPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function App() {
         <Route path="/sale" element={<Sales />} />
         <Route path="/products" element={<Products />} />
         <Route path="/category/:slug/:_id" element={<CategoryPage />} />
+        <Route path="/product/:slug/:_id" element={<ProductPage />} />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>

@@ -25,7 +25,7 @@ const ProductCard = ({ products, onAddToCart }) => {
                 <Card.Body>
                   <Card.Title>
                     <Link
-                      to={`/product/${product._id}`}
+                      to={`/product/${product.slug}/${product._id}`}
                       className="text-decoration-none text-dark"
                     >
                       {product.name}
