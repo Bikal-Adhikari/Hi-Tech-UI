@@ -113,46 +113,10 @@ export const Header = () => {
       <Navbar bg="white" expand="md" className="d-md-none border-bottom">
         <Container fluid>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Brand href="#" className="mx-auto h-logo">
+          <Navbar.Brand href="/" className="mx-auto h-logo">
             Hi-Tech
           </Navbar.Brand>
           <Nav>
-            <NavDropdown
-              title={<FaUser />}
-              id="basic-nav-dropdown"
-              align="end"
-              className="custom-dropdown"
-            >
-              {user._id ? (
-                <>
-                  <NavDropdown.Item as={Link} to="/Userprofile">
-                    Profile
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to={`/change-password/${user._id}`}
-                  >
-                    Change Password
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to="/"
-                    onClick={() => dispatch(logOutUserAction())}
-                  >
-                    Logout
-                  </NavDropdown.Item>
-                </>
-              ) : (
-                <>
-                  <NavDropdown.Item as={Link} to="/profile">
-                    Profile Landing
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/signIn">
-                    Login
-                  </NavDropdown.Item>
-                </>
-              )}
-            </NavDropdown>
             <Nav.Link as={Link} to="/cart">
               <FaShoppingCart className="position-absolute" />
               <span className="position-relative top-0 start-80 translate-middle badge rounded-pill bg-dark">
@@ -188,6 +152,46 @@ export const Header = () => {
               <Nav.Link as={Link} to="/contact">
                 Contact
               </Nav.Link>
+              <NavDropdown
+                title={
+                  <span>
+                    <FaUser /> User
+                  </span>
+                }
+                id="basic-nav-dropdown"
+                align="end"
+                className="custom-dropdown"
+              >
+                {user._id ? (
+                  <>
+                    <NavDropdown.Item as={Link} to="/Userprofile">
+                      Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/change-password/${user._id}`}
+                    >
+                      Change Password
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      to="/"
+                      onClick={() => dispatch(logOutUserAction())}
+                    >
+                      Logout
+                    </NavDropdown.Item>
+                  </>
+                ) : (
+                  <>
+                    <NavDropdown.Item as={Link} to="/profile">
+                      Profile Landing
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/signIn">
+                      Login
+                    </NavDropdown.Item>
+                  </>
+                )}
+              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>
