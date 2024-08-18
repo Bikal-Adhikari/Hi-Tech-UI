@@ -83,17 +83,19 @@ const Landing = () => {
       <Container className="mt-4">
         <Row className="text-center">
           <Col md={4}>
-            <FaShip size={30} />
+            <FaShip size={70} />
             <h6 className="mt-2">Shipping Worldwide</h6>
             <p className="text-muted">Special financing and earn rewards</p>
           </Col>
           <Col md={4}>
-            <FaUndo size={30} />
+            <FaUndo size={70} />
             <h6 className="mt-2">14 Days Return</h6>
+            <p className="text-muted">14-days free return policy</p>
           </Col>
           <Col md={4}>
-            <FaShieldAlt size={30} />
+            <FaShieldAlt size={70} />
             <h6 className="mt-2">Security Payment</h6>
+            <p className="text-muted">We accept all major credit cards</p>
           </Col>
         </Row>
       </Container>
