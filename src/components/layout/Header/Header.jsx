@@ -77,9 +77,13 @@ export const Header = () => {
                   </>
                 )}
               </NavDropdown>
-              <Nav.Link as={Link} to="/cart">
-                <FaShoppingCart />
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
+              <Nav.Link
+                as={Link}
+                to="/cart"
+                className="w-10 h-10 rounded-full flex justify-content-center align-items-center relative"
+              >
+                <FaShoppingCart className="w-6" />
+                <span className="position-absolute top-2/3 right-1/2 translate-middle badge rounded-full bg-dark w-5 h-5 flex justify-content-center align-items-center">
                   0
                 </span>
               </Nav.Link>
@@ -117,9 +121,13 @@ export const Header = () => {
             Hi-Tech
           </Navbar.Brand>
           <Nav>
-            <Nav.Link as={Link} to="/cart">
-              <FaShoppingCart className="position-absolute" />
-              <span className="position-relative top-0 start-80 translate-middle badge rounded-pill bg-dark">
+            <Nav.Link
+              as={Link}
+              to="/cart"
+              className="w-10 h-10 rounded-full flex justify-content-center align-items-center relative"
+            >
+              <FaShoppingCart className="w-6" />
+              <span className="position-absolute top-2/3 right-1/2 translate-middle badge rounded-full bg-dark w-5 h-5 flex justify-content-center align-items-center">
                 0
               </span>
             </Nav.Link>
