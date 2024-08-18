@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Button, Form } from "react-bootstrap";
 import "./sidemenu.css";
-import { removeFromCart, updateCartItem } from "../../features/cart/cartAction";
+
 
 const SideMenu = ({ cartItems, onClose }) => {
   const dispatch = useDispatch();

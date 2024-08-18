@@ -1,6 +1,7 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./productCard.css";
+import { FaShoppingCart } from "react-icons/fa";
 
 const ProductCard = ({ products, onAddToCart }) => {
   const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
@@ -35,7 +36,7 @@ const ProductCard = ({ products, onAddToCart }) => {
                     variant="primary"
                     onClick={() => onAddToCart(product)}
                   >
-                    Add to cart
+                    <FaShoppingCart /> Add to cart
                   </Button>
                 </Card.Body>
               </Card>

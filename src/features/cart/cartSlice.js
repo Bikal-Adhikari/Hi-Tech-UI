@@ -1,64 +1,24 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, UPDATE_CART_ITEM } from "./cartAction";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
 };
 
-const cartReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_TO_CART: {
-      const item = action.payload;
-      const existingItem = state.items.find((i) => i._id === item._id);
-
-      if (existingItem) {
-        return {
-          ...state,
-          items: state.items.map((i) =>
-            i._id === item._id
-              ? {
-                  ...i,
-                  quantity: i.quantity + 1,
-                  totalPrice: (i.quantity + 1) * i.price,
-                }
-              : i
-          ),
-        };
+const cartReducer = createSlice({
+  name: "cart",
+  initialState,
+  reducers: {
+    addToCart(state, action) {
+      const { _id, quantity } = action.payload;
+      const existingItem = (state.items).findIndex((item) => item._id === _id);
+      if (existingItem >= 0) {
+        state.items[existingItem].quantity += quantity;
+      } else {
+        state.items.push({ ...action.payload, quantity: quantity });
       }
+    },
+  },
+});
 
-      return {
-        ...state,
-        items: [
-          ...state.items,
-          { ...item, quantity: 1, totalPrice: item.price },
-        ],
-      };
-    }
-
-    case REMOVE_FROM_CART:
-      return {
-        ...state,
-        items: state.items.filter((item) => item._id !== action.payload),
-      };
-
-    case UPDATE_CART_ITEM: {
-      const item = action.payload;
-      return {
-        ...state,
-        items: state.items.map((i) =>
-          i.id === item.id
-            ? {
-                ...i,
-                quantity: item.quantity,
-                totalPrice: item.price * item.quantity,
-              }
-            : i
-        ),
-      };
-    }
-
-    default:
-      return state;
-  }
-};
-
-export default cartReducer;
+export const { addToCart } = cartReducer.actions;
+export default cartReducer.reducer;
