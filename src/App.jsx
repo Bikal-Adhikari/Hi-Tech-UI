@@ -51,7 +51,7 @@ function App() {
         <Route path="/faq" element={<Faq />} />
         <Route path="/sale" element={<Sales />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/category/:_id" element={<CategoryPage />} />
+        <Route path="/category/:slug/:_id" element={<CategoryPage />} />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>

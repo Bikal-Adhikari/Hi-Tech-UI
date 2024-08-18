@@ -96,7 +96,7 @@ const Products = () => {
             <div key={cat._id} className="mb-5">
               <h2 className="mb-4">
                 <Link
-                  to={`/category/${cat._id}`}
+                  to={`/category/${cat.slug}/${cat._id}`}
                   className="text-decoration-none text-dark"
                 >
                   {cat.title}
