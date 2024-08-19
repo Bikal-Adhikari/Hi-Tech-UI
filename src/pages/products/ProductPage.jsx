@@ -30,6 +30,9 @@ const ProductPage = () => {
       addToCart({
         _id: prod._id,
         quantity: quantity,
+        name: prod.name,
+        price: prod.price,
+        img: `${imgEp}/${prod.thumbnail}`,
       })
     );
   };

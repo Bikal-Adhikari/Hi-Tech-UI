@@ -9,12 +9,16 @@ const MainComponent = ({ products }) => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartInfo);
-  console.log(cartItems);
+
+  const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
 
   const handleAddToCart = (product) => {
     dispatch(
       addToCart({
         _id: product._id,
+        name: product.name,
+        price: product.price,
+        img: `${imgPath}/${product.thumbnail}`,
         quantity: 1,
       })
     );
