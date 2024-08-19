@@ -12,10 +12,18 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUserAction } from "../../../features/users/userAction";
+import { useEffect, useState } from "react";
 
 export const Header = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInfo);
+  const { items } = useSelector((state) => state.cartInfo);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  useEffect(() => {
+    let total = 0;
+    items.forEach((item) => (total += item.quantity));
+    setTotalQuantity(total);
+  }, [items]);
 
   return (
     <>
@@ -84,7 +92,7 @@ export const Header = () => {
               >
                 <FaShoppingCart className="w-6" />
                 <span className="position-absolute top-2/3 right-1/2 translate-middle badge rounded-full bg-dark w-5 h-5 flex justify-content-center align-items-center">
-                  0
+                  {totalQuantity}
                 </span>
               </Nav.Link>
             </Nav>
@@ -128,7 +136,7 @@ export const Header = () => {
             >
               <FaShoppingCart className="w-6" />
               <span className="position-absolute top-2/3 right-1/2 translate-middle badge rounded-full bg-dark w-5 h-5 flex justify-content-center align-items-center">
-                0
+                {totalQuantity}
               </span>
             </Nav.Link>
           </Nav>
