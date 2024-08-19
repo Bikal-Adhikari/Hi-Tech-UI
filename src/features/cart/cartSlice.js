@@ -11,11 +11,13 @@ const cartReducer = createSlice({
   reducers: {
     addToCart(state, action) {
       const { _id, quantity } = action.payload;
-      const existingItem = state.items.findIndex((item) => item._id === _id);
-      if (existingItem >= 0) {
-        state.items[existingItem].quantity += quantity;
+      const existingItemIndex = state.items.findIndex(
+        (item) => item._id === _id
+      );
+      if (existingItemIndex >= 0) {
+        state.items[existingItemIndex].quantity += quantity;
       } else {
-        state.items.push({ ...action.payload, quantity: quantity });
+        state.items.push({ ...action.payload, quantity });
       }
       state.statusTab = true;
     },
@@ -25,9 +27,26 @@ const cartReducer = createSlice({
     closeStatusTab(state) {
       state.statusTab = false;
     },
+    updateItemQuantity(state, action) {
+      const { id, quantity } = action.payload;
+      const itemIndex = state.items.findIndex((item) => item._id === id);
+      if (itemIndex >= 0) {
+        state.items[itemIndex].quantity = quantity;
+      }
+    },
+    removeItem(state, action) {
+      const id = action.payload;
+      state.items = state.items.filter((item) => item._id !== id);
+    },
   },
 });
 
-export const { addToCart, toggleStatusTab, closeStatusTab } =
-  cartReducer.actions;
+export const {
+  addToCart,
+  toggleStatusTab,
+  closeStatusTab,
+  updateItemQuantity,
+  removeItem,
+} = cartReducer.actions;
+
 export default cartReducer.reducer;

@@ -1,18 +1,24 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Container, Row, Col, Image, Form } from "react-bootstrap";
+import { Button, Container, Row, Col, Image } from "react-bootstrap";
 import "./sidemenu.css";
-import { closeStatusTab } from "../../features/cart/cartSlice";
+import {
+  closeStatusTab,
+  updateItemQuantity,
+  removeItem,
+} from "../../features/cart/cartSlice";
 
 const SideMenu = () => {
   const dispatch = useDispatch();
   const { items, statusTab } = useSelector((state) => state.cartInfo);
 
   const handleQuantityChange = (id, quantity) => {
-    // Implement quantity change logic here
+    if (quantity > 0) {
+      dispatch(updateItemQuantity({ id, quantity }));
+    }
   };
 
   const handleRemoveItem = (id) => {
-    // Implement item removal logic here
+    dispatch(removeItem(id));
   };
 
   const totalPrice = items.reduce(
@@ -53,19 +59,28 @@ const SideMenu = () => {
                 <Col xs={8} className="d-flex flex-column">
                   <h4 className="mb-2">{item.name}</h4>
                   <p className="text-muted">${item.price}</p>
-                  <Form.Select
-                    value={item.quantity}
-                    onChange={(e) =>
-                      handleQuantityChange(item._id, +e.target.value)
-                    }
-                    className="mb-2"
-                  >
-                    {[1, 2, 3, 4, 5].map((q) => (
-                      <option key={q} value={q}>
-                        {q}
-                      </option>
-                    ))}
-                  </Form.Select>
+                  <div className="d-flex align-items-center mb-2">
+                    <Button
+                      variant="outline-secondary"
+                      size="sm"
+                      onClick={() =>
+                        handleQuantityChange(item._id, item.quantity - 1)
+                      }
+                      disabled={item.quantity === 1}
+                    >
+                      -
+                    </Button>
+                    <span className="mx-2">{item.quantity}</span>
+                    <Button
+                      variant="outline-secondary"
+                      size="sm"
+                      onClick={() =>
+                        handleQuantityChange(item._id, item.quantity + 1)
+                      }
+                    >
+                      +
+                    </Button>
+                  </div>
                   <Button
                     variant="danger"
                     size="sm"
