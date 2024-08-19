@@ -6,13 +6,13 @@
   height: 100%;
   background: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-  transform: translateX(100%);
+  transform: translateX(100%); /* Start off-screen */
   transition: transform 0.3s ease;
   z-index: 1000;
 }
 
 .side-menu.open {
-  transform: translateX(0);
+  transform: translateX(0); /* Slide into view */
 }
 
 .side-menu-content {
@@ -27,6 +27,7 @@
   border: none;
   background: transparent;
   font-size: 24px;
+  cursor: pointer;
 }
 
 .cart-item {
@@ -44,10 +45,6 @@
 
 .item-details {
   flex: 1;
-}
-
-.item-total {
-  margin-top: 5px;
 }
 
 .cart-summary {

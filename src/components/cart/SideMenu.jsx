@@ -1,18 +1,18 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, Container, Row, Col, Image, Form } from "react-bootstrap";
-import "./sidemenu.css"; // Custom CSS for additional styling
+import "./sidemenu.css";
+import { closeStatusTab } from "../../features/cart/cartSlice";
 
-const SideMenu = ({ onClose }) => {
+const SideMenu = () => {
   const dispatch = useDispatch();
-  const { items } = useSelector((state) => state.cartInfo);
+  const { items, statusTab } = useSelector((state) => state.cartInfo);
 
   const handleQuantityChange = (id, quantity) => {
-    // Dispatch an action to update the quantity in the cart
+    // Implement quantity change logic here
   };
 
   const handleRemoveItem = (id) => {
-    // Dispatch an action to remove the item from the cart
+    // Implement item removal logic here
   };
 
   const totalPrice = items.reduce(
@@ -23,17 +23,17 @@ const SideMenu = ({ onClose }) => {
   return (
     <div
       className={`side-menu position-fixed top-0 end-0 bg-light shadow-lg h-100 ${
-        !items.length && "d-none"
+        statusTab ? "open" : ""
       }`}
     >
       <Container className="side-menu-content d-flex flex-column h-100">
         <Row className="mb-4">
           <Col className="d-flex justify-content-between align-items-center">
-            <h2>Your Shopping Cart</h2>
+            <h2>Your Cart</h2>
             <Button
               variant="outline-secondary"
               className="close-btn"
-              onClick={onClose}
+              onClick={() => dispatch(closeStatusTab())}
             >
               &times;
             </Button>

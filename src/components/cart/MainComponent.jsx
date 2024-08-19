@@ -1,14 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../features/cart/cartSlice";
+import ProductCard from "../product-card/ProductCard";
 import SideMenu from "./SideMenu";
 
-import ProductCard from "../product-card/ProductCard";
-import { useState } from "react";
-import { addToCart } from "../../features/cart/cartSlice";
 
 const MainComponent = ({ products }) => {
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cartInfo);
+  const cartItems = useSelector((state) => state.cartInfo.items); // Get cart items from Redux store
 
   const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
 
@@ -22,23 +20,15 @@ const MainComponent = ({ products }) => {
         quantity: 1,
       })
     );
-    setIsSideMenuOpen(true);
-  };
-
-  const handleCloseSideMenu = () => {
-    setIsSideMenuOpen(false);
   };
 
   return (
     <div>
       <ProductCard onAddToCart={handleAddToCart} products={products} />
-
-      {isSideMenuOpen && (
-        <SideMenu
-          cartItems={Array.isArray(cartItems) ? cartItems : [cartItems]}
-          onClose={handleCloseSideMenu}
-        />
-      )}
+      <SideMenu
+        cartItems={Array.isArray(cartItems) ? cartItems : [cartItems]}
+      />
+      {/* Always render SideMenu */}
     </div>
   );
 };
