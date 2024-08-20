@@ -21,10 +21,12 @@ const SideMenu = () => {
     dispatch(removeItem(id));
   };
 
-  const totalPrice = items.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const totalPrice = items.reduce((total, item) => {
+    const itemPrice = item.salesPrice
+      ? item.price - item.salesPrice
+      : item.price;
+    return total + itemPrice * item.quantity;
+  }, 0);
 
   return (
     <div
@@ -58,7 +60,23 @@ const SideMenu = () => {
                 </Col>
                 <Col xs={8} className="d-flex flex-column">
                   <h4 className="mb-2">{item.name}</h4>
-                  <p className="text-muted">${item.price}</p>
+                  <p className="text-muted">
+                    {item.discountPrice ? (
+                      <>
+                        <span
+                          style={{
+                            textDecoration: "line-through",
+                            color: "red",
+                          }}
+                        >
+                          ${item.price}
+                        </span>{" "}
+                        <span>${item.discountPrice}</span>
+                      </>
+                    ) : (
+                      <span>${item.price}</span>
+                    )}
+                  </p>
                   <div className="d-flex align-items-center mb-2">
                     <Button
                       variant="outline-secondary"
@@ -77,6 +95,7 @@ const SideMenu = () => {
                       onClick={() =>
                         handleQuantityChange(item._id, item.quantity + 1)
                       }
+                      disabled={(item.quantity === item.qty)}
                     >
                       +
                     </Button>

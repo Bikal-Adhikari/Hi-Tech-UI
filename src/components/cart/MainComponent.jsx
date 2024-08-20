@@ -17,6 +17,7 @@ const MainComponent = ({ products }) => {
         price: product.price,
         img: `${imgPath}/${product.thumbnail}`,
         salesPrice: product.salesPrice,
+        qty: product.qty,
         quantity: 1,
       })
     );
