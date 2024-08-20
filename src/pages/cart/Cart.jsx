@@ -164,10 +164,16 @@ const Cart = () => {
                       Delivery within 1-2 weeks
                     </p>
                     <p className="text-muted">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip
+                      Our Hi-Tech app revolutionizes the way you shop by
+                      providing an interactive and user-friendly interface to
+                      browse, select, and purchase the latest tech products.
+                      With real-time updates, personalized recommendations, and
+                      secure payment options, you can shop with confidence and
+                      ease. Enjoy the benefits of our seamless integration with
+                      top vendors, ensuring you get the best deals on
+                      cutting-edge technology. All orders come with free
+                      delivery, ensuring your new tech arrives safely and
+                      swiftly.
                     </p>
                   </div>
                 </Card.Body>
