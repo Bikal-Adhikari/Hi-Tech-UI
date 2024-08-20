@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  FormControl,
-  Button,
-  Card,
-  Badge,
-} from "react-bootstrap";
+import { Container, Row, Col, Button, Card, Badge } from "react-bootstrap";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Header } from "../../components/layout/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,17 +11,30 @@ const Cart = () => {
 
   const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
 
-  const handleQuantityChange = (id, quantity) => {
-    dispatch(updateItemQuantity({ id, quantity }));
+  const handleQuantityChange = (id, newQuantity) => {
+    if (newQuantity > 0) {
+      dispatch(updateItemQuantity({ id, quantity: newQuantity }));
+    }
   };
 
   const handleRemoveItem = (id) => {
     dispatch(removeItem(id));
   };
 
-  const calculateTotalPrice = () => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
+  const totalQuantity = items.reduce((total, item) => {
+    return total + item.quantity;
+  }, 0);
+
+  const totalPrice = items.reduce((total, item) => {
+    const itemPrice = item.salesPrice
+      ? item.price - item.salesPrice
+      : item.price;
+    return total + itemPrice * item.quantity;
+  }, 0);
+
+  const totalDiscountPrice = items.reduce((total, item) => {
+    return total + item.salesPrice * item.quantity;
+  }, 0);
 
   return (
     <div>
@@ -73,28 +77,58 @@ const Cart = () => {
                           xs={6}
                           className="d-flex flex-row flex-lg-column flex-xl-row text-nowrap"
                         >
-                          <Form.Select
-                            value={item.quantity}
-                            onChange={(e) =>
-                              handleQuantityChange(
-                                item._id,
-                                Number(e.target.value)
-                              )
-                            }
-                            style={{ width: "100px" }}
-                            className="me-4"
-                          >
-                            {[...Array(10).keys()].map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
-                          </Form.Select>
-                          <div>
-                            <p className="h6">${item.price * item.quantity}</p>
+                          <div className="d-flex align-items-center">
+                            <Button
+                              variant="light"
+                              className="border me-2"
+                              onClick={() =>
+                                handleQuantityChange(
+                                  item._id,
+                                  item.quantity - 1
+                                )
+                              }
+                            >
+                              -
+                            </Button>
+                            <p className="mb-0">{item.quantity}</p>
+                            <Button
+                              variant="light"
+                              className="border ms-2"
+                              onClick={() =>
+                                handleQuantityChange(
+                                  item._id,
+                                  item.quantity + 1
+                                )
+                              }
+                              disabled={item.quantity === item.qty}
+                            >
+                              +
+                            </Button>
+                          </div>
+                          <div className="mt-2">
+                            {item.salesPrice ? (
+                              <div>
+                                <span className="text-danger">
+                                  <del>${item.price}</del>
+                                </span>
+                                <br />
+                                <span className="text-success fw-bold">
+                                  Now: ${item.price - item.salesPrice}
+                                </span>
+                              </div>
+                            ) : (
+                              <span className="text-success fw-bold">
+                                Price: ${item.price}
+                                <br />
+                              </span>
+                            )}
+
                             <small className="text-muted text-nowrap">
-                              {" "}
-                              ${item.price} / per item{" "}
+                              $
+                              {item.salesPrice
+                                ? item.price - item.salesPrice
+                                : item.price}
+                              / per item
                             </small>
                           </div>
                         </Col>
@@ -144,42 +178,28 @@ const Cart = () => {
             <Col lg={3}>
               <Card className="mb-3 border shadow-0">
                 <Card.Body>
-                  <Form>
-                    <Form.Group>
-                      <Form.Label>Have coupon?</Form.Label>
-                      <div className="input-group">
-                        <FormControl
-                          type="text"
-                          className="border"
-                          placeholder="Coupon code"
-                        />
-                        <Button variant="light" className="border">
-                          Apply
-                        </Button>
-                      </div>
-                    </Form.Group>
-                  </Form>
-                </Card.Body>
-              </Card>
-              <Card className="shadow-0 border">
-                <Card.Body>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total price:</p>
-                    <p className="mb-2">${calculateTotalPrice().toFixed(2)}</p>
+                    <p className="mb-2">${totalPrice.toFixed(2)}</p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Discount:</p>
-                    <p className="mb-2 text-success">-$60.00</p>
+                    <p className="mb-2 text-success">-${totalDiscountPrice}</p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">TAX:</p>
-                    <p className="mb-2">$14.00</p>
+                    <p className="mb-2">${totalQuantity * 4}</p>
                   </div>
                   <hr />
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total price:</p>
                     <p className="mb-2 fw-bold">
-                      ${(calculateTotalPrice() - 60 + 14).toFixed(2)}
+                      $
+                      {(
+                        totalPrice -
+                        totalDiscountPrice +
+                        totalQuantity * 4
+                      ).toFixed(2)}
                     </p>
                   </div>
                   <div className="mt-3">
