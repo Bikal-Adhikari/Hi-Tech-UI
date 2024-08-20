@@ -61,7 +61,7 @@ const SideMenu = () => {
                 <Col xs={8} className="d-flex flex-column">
                   <h4 className="mb-2">{item.name}</h4>
                   <p className="text-muted">
-                    {item.discountPrice ? (
+                    {item.salesPrice ? (
                       <>
                         <span
                           style={{
@@ -71,7 +71,7 @@ const SideMenu = () => {
                         >
                           ${item.price}
                         </span>{" "}
-                        <span>${item.discountPrice}</span>
+                        <span>${item.price-item.salesPrice}</span>
                       </>
                     ) : (
                       <span>${item.price}</span>
@@ -95,7 +95,7 @@ const SideMenu = () => {
                       onClick={() =>
                         handleQuantityChange(item._id, item.quantity + 1)
                       }
-                      disabled={(item.quantity === item.qty)}
+                      disabled={item.quantity === item.qty}
                     >
                       +
                     </Button>
