@@ -1,7 +1,7 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./productCard.css";
 import { FaShoppingCart } from "react-icons/fa";
+import "./productCard.css";
 
 const ProductCard = ({ products, onAddToCart }) => {
   const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
@@ -31,7 +31,21 @@ const ProductCard = ({ products, onAddToCart }) => {
                       {product.name}
                     </Link>
                   </Card.Title>
-                  <Card.Text>Price: ${product.price}</Card.Text>
+                  <Card.Text>
+                    {product.salesPrice ? (
+                      <div>
+                        <span className="text-danger">
+                          <del>${product.price}</del>
+                        </span>
+                        <br />
+                        <span className="text-success fw-bold">
+                          Now: ${product.price - product.salesPrice}
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-dark">Price: ${product.price}</span>
+                    )}
+                  </Card.Text>
                   <Button
                     variant="primary"
                     onClick={() => onAddToCart(product)}

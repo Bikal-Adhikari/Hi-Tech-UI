@@ -1,8 +1,8 @@
+import React from "react";
 import {
   Container,
   Row,
   Col,
-  Nav,
   Form,
   FormControl,
   Button,
@@ -11,8 +11,27 @@ import {
 } from "react-bootstrap";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Header } from "../../components/layout/Header/Header";
+import { useSelector, useDispatch } from "react-redux";
+import { removeItem, updateItemQuantity } from "../../features/cart/cartSlice";
 
 const Cart = () => {
+  const { items } = useSelector((state) => state.cartInfo);
+  const dispatch = useDispatch();
+
+  const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
+
+  const handleQuantityChange = (id, quantity) => {
+    dispatch(updateItemQuantity({ id, quantity }));
+  };
+
+  const handleRemoveItem = (id) => {
+    dispatch(removeItem(id));
+  };
+
+  const calculateTotalPrice = () => {
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
   return (
     <div>
       <Header />
@@ -26,69 +45,84 @@ const Cart = () => {
               <Card className="border shadow-0">
                 <Card.Body>
                   <h4 className="card-title mb-4">Your shopping cart</h4>
-                  <div className="row gy-3 mb-4">
-                    {/* Cart Item */}
-                    <Col lg={5}>
-                      <div className="me-lg-5">
-                        <div className="d-flex">
-                          <img
-                            src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/11.webp"
-                            className="border rounded me-3"
-                            style={{ width: "96px", height: "96px" }}
-                            alt="item"
-                          />
-                          <div>
-                            <a href="#" className="nav-link">
-                              Winter jacket for men and lady
-                            </a>
-                            <p className="text-muted">Yellow, Jeans</p>
+                  {items.length > 0 ? (
+                    items.map((item) => (
+                      <div className="row gy-3 mb-4" key={item._id}>
+                        {/* Cart Item */}
+                        <Col lg={5}>
+                          <div className="me-lg-5">
+                            <div className="d-flex">
+                              <img
+                                src={item.img}
+                                className="border rounded me-3"
+                                style={{ width: "96px", height: "96px" }}
+                                alt={item.name}
+                              />
+                              <div>
+                                <a href="#" className="nav-link">
+                                  {item.name}
+                                </a>
+                                <p className="text-muted">{item.description}</p>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col
-                      lg={2}
-                      sm={6}
-                      xs={6}
-                      className="d-flex flex-row flex-lg-column flex-xl-row text-nowrap"
-                    >
-                      <Form.Select style={{ width: "100px" }} className="me-4">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                      </Form.Select>
-                      <div>
-                        <p className="h6">$1156.00</p>
-                        <small className="text-muted text-nowrap">
-                          {" "}
-                          $460.00 / per item{" "}
-                        </small>
-                      </div>
-                    </Col>
-                    <Col
-                      lg
-                      className="d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2"
-                    >
-                      <div className="float-md-end">
-                        <Button
-                          variant="light"
-                          className="border px-2 icon-hover-primary"
+                        </Col>
+                        <Col
+                          lg={2}
+                          sm={6}
+                          xs={6}
+                          className="d-flex flex-row flex-lg-column flex-xl-row text-nowrap"
                         >
-                          <i className="fas fa-heart fa-lg px-1 text-secondary"></i>
-                        </Button>
-                        <Button
-                          variant="light"
-                          className="border text-danger icon-hover-danger"
+                          <Form.Select
+                            value={item.quantity}
+                            onChange={(e) =>
+                              handleQuantityChange(
+                                item._id,
+                                Number(e.target.value)
+                              )
+                            }
+                            style={{ width: "100px" }}
+                            className="me-4"
+                          >
+                            {[...Array(10).keys()].map((x) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            ))}
+                          </Form.Select>
+                          <div>
+                            <p className="h6">${item.price * item.quantity}</p>
+                            <small className="text-muted text-nowrap">
+                              {" "}
+                              ${item.price} / per item{" "}
+                            </small>
+                          </div>
+                        </Col>
+                        <Col
+                          lg
+                          className="d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2"
                         >
-                          {" "}
-                          Remove
-                        </Button>
+                          <div className="float-md-end">
+                            <Button
+                              variant="light"
+                              className="border px-2 icon-hover-primary"
+                            >
+                              <i className="fas fa-heart fa-lg px-1 text-secondary"></i>
+                            </Button>
+                            <Button
+                              variant="light"
+                              className="border text-danger icon-hover-danger"
+                              onClick={() => handleRemoveItem(item._id)}
+                            >
+                              Remove
+                            </Button>
+                          </div>
+                        </Col>
                       </div>
-                    </Col>
-                  </div>
-
-                  {/* Additional items... */}
+                    ))
+                  ) : (
+                    <p>Your cart is empty.</p>
+                  )}
 
                   <div className="border-top pt-4 mx-4 mb-4">
                     <p>
@@ -131,7 +165,7 @@ const Cart = () => {
                 <Card.Body>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total price:</p>
-                    <p className="mb-2">$329.00</p>
+                    <p className="mb-2">${calculateTotalPrice().toFixed(2)}</p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Discount:</p>
@@ -144,7 +178,9 @@ const Cart = () => {
                   <hr />
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total price:</p>
-                    <p className="mb-2 fw-bold">$283.00</p>
+                    <p className="mb-2 fw-bold">
+                      ${(calculateTotalPrice() - 60 + 14).toFixed(2)}
+                    </p>
                   </div>
                   <div className="mt-3">
                     <Button variant="success" className="w-100 shadow-0 mb-2">
@@ -167,44 +203,7 @@ const Cart = () => {
           <header className="mb-4">
             <h3>Recommended items</h3>
           </header>
-
-          {/* <Row>
-            <Col lg={3} md={6} sm={6}>
-              <Card className="px-4 border shadow-0 mb-4 mb-lg-0">
-                <div className="mask px-2" style={{ height: "50px" }}>
-                  <div className="d-flex justify-content-between">
-                    <Badge bg="danger" className="pt-1 mt-3 ms-2">
-                      New
-                    </Badge>
-                    <a href="#">
-                      <i className="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i>
-                    </a>
-                  </div>
-                </div>
-                <a href="#" className="">
-                  <Card.Img
-                    src="https://mdbootstrap.com/img/bootstrap-ecommerce/items/7.webp"
-                    className="rounded-2"
-                  />
-                </a>
-                <Card.Body className="d-flex flex-column pt-3 border-top">
-                  <a href="#" className="nav-link">
-                    Gaming Headset with Mic
-                  </a>
-                  <div className="price-wrap mb-2">
-                    <strong>$18.95</strong>
-                    <del>$24.99</del>
-                  </div>
-                  <div className="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                    <Button variant="outline-primary" className="w-100">
-                      Add to cart
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-
-          </Row> */}
+          {/* Add recommended items here */}
         </Container>
       </section>
 
