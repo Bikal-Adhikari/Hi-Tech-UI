@@ -2,6 +2,10 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Header } from "../../components/layout/Header/Header";
 import hitech from "../../assets/images/hi-techstore.jpg";
+import profile1 from "../../assets/images/Profile1.jpg";
+import profile2 from "../../assets/images/profile2.jpg";
+import profile3 from "../../assets/images/profile3.jpg";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -98,34 +102,40 @@ const About = () => {
           </Row>
           <Row>
             <Col md={4}>
-              <Card className="mb-4">
+              <Card className="mb-5">
                 <Card.Img
                   variant="top"
-                  src="/images/team-member1.jpg" // Replace with an actual image path
+                  src={profile1}
+                  style={{ height: "400px", objectFit: "cover" }}
                 />
                 <Card.Body>
-                  <h5>Jane Doe</h5>
+                  <h5>Bikal Adhikari</h5>
                   <p>Chief Executive Officer</p>
                 </Card.Body>
               </Card>
             </Col>
             <Col md={4}>
-              <Card className="mb-4">
+              <Card className="mb-5">
                 <Card.Img
                   variant="top"
-                  src="/images/team-member2.jpg" // Replace with an actual image path
+                  src={profile2}
+                  style={{ height: "400px", objectFit: "cover" }}
                 />
                 <Card.Body>
-                  <h5>John Smith</h5>
+                  <h5>Shyam Thapa</h5>
                   <p>Chief Technology Officer</p>
                 </Card.Body>
               </Card>
             </Col>
             <Col md={4}>
-              <Card className="mb-4">
-                <Card.Img variant="top" src="/images/team-member3.jpg" />
+              <Card className="mb-5">
+                <Card.Img
+                  variant="top"
+                  src={profile3}
+                  style={{ height: "400px", objectFit: "cover" }}
+                />
                 <Card.Body>
-                  <h5>Emily Johnson</h5>
+                  <h5>Ram Sapkota</h5>
                   <p>Head of Product Development</p>
                 </Card.Body>
               </Card>
@@ -141,8 +151,11 @@ const About = () => {
                 reach out to us at{" "}
                 <a href="mailto:support@hi-tech.com">support@hi-tech.com</a>.
               </p>
-              <Button variant="primary" href="mailto:support@hi-tech.com">
-                Contact Us
+              <Button variant="primary" className="text-decoration-none">
+                <Link to="/contact" className="text-decoration-none text-white">
+                  {" "}
+                  Contact Us{" "}
+                </Link>
               </Button>
             </Col>
           </Row>
