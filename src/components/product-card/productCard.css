@@ -12,7 +12,7 @@
 /* Image styling to ensure it scales properly */
 .card-img-top {
   width: 100%; /* Full width of the card */
-  height: 200px; /* Consistent height */
+  height: 300px; /* Consistent height */
   object-fit: cover; /* Prevents distortion */
 }
 
