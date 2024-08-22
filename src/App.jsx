@@ -26,6 +26,7 @@ import EditProfile from "./pages/user/EditProfile";
 import Products from "./pages/products/Products";
 import CategoryPage from "./pages/products/Category";
 import ProductPage from "./pages/products/ProductPage";
+import Whislist from "./pages/whislist/Whislist";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/category/:slug/:_id" element={<CategoryPage />} />
         <Route path="/product/:slug/:_id" element={<ProductPage />} />
+        <Route path="/whislist" element={<Whislist />} />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>
