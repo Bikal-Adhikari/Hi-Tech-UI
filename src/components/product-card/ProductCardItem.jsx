@@ -13,26 +13,26 @@ const ProductCardItem = ({ product, imgPath, onAddToCart }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const dispatch = useDispatch();
 
-  // Destructure items correctly from the favoriteInfo state
-  const { favourites } = useSelector((state) => state.favoriteInfo) || { favourites: [] };
+  // Destructure favourites correctly from the favoriteInfo state
+  const { favourites } = useSelector((state) => state.favoriteInfo) || {
+    favourites: [],
+  };
 
   const handleFavoriteClick = () => {
-
     if (isFavorite) {
       dispatch(removeFromFavorites(product._id));
     } else {
       dispatch(addToFavorites(product));
     }
     setIsFavorite((prevState) => !prevState);
-    
   };
 
   // Update the isFavorite state based on Redux store
   useEffect(() => {
-    if (items && items.length > 0) {
-      setIsFavorite(items.some((item) => item._id === product._id));
+    if (favourites && favourites.length > 0) {
+      setIsFavorite(favourites.some((item) => item._id === product._id));
     }
-  }, [items, product._id]);
+  }, [favourites, product._id]);
 
   return (
     <Card className="h-100">
