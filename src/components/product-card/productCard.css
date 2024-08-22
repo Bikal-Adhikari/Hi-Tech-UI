@@ -1,4 +1,3 @@
-
 .card {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -20,3 +19,8 @@
 .col-md-4 {
   padding: 0 15px; /* Consistent padding */
 }
+
+/* .heart-icon {
+  position: relative;
+  z-index: 10; 
+} */
