@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  items: [],
+  favourites: [],
 };
 
 const favoritesSlice = createSlice({
@@ -11,13 +11,15 @@ const favoritesSlice = createSlice({
   reducers: {
     addToFavorites(state, action) {
       const product = action.payload;
-      if (!state.items.find((item) => item._id === product._id)) {
-        state.items.push(product);
+      if (!state.favourites.find((item) => item._id === product._id)) {
+        state.favourites.push(product);
       }
     },
     removeFromFavorites(state, action) {
       const productId = action.payload;
-      state.items = state.items.filter((item) => item._id !== productId);
+      state.favourites = state.favourites.filter(
+        (item) => item._id !== productId
+      );
     },
   },
 });

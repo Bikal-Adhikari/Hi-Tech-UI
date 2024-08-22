@@ -14,7 +14,7 @@ const ProductCardItem = ({ product, imgPath, onAddToCart }) => {
   const dispatch = useDispatch();
 
   // Destructure items correctly from the favoriteInfo state
-  const { items } = useSelector((state) => state.favoriteInfo) || { items: [] };
+  const { favourites } = useSelector((state) => state.favoriteInfo) || { favourites: [] };
 
   const handleFavoriteClick = () => {
 

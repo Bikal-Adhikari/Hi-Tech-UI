@@ -7,7 +7,7 @@ import {
   Button,
   NavDropdown,
 } from "react-bootstrap";
-import { FaSearch, FaUser, FaShoppingCart } from "react-icons/fa";
+import { FaSearch, FaUser, FaShoppingCart, FaHeart } from "react-icons/fa";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,9 @@ export const Header = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInfo);
   const { items } = useSelector((state) => state.cartInfo);
+  const { favourites } = useSelector((state) => state.favoriteInfo) || {
+    favourites: [],
+  };
   const [totalQuantity, setTotalQuantity] = useState(0);
   useEffect(() => {
     let total = 0;
@@ -33,7 +36,6 @@ export const Header = () => {
           <Container fluid>
             <Navbar.Brand className="me-auto h-logo">
               <Link className="" to="/">
-                {" "}
                 Hi-Tech
               </Link>
             </Navbar.Brand>
@@ -49,6 +51,14 @@ export const Header = () => {
               </Button>
             </Form>
             <Nav className="ms-auto">
+              <Nav.Link as={Link} to="/wishlist" className="position-relative">
+                <FaHeart />
+                {favourites.length > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {favourites.length}
+                  </span>
+                )}
+              </Nav.Link>
               <NavDropdown
                 title={<FaUser />}
                 id="basic-nav-dropdown"
@@ -208,6 +218,15 @@ export const Header = () => {
                   </>
                 )}
               </NavDropdown>
+              <Nav.Link as={Link} to="/wishlist" className="position-relative">
+                <FaHeart />
+                {favourites.length > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {favourites.length}
+                  </span>
+                )}{" "}
+                Whislist
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
