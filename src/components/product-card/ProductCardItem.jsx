@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -10,13 +9,15 @@ import {
 } from "../../features/favourites/favouriteSlice";
 
 const ProductCardItem = ({ product, imgPath, onAddToCart }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
   const dispatch = useDispatch();
 
-  // Destructure favourites correctly from the favoriteInfo state
-  const { favourites } = useSelector((state) => state.favoriteInfo) || {
+  // Select favorites from the Redux store
+  const { favourites } = useSelector((state) => state.favouriteInfo) || {
     favourites: [],
   };
+
+  // Determine if the product is a favorite
+  const isFavorite = favourites.some((item) => item._id === product._id);
 
   const handleFavoriteClick = () => {
     if (isFavorite) {
@@ -24,15 +25,7 @@ const ProductCardItem = ({ product, imgPath, onAddToCart }) => {
     } else {
       dispatch(addToFavorites(product));
     }
-    setIsFavorite((prevState) => !prevState);
   };
-
-  // Update the isFavorite state based on Redux store
-  useEffect(() => {
-    if (favourites && favourites.length > 0) {
-      setIsFavorite(favourites.some((item) => item._id === product._id));
-    }
-  }, [favourites, product._id]);
 
   return (
     <Card className="h-100">
@@ -42,7 +35,7 @@ const ProductCardItem = ({ product, imgPath, onAddToCart }) => {
         alt={product.name}
         className="card-img-top"
       />
-      <Card.Body key={isFavorite}>
+      <Card.Body>
         <div className="d-flex justify-content-between align-items-center">
           <Card.Title>
             <Link
@@ -52,7 +45,7 @@ const ProductCardItem = ({ product, imgPath, onAddToCart }) => {
               {product.name}
             </Link>
           </Card.Title>
-          <div key={isFavorite ? "favorite" : "not-favorite"}>
+          <div>
             <FaHeart
               className={`heart-icon ${
                 isFavorite ? "text-danger" : "text-muted"
