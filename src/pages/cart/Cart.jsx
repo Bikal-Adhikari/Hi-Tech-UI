@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Container, Row, Col, Button, Card, Badge } from "react-bootstrap";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Header } from "../../components/layout/Header/Header";
