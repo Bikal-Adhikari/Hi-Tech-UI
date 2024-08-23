@@ -2,7 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import "./productCard.css";
 import ProductCardItem from "./ProductCardItem";
 
-const ProductCard = ({ products, onAddToCart, onAddToFavorites }) => {
+const ProductCard = ({ products, onAddToCart }) => {
   const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
   const productsArray = Array.isArray(products) ? products : [products];
 

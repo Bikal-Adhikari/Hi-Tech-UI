@@ -6,15 +6,16 @@ import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
 
 const Wishlist = () => {
-  const { favourites } = useSelector((state) => state.favoriteInfo) || {
+  const { favourites } = useSelector((state) => state.favouriteInfo) || {
     favourites: [],
   };
+  const imgPath = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
 
   return (
     <div>
       <Header />
 
-      <Container className="container mt-5">
+      <Container className="container mt-5 vh-100">
         <h2>Your Wishlist</h2>
         <hr />
         {favourites.length === 0 ? (
@@ -26,7 +27,7 @@ const Wishlist = () => {
                 <Card className="mb-4">
                   <Card.Img
                     variant="top"
-                    src={`${product.thumbnail}` || "placeholder.jpg"}
+                    src={`${imgPath}/${product.thumbnail}` || "placeholder.jpg"}
                     alt={product.name}
                   />
                   <Card.Body>
