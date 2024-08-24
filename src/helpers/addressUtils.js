@@ -21,16 +21,16 @@ export function parseAddress(address) {
   if (parts.length === 5) {
     // Format without ZIP code
     addressComponents.street = `${parts[0]}, ${parts[1]}`; // Combine the first two parts for the street
-    addressComponents.city = parts[2]; // Third part is the city
-    addressComponents.state = parts[3]; // Fourth part is the state
-    addressComponents.country = parts[4]; // Fifth part is the country
+    addressComponents.city = `${parts[2]}, ${parts[3]}`; // Third part is the city
+    addressComponents.state = parts[4]; // Fourth part is the state
+    addressComponents.country = parts[5]; // Fifth part is the country
   } else if (parts.length === 6) {
     // Format with ZIP code
     addressComponents.street = `${parts[0]}, ${parts[1]}`; // Combine the first two parts for the street
-    addressComponents.city = parts[2]; // Third part is the city
-    addressComponents.state = parts[3]; // Fourth part is the state
-    addressComponents.country = parts[4]; // Fifth part is the country
-    addressComponents.zip = parts[5]; // Sixth part is the ZIP code
+    addressComponents.city = `${parts[2]}, ${parts[3]}`; // Third part is the city
+    addressComponents.state = parts[4]; // Fourth part is the state
+    addressComponents.country = parts[5]; // Fifth part is the country
+    addressComponents.zip = parts[6]; // Sixth part is the ZIP code
   } else {
     // If the address format doesn't match the expected patterns, log a warning
     console.warn("Unexpected address format:", parts);
