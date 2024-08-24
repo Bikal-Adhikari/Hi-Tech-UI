@@ -6,9 +6,11 @@ import {
   updateItemQuantity,
   removeItem,
 } from "../../features/cart/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const SideMenu = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { items, statusTab } = useSelector((state) => state.cartInfo);
 
   const handleQuantityChange = (id, quantity) => {
@@ -28,6 +30,9 @@ const SideMenu = () => {
     return total + itemPrice * item.quantity;
   }, 0);
 
+  const handleCheckout = () => {
+    navigate("/checkout");
+  };
   return (
     <div
       className={`side-menu position-fixed top-0 end-0 bg-light shadow-lg h-100 ${
@@ -71,7 +76,7 @@ const SideMenu = () => {
                         >
                           ${item.price}
                         </span>{" "}
-                        <span>${item.price-item.salesPrice}</span>
+                        <span>${item.price - item.salesPrice}</span>
                       </>
                     ) : (
                       <span>${item.price}</span>
@@ -118,7 +123,7 @@ const SideMenu = () => {
             <Button
               variant="success"
               className="w-100"
-              onClick={() => alert("Proceeding to Checkout")}
+              onClick={handleCheckout}
             >
               Checkout
             </Button>
