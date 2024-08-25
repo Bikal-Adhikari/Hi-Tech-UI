@@ -1,4 +1,5 @@
-import { useState } from "react";
+// Payment.js
+import { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import {
   Form,
@@ -18,6 +19,29 @@ const Payment = () => {
   const [paymentError, setPaymentError] = useState(null);
   const [paymentSuccess, setPaymentSuccess] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [clientSecret, setClientSecret] = useState("");
+
+  // Function to create Payment Intent on the server side
+  const createPaymentIntent = async () => {
+    try {
+      const response = await fetch("/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: 1000 }), // Replace 1000 with the actual amount in your application
+      });
+      const data = await response.json();
+      setClientSecret(data.clientSecret);
+    } catch (error) {
+      setPaymentError("Failed to create Payment Intent. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    // Call the createPaymentIntent function on component mount
+    createPaymentIntent();
+  }, []);
 
   const handlePaymentSubmit = async (event) => {
     event.preventDefault();
@@ -31,22 +55,30 @@ const Payment = () => {
 
     const cardElement = elements.getElement(CardElement);
 
-    // Example client-side logic for payment intent
-    const { error, paymentIntent } = await stripe.createPaymentIntent({
-      amount: 1000, // Example amount, should be dynamically set
-      currency: "usd",
-      payment_method: cardElement.id,
-      confirm: true,
-    });
+    if (!clientSecret) {
+      await createPaymentIntent();
+    }
+
+    const { error, paymentIntent } = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card: cardElement,
+        },
+      }
+    );
 
     if (error) {
       setPaymentError(error.message);
       setPaymentSuccess(null);
-    } else {
+    } else if (paymentIntent && paymentIntent.status === "succeeded") {
       setPaymentSuccess(
         `Payment successful! PaymentIntent ID: ${paymentIntent.id}`
       );
       setPaymentError(null);
+    } else {
+      setPaymentError("Payment failed. Please try again.");
+      setPaymentSuccess(null);
     }
 
     setIsProcessing(false);
@@ -58,7 +90,7 @@ const Payment = () => {
       <Container className="mt-5">
         <Row className="justify-content-center">
           <Col md={6}>
-            <Card>
+            <Card className="shadow-lg p-3 mb-5 bg-white rounded">
               <Card.Body>
                 <h2 className="text-center mb-4">Payment</h2>
                 {paymentError && <Alert variant="danger">{paymentError}</Alert>}
@@ -67,22 +99,7 @@ const Payment = () => {
                 )}
                 <Form onSubmit={handlePaymentSubmit}>
                   <Form.Group className="mb-3">
-                    <CardElement
-                      options={{
-                        style: {
-                          base: {
-                            fontSize: "16px",
-                            color: "#424770",
-                            "::placeholder": {
-                              color: "#aab7c4",
-                            },
-                          },
-                          invalid: {
-                            color: "#9e2146",
-                          },
-                        },
-                      }}
-                    />
+                    <CardElement />
                   </Form.Group>
                   <Button
                     variant="primary"

@@ -30,6 +30,41 @@ import Wishlist from "./pages/wishlist/Wishlist";
 import Checkout from "./pages/checkout/Checkout";
 import { Auth } from "./components/auth/auth";
 import Payment from "./pages/payment/Payment";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+const stripePromise = import.meta.env.VITE_APP_stripe_Promise;
+const stripeKey = loadStripe(stripePromise);
+
+const appearance = {
+  theme: "stripe",
+  variables: {
+    colorPrimary: "#0570de",
+    colorBackground: "#ffffff",
+    colorText: "#30313d",
+    fontFamily: "Helvetica, sans-serif",
+    spacingUnit: "2px",
+    borderRadius: "4px",
+  },
+  rules: {
+    ".Label": {
+      color: "#6b7c93",
+    },
+    ".Input": {
+      borderColor: "#e4e8ec",
+    },
+    ".Input:focus": {
+      borderColor: "#cfd7df",
+    },
+    ".Error": {
+      color: "#f00",
+    },
+  },
+};
+
+const elementsOptions = {
+  appearance,
+};
 
 function App() {
   const dispatch = useDispatch();
@@ -72,7 +107,9 @@ function App() {
           path="/payment"
           element={
             <Auth>
-              <Payment />
+              <Elements stripe={stripeKey} options={elementsOptions}>
+                <Payment />
+              </Elements>
             </Auth>
           }
         />
