@@ -50,8 +50,8 @@ const Checkout = () => {
 
   // Handle form submission for proceeding to payment
   const handleProceedToPayment = () => {
-    console.log("Proceeding to payment with address:", shippingAddress);
-    // Implement payment logic here or redirect to payment page
+    console.log("Proceeding to payment with address:", shippingAddress,user._id);
+   
     navigate("/payment"); 
   };
 
