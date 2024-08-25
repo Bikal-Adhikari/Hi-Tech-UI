@@ -1,11 +1,13 @@
-
 import { Container, Row, Col, Button, Card, Badge } from "react-bootstrap";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Header } from "../../components/layout/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import { removeItem, updateItemQuantity } from "../../features/cart/cartSlice";
+import { useNavigate } from "react-router-dom";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { items } = useSelector((state) => state.cartInfo);
   const dispatch = useDispatch();
 
@@ -25,6 +27,10 @@ const Cart = () => {
     return total + item.quantity;
   }, 0);
 
+  const totalOriginalPrice = items.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
+
   const totalPrice = items.reduce((total, item) => {
     const itemPrice = item.salesPrice
       ? item.price - item.salesPrice
@@ -35,6 +41,10 @@ const Cart = () => {
   const totalDiscountPrice = items.reduce((total, item) => {
     return total + item.salesPrice * item.quantity;
   }, 0);
+
+  const handleContinueShopping = () => {
+    navigate("/products");
+  };
 
   return (
     <div>
@@ -109,7 +119,7 @@ const Cart = () => {
                             {item.salesPrice ? (
                               <div>
                                 <span className="text-danger">
-                                  <del>${item.price}</del>
+                                  <del>Price: ${item.price}</del>
                                 </span>
                                 <br />
                                 <span className="text-success fw-bold">
@@ -139,15 +149,10 @@ const Cart = () => {
                           <div className="float-md-end">
                             <Button
                               variant="light"
-                              className="border px-2 icon-hover-primary"
-                            >
-                              <i className="fas fa-heart fa-lg px-1 text-secondary"></i>
-                            </Button>
-                            <Button
-                              variant="light"
                               className="border text-danger icon-hover-danger"
                               onClick={() => handleRemoveItem(item._id)}
                             >
+                              <RiDeleteBin5Line />
                               Remove
                             </Button>
                           </div>
@@ -185,12 +190,17 @@ const Cart = () => {
               <Card className="mb-3 border shadow-0">
                 <Card.Body>
                   <div className="d-flex justify-content-between">
-                    <p className="mb-2">Total price:</p>
-                    <p className="mb-2">${totalPrice.toFixed(2)}</p>
+                    <p className="mb-2">Total original price:</p>
+                    <p className="mb-2">${totalOriginalPrice.toFixed(2)}</p>
                   </div>
+
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Discount:</p>
                     <p className="mb-2 text-success">-${totalDiscountPrice}</p>
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <p className="mb-2">Total discounted price:</p>
+                    <p className="mb-2">${totalPrice.toFixed(2)}</p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">TAX:</p>
@@ -212,8 +222,12 @@ const Cart = () => {
                     <Button variant="success" className="w-100 shadow-0 mb-2">
                       Make Purchase
                     </Button>
-                    <Button variant="light" className="w-100 border mt-2">
-                      Back to shop
+                    <Button
+                      variant="light"
+                      className="w-100 border mt-2"
+                      onClick={handleContinueShopping}
+                    >
+                      Continue Shopping
                     </Button>
                   </div>
                 </Card.Body>

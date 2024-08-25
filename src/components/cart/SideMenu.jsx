@@ -31,7 +31,7 @@ const SideMenu = () => {
   }, 0);
 
   const handleCheckout = () => {
-    navigate("/checkout");
+    navigate("/cart");
   };
   return (
     <div
@@ -41,7 +41,7 @@ const SideMenu = () => {
     >
       <Container className="side-menu-content d-flex flex-column h-100">
         <Row className="mb-4">
-          <Col className="d-flex justify-content-between align-items-center">
+          <Col className="d-flex justify-content-between align-items-center pb-2">
             <h2>Your Cart</h2>
             <Button
               variant="outline-secondary"
@@ -51,6 +51,7 @@ const SideMenu = () => {
               &times;
             </Button>
           </Col>
+          <hr />
         </Row>
         <Row className="flex-grow-1 overflow-auto">
           {items.length === 0 ? (
@@ -117,6 +118,7 @@ const SideMenu = () => {
             ))
           )}
         </Row>
+        <hr />
         <Row className="mt-4">
           <Col className="d-flex justify-content-between align-items-center">
             <h4>Total: ${totalPrice.toFixed(2)}</h4>
