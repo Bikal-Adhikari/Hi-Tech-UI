@@ -51,7 +51,9 @@ const Checkout = () => {
     console.log(
       "Proceeding to payment with address:",
       shippingAddress,
-      user._id
+      user,
+      totalAmount,
+      items
     );
 
     // Navigate to payment page and pass required data in state
@@ -77,6 +79,7 @@ const Checkout = () => {
                 <h2 className="text-center mb-4">Checkout</h2>
                 <Form>
                   <Row>
+                    {/* Shipping Address Section */}
                     <Col md={12} lg={6}>
                       <Card className="mb-4">
                         <Card.Header>Shipping Address</Card.Header>
@@ -90,11 +93,47 @@ const Checkout = () => {
                             onChange={(e) => handleInputChange(e, "shipping")}
                             disabled={useBillingAsShipping}
                           />
-                          {/* Other address fields... */}
+                          <CustomInput
+                            label="City"
+                            type="text"
+                            placeholder="Enter city"
+                            name="city"
+                            value={shippingAddress.city}
+                            onChange={(e) => handleInputChange(e, "shipping")}
+                            disabled={useBillingAsShipping}
+                          />
+                          <CustomInput
+                            label="State"
+                            type="text"
+                            placeholder="Enter state"
+                            name="state"
+                            value={shippingAddress.state}
+                            onChange={(e) => handleInputChange(e, "shipping")}
+                            disabled={useBillingAsShipping}
+                          />
+                          <CustomInput
+                            label="Country"
+                            type="text"
+                            placeholder="Enter Country"
+                            name="country"
+                            value={shippingAddress.country}
+                            onChange={(e) => handleInputChange(e, "shipping")}
+                            disabled={useBillingAsShipping}
+                          />
+                          <CustomInput
+                            label="Zip Code"
+                            type="text"
+                            placeholder="Enter zip code"
+                            name="zip"
+                            value={shippingAddress.zip}
+                            onChange={(e) => handleInputChange(e, "shipping")}
+                            disabled={useBillingAsShipping}
+                          />
                         </Card.Body>
                       </Card>
                     </Col>
 
+                    {/* Billing Address Section */}
                     {!useBillingAsShipping && (
                       <Col md={12} lg={6}>
                         <Card>
@@ -108,7 +147,38 @@ const Checkout = () => {
                               value={billingAddress.street}
                               onChange={(e) => handleInputChange(e, "billing")}
                             />
-                            {/* Other billing address fields... */}
+                            <CustomInput
+                              label="City"
+                              type="text"
+                              placeholder="Enter city"
+                              name="city"
+                              value={billingAddress.city}
+                              onChange={(e) => handleInputChange(e, "billing")}
+                            />
+                            <CustomInput
+                              label="State"
+                              type="text"
+                              placeholder="Enter state"
+                              name="state"
+                              value={billingAddress.state}
+                              onChange={(e) => handleInputChange(e, "billing")}
+                            />
+                            <CustomInput
+                              label="Country"
+                              type="text"
+                              placeholder="Enter country"
+                              name="country"
+                              value={billingAddress.country}
+                              onChange={(e) => handleInputChange(e, "billing")}
+                            />
+                            <CustomInput
+                              label="Zip Code"
+                              type="text"
+                              placeholder="Enter zip code"
+                              name="zip"
+                              value={billingAddress.zip}
+                              onChange={(e) => handleInputChange(e, "billing")}
+                            />
                           </Card.Body>
                         </Card>
                       </Col>
