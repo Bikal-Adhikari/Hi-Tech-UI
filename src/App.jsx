@@ -31,7 +31,7 @@ import Checkout from "./pages/checkout/Checkout";
 import { Auth } from "./components/auth/auth";
 import Payment from "./pages/payment/Payment";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
+
 
 const stripePromise = import.meta.env.VITE_APP_stripe_Promise;
 const stripeKey = loadStripe(stripePromise);
@@ -107,9 +107,7 @@ function App() {
           path="/payment"
           element={
             <Auth>
-              <Elements stripe={stripeKey} options={elementsOptions}>
-                <Payment />
-              </Elements>
+              <Payment />
             </Auth>
           }
         />

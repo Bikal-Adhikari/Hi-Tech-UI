@@ -1,4 +1,4 @@
-// Payment.js
+
 import { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import {
