@@ -6,9 +6,11 @@ import { Footer } from "../../components/layout/Footer/Footer";
 
 import { parseAddress } from "../../helpers/addressUtils";
 import { CustomInput } from "../../components/common/custom-input/CustomInput";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const { user } = useSelector((state) => state.userInfo);
+  const navigate = useNavigate();
 
   // Initialize state for addresses
   const [shippingAddress, setShippingAddress] = useState({
@@ -50,6 +52,7 @@ const Checkout = () => {
   const handleProceedToPayment = () => {
     console.log("Proceeding to payment with address:", shippingAddress);
     // Implement payment logic here or redirect to payment page
+    navigate("/payment"); 
   };
 
   return (

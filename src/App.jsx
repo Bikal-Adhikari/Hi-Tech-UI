@@ -29,6 +29,7 @@ import ProductPage from "./pages/products/ProductPage";
 import Wishlist from "./pages/wishlist/Wishlist";
 import Checkout from "./pages/checkout/Checkout";
 import { Auth } from "./components/auth/auth";
+import Payment from "./pages/payment/Payment";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,14 @@ function App() {
           element={
             <Auth>
               <Checkout />
+            </Auth>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <Auth>
+              <Payment />
             </Auth>
           }
         />
