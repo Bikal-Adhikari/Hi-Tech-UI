@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button, Card, Badge } from "react-bootstrap";
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { Footer } from "../../components/layout/Footer/Footer";
 import { Header } from "../../components/layout/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
@@ -41,6 +41,23 @@ const Cart = () => {
   const totalDiscountPrice = items.reduce((total, item) => {
     return total + item.salesPrice * item.quantity;
   }, 0);
+
+  const totalTax = totalQuantity * 4
+  const totalAmount = (
+    totalPrice -
+    totalDiscountPrice +
+    totalTax
+  ).toFixed(2)
+
+  const handleMakePurchase = () => {
+  
+    navigate('/checkout', {
+      state: {
+        items,
+        totalAmount,
+      },
+    });
+  };
 
   const handleContinueShopping = () => {
     navigate("/products");
@@ -204,28 +221,25 @@ const Cart = () => {
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">TAX:</p>
-                    <p className="mb-2">${totalQuantity * 4}</p>
+                    <p className="mb-2">${totalTax}</p>
                   </div>
                   <hr />
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total price:</p>
                     <p className="mb-2 fw-bold">
                       $
-                      {(
-                        totalPrice -
-                        totalDiscountPrice +
-                        totalQuantity * 4
-                      ).toFixed(2)}
+                      {totalAmount}
                     </p>
                   </div>
                   <div className="mt-3">
-                    <Button variant="success" className="w-100 shadow-0 mb-2">
+                    <Button variant="success" className="w-100 shadow-0 mb-2"
+                    onClick={() => handleMakePurchase()}>
                       Make Purchase
                     </Button>
                     <Button
                       variant="light"
                       className="w-100 border mt-2"
-                      onClick={handleContinueShopping}
+                      onClick={()=>handleContinueShopping()}
                     >
                       Continue Shopping
                     </Button>
