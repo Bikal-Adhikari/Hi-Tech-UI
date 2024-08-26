@@ -17,7 +17,8 @@ const Payment = () => {
   const location = useLocation();
   const { state } = location;
 
-  const { totalAmount } = state || {};
+  const { user, items, totalAmount, shippingAddress, billingAddress } =
+    state || {};
 
   useEffect(() => {
     // Fetch and set the Stripe publishable key
@@ -43,7 +44,18 @@ const Payment = () => {
     const createPaymentIntent = async () => {
       if (stripePromise && totalAmount) {
         try {
-          const clientSecret = await postPaymentIntentAction(totalAmount);
+          const clientSecret = await postPaymentIntentAction({
+            user,
+            items: items.map((item) => ({
+              name: item.name,
+              productId: item._id, 
+              price: item.price,
+              quantity: item.quantity,
+            })),
+            totalAmount,
+            shippingAddress,
+            billingAddress,
+          });
           setClientSecret(clientSecret);
         } catch (error) {
           console.error("Error creating payment intent:", error);
@@ -52,8 +64,14 @@ const Payment = () => {
     };
 
     createPaymentIntent();
-  }, [stripePromise, totalAmount]); // Run when stripePromise or totalAmount changes
-
+  }, [
+    stripePromise,
+    totalAmount,
+    user,
+    items,
+    shippingAddress,
+    billingAddress,
+  ]);
   if (!stripePromise) {
     return (
       <div>

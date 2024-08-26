@@ -10,13 +10,11 @@ export const getPaymentKey = () => {
 
   return apiProcessor(obj);
 };
-export const postPaymentIntent = (amount) => {
+export const postPaymentIntent = (orderObj) => {
   const obj = {
     url: paymentEP + "/create-payment-intent",
     method: "post",
-    data:{
-      amount: amount,
-    },
+    data: orderObj,
     isPrivate: true,
   };
 

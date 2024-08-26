@@ -30,6 +30,7 @@ import Wishlist from "./pages/wishlist/Wishlist";
 import Checkout from "./pages/checkout/Checkout";
 import { Auth } from "./components/auth/auth";
 import Payment from "./pages/payment/Payment";
+import OrderConfirmation from "./pages/order/OrderConfirmation";
 
 function App() {
   const dispatch = useDispatch();
@@ -73,6 +74,14 @@ function App() {
           element={
             <Auth>
               <Payment />
+            </Auth>
+          }
+        />
+        <Route
+          path="/order-confirmation"
+          element={
+            <Auth>
+              <OrderConfirmation />
             </Auth>
           }
         />
