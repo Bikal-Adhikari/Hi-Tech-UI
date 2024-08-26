@@ -3,9 +3,8 @@ const orderEP = import.meta.env.VITE_APP_SERVER_ROOT + "/api/v1/order";
 
 export const fetchAllOrders = (userId) => {
   const obj = {
-    url: orderEP,
+    url: `${orderEP}?userId=${userId}`,
     method: "get",
-    userId: userId,
   };
 
   return apiProcessor(obj);

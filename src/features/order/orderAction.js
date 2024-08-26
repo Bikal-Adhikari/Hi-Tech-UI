@@ -8,8 +8,8 @@ export const addNewOrderAction = (orderData) => async (dispatch) => {
   }
 };
 
-export const fetchOrderAction = () => async (dispatch) => {
-  const { status, orders } = await fetchAllOrders();
+export const fetchOrderAction = (userId) => async (dispatch) => {
+  const { status, orders } = await fetchAllOrders(userId);
 
   if (status === "success") {
     dispatch(setOrders(orders));
