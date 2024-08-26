@@ -35,15 +35,18 @@ const Checkout = () => {
     if (user && user.address) {
       const parsedAddress = parseAddress(user.address);
       setShippingAddress(parsedAddress);
+      if (useBillingAsShipping) {
+        setBillingAddress(parsedAddress);
+      }
     }
-  }, [user]);
+  }, [user, useBillingAsShipping]);
 
   const handleInputChange = (e, type) => {
     const { name, value } = e.target;
     if (type === "shipping") {
-      setShippingAddress({ ...shippingAddress, [name]: value });
+      setShippingAddress((prev) => ({ ...prev, [name]: value }));
     } else if (type === "billing") {
-      setBillingAddress({ ...billingAddress, [name]: value });
+      setBillingAddress((prev) => ({ ...prev, [name]: value }));
     }
   };
 
@@ -187,7 +190,13 @@ const Checkout = () => {
                       type="checkbox"
                       label="Use billing address as shipping address"
                       checked={useBillingAsShipping}
-                      onChange={() => setUseBillingAsShipping((prev) => !prev)}
+                      onChange={() => {
+                        setUseBillingAsShipping((prev) => !prev);
+                        // Update billing address when toggling
+                        if (!useBillingAsShipping) {
+                          setBillingAddress(shippingAddress);
+                        }
+                      }}
                     />
                   </Row>
                   <Button

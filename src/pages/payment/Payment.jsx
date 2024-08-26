@@ -9,51 +9,78 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { CheckoutForm } from "../../components/common/checkout/CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
-import "./payment.css";
+import { useLocation } from "react-router-dom";
 
 const Payment = () => {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
+  const location = useLocation();
+  const { state } = location;
+
+  const { totalAmount } = state || {};
 
   useEffect(() => {
+    // Fetch and set the Stripe publishable key
     const fetchStripeKey = async () => {
       try {
         const publishableKey = await getPublishableKey();
-        setStripePromise(loadStripe(publishableKey));
+        if (publishableKey) {
+          const stripe = loadStripe(publishableKey);
+          setStripePromise(stripe);
+        } else {
+          console.error("Publishable key is invalid or missing.");
+        }
       } catch (error) {
         console.error("Error fetching Stripe publishable key:", error);
       }
     };
 
     fetchStripeKey();
-  }, []);
+  }, []); // Run once on component mount
 
   useEffect(() => {
+    // Create a payment intent only if stripePromise is available
     const createPaymentIntent = async () => {
-      try {
-        const clientSecret = await postPaymentIntentAction(amount);
-        setClientSecret(clientSecret);
-      } catch (error) {
-        console.error("Error creating payment intent:", error);
+      if (stripePromise && totalAmount) {
+        try {
+          const clientSecret = await postPaymentIntentAction(totalAmount);
+          setClientSecret(clientSecret);
+        } catch (error) {
+          console.error("Error creating payment intent:", error);
+        }
       }
     };
 
     createPaymentIntent();
-  }, []);
+  }, [stripePromise, totalAmount]); // Run when stripePromise or totalAmount changes
 
-  console.log(stripePromise, clientSecret);
+  if (!stripePromise) {
+    return (
+      <div>
+        <Header />
+        <Container className="mt-5">
+          <Row className="justify-content-center">
+            <h2 className="text-center">Loading payment form...</h2>
+          </Row>
+        </Container>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <>
       <Header />
       <Container className="mt-5 vh-100">
         <Row className="justify-content-center">
-          <h2 className="text-center">Payment Form </h2>
+          <h2 className="text-center">Payment Form</h2>
           <Col md={6}>
-            {stripePromise && clientSecret && (
+            {clientSecret ? (
               <Elements stripe={stripePromise} options={{ clientSecret }}>
                 <CheckoutForm />
               </Elements>
+            ) : (
+              <div>Loading payment form...</div>
             )}
           </Col>
         </Row>
