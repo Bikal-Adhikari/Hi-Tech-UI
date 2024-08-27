@@ -6,11 +6,18 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleOrderAction } from "../../features/order/orderAction";
 import StarRating from "../../components/rating/StarRating";
+import {
+  addNewReviewAction,
+  fetchAllUserReviewsAction,
+} from "../../features/review/reviewAction";
 
 const OrderDetails = () => {
   const { _id } = useParams();
   const dispatch = useDispatch();
   const { order } = useSelector((state) => state.orderInfo);
+  const { user } = useSelector((state) => state.userInfo);
+  const { userReview } = useSelector((state) => state.reviewInfo);
+
   const [review, setReview] = useState({});
   const [rating, setRating] = useState({});
 
@@ -19,6 +26,34 @@ const OrderDetails = () => {
       dispatch(fetchSingleOrderAction(_id));
     }
   }, [dispatch, order, _id]);
+
+  useEffect(() => {
+    if (user?._id) {
+      dispatch(fetchAllUserReviewsAction(user._id));
+    }
+  }, [dispatch, user]);
+
+  useEffect(() => {
+    if (order && userReview) {
+      const initialReviews = {};
+      const initialRatings = {};
+
+      order.items.forEach((product) => {
+        const userProdReview = userReview.find(
+          (review) =>
+            review.productId.toString() === product.productId.toString()
+        );
+
+        if (userProdReview) {
+          initialReviews[product.productId] = userProdReview.review;
+          initialRatings[product.productId] = userProdReview.rating;
+        }
+      });
+
+      setReview(initialReviews);
+      setRating(initialRatings);
+    }
+  }, [order, userReview]);
 
   const handleReviewChange = (productId, value) => {
     setReview((prevReview) => ({
@@ -35,7 +70,14 @@ const OrderDetails = () => {
   };
 
   const handleSubmitReview = (productId) => {
-    // dispatch(submitReviewAction(productId, review[productId], rating[productId]));
+    const reviewObj = {
+      userId: user._id,
+      productId: productId,
+      review: review[productId] || "", // Provide default value if review is undefined
+      rating: rating[productId] || 0, // Provide default value if rating is undefined
+    };
+
+    dispatch(addNewReviewAction(reviewObj));
   };
 
   return (
@@ -54,21 +96,26 @@ const OrderDetails = () => {
               </Col>
               <Col xs={12}>
                 <h3>Products:</h3>
-                {order.items.length > 0 ? (
-                  order.items.map((product) => (
+                {order?.items?.length > 0 ? (
+                  order?.items?.map((product) => (
                     <Row key={product._id} className="mb-3">
                       <Col xs={8}>
                         <h4>{product.name}</h4>
                         <p>Quantity: {product.quantity}</p>
                         <p>Price: ${product.price}</p>
-                        {product.review ? (
+                        {userReview?.find(
+                          (review) =>
+                            review.productId.toString() ===
+                            product.productId.toString()
+                        ) ? (
                           <>
                             <p>
-                              <strong>Rating:</strong> {product.review.rating}{" "}
-                              &#9733;
+                              <strong>Rating:</strong>{" "}
+                              {rating[product.productId] || 0} &#9733;
                             </p>
                             <p>
-                              <strong>Review:</strong> {product.review.text}
+                              <strong>Review:</strong>{" "}
+                              {review[product.productId] || "No review"}
                             </p>
                           </>
                         ) : (
@@ -76,9 +123,9 @@ const OrderDetails = () => {
                             <Form.Group controlId={`rating-${product._id}`}>
                               <Form.Label>Rating:</Form.Label>
                               <StarRating
-                                rating={rating[product._id] || 0}
+                                rating={rating[product.productId] || 0}
                                 onRatingChange={(value) =>
-                                  handleRatingChange(product._id, value)
+                                  handleRatingChange(product.productId, value)
                                 }
                               />
                             </Form.Group>
@@ -88,10 +135,10 @@ const OrderDetails = () => {
                                 as="textarea"
                                 rows={3}
                                 placeholder="Write your review here..."
-                                value={review[product._id] || ""}
+                                value={review[product.productId] || ""}
                                 onChange={(e) =>
                                   handleReviewChange(
-                                    product._id,
+                                    product.productId,
                                     e.target.value
                                   )
                                 }
@@ -99,7 +146,9 @@ const OrderDetails = () => {
                             </Form.Group>
                             <Button
                               variant="primary"
-                              onClick={() => handleSubmitReview(product._id)}
+                              onClick={() =>
+                                handleSubmitReview(product.productId)
+                              }
                               className="mt-2"
                             >
                               Submit Review

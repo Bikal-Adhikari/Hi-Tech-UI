@@ -5,6 +5,7 @@ import categoryReducer from "../features/category/categorySlice";
 import cartReducer from "../features/cart/cartSlice";
 import favouriteReducer from "../features/favourites/favouriteSlice";
 import orderReducer from "../features/order/orderSlice";
+import reviewReducer from "../features/review/reviewSlice";
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     cartInfo: cartReducer,
     favouriteInfo: favouriteReducer,
     orderInfo: orderReducer,
+    reviewInfo: reviewReducer,
   },
 });
