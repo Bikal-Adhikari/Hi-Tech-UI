@@ -31,6 +31,7 @@ import Checkout from "./pages/checkout/Checkout";
 import { Auth } from "./components/auth/auth";
 import Payment from "./pages/payment/Payment";
 import OrderConfirmation from "./pages/order/OrderConfirmation";
+import OrderDetails from "./pages/order/OrderDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,6 +83,14 @@ function App() {
           element={
             <Auth>
               <OrderConfirmation />
+            </Auth>
+          }
+        />
+        <Route
+          path="/order-details/:_id"
+          element={
+            <Auth>
+              <OrderDetails />
             </Auth>
           }
         />

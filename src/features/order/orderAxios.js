@@ -9,6 +9,14 @@ export const fetchAllOrders = (userId) => {
 
   return apiProcessor(obj);
 };
+export const fetchSingleOrder = (_id) => {
+  const obj = {
+    url: `${orderEP}/${_id}`,
+    method: "get",
+  };
+
+  return apiProcessor(obj);
+};
 export const addNewOrder = (orderData) => {
   const obj = {
     url: orderEP,

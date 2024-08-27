@@ -1,5 +1,5 @@
-import { addNewOrder, fetchAllOrders } from "./orderAxios";
-import { setOrders } from "./orderSlice";
+import { addNewOrder, fetchAllOrders, fetchSingleOrder } from "./orderAxios";
+import { setOrder, setOrders } from "./orderSlice";
 
 export const addNewOrderAction = (orderData) => async (dispatch) => {
   const { status } = await addNewOrder(orderData);
@@ -10,8 +10,15 @@ export const addNewOrderAction = (orderData) => async (dispatch) => {
 
 export const fetchOrderAction = (userId) => async (dispatch) => {
   const { status, orders } = await fetchAllOrders(userId);
-  console.log(orders);
+ 
   if (status === "success") {
     dispatch(setOrders(orders));
   }
 };
+
+export const fetchSingleOrderAction = (_id)=> async (dispatch)=>{
+  const {status, order} = await fetchSingleOrder(_id)
+  if(status === "success"){
+    dispatch(setOrder(order))
+    }
+}

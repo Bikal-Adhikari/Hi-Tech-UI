@@ -1,0 +1,14 @@
+.star-rating {
+  display: flex;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.star {
+  color: #d3d3d3; /* Light gray */
+  transition: color 0.2s ease-in-out;
+}
+
+.star.filled {
+  color: #ffd700; /* Gold */
+}
