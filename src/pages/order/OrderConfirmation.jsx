@@ -14,23 +14,25 @@ const OrderConfirmation = () => {
     if (user) {
       dispatch(fetchOrderAction(user._id));
     }
-  }, [user, dispatch]); // Add dependency array with `user` and `dispatch`
+  }, [user, dispatch]);
 
   // Assume you want to display the most recent order
-  const recentOrder = orders && orders.length > 0 ? orders[0] : null;
+  const recentOrder =
+    orders && orders.length > 0 ? orders[orders.length - 1] : null;
+
   const { shippingAddress, billingAddress, items, totalAmount } =
     recentOrder || {};
 
   return (
     <>
       <Header />
-      <Container className="mt-5 vh-100">
+      <Container className="mt-5 vh-200">
         <Row className="justify-content-center">
           <Col md={8}>
             <Card>
               <Card.Body>
                 <h2 className="text-center mb-4">Order Confirmation</h2>
-                <h4>Thank you for your purchase, {user?.name}!</h4>
+                <h4>Thank you for your purchase, {user?.fName}!</h4>
                 <p className="mt-4">
                   <strong>Order Summary:</strong>
                 </p>
@@ -51,9 +53,9 @@ const OrderConfirmation = () => {
                         <p>
                           <strong>Country:</strong> {shippingAddress?.country}
                         </p>
-                        <p>
+                        {/* <p>
                           <strong>Zip Code:</strong> {shippingAddress?.zip}
-                        </p>
+                        </p> */}
                       </Card.Body>
                     </Card>
                     <Card className="mb-4">
@@ -71,9 +73,9 @@ const OrderConfirmation = () => {
                         <p>
                           <strong>Country:</strong> {billingAddress?.country}
                         </p>
-                        <p>
+                        {/* <p>
                           <strong>Zip Code:</strong> {billingAddress?.zip}
-                        </p>
+                        </p> */}
                       </Card.Body>
                     </Card>
                     <Card className="mb-4">

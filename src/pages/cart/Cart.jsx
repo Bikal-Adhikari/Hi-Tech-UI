@@ -42,16 +42,11 @@ const Cart = () => {
     return total + item.salesPrice * item.quantity;
   }, 0);
 
-  const totalTax = totalQuantity * 4
-  const totalAmount = (
-    totalPrice -
-    totalDiscountPrice +
-    totalTax
-  ).toFixed(2)
+  const totalTax = totalQuantity * 4;
+  const totalAmount = (totalPrice + totalTax).toFixed(2);
 
   const handleMakePurchase = () => {
-  
-    navigate('/checkout', {
+    navigate("/checkout", {
       state: {
         items,
         totalAmount,
@@ -226,20 +221,20 @@ const Cart = () => {
                   <hr />
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total price:</p>
-                    <p className="mb-2 fw-bold">
-                      $
-                      {totalAmount}
-                    </p>
+                    <p className="mb-2 fw-bold">${totalAmount}</p>
                   </div>
                   <div className="mt-3">
-                    <Button variant="success" className="w-100 shadow-0 mb-2"
-                    onClick={() => handleMakePurchase()}>
+                    <Button
+                      variant="success"
+                      className="w-100 shadow-0 mb-2"
+                      onClick={() => handleMakePurchase()}
+                    >
                       Make Purchase
                     </Button>
                     <Button
                       variant="light"
                       className="w-100 border mt-2"
-                      onClick={()=>handleContinueShopping()}
+                      onClick={() => handleContinueShopping()}
                     >
                       Continue Shopping
                     </Button>

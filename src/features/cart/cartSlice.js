@@ -38,6 +38,9 @@ const cartReducer = createSlice({
       const id = action.payload;
       state.items = state.items.filter((item) => item._id !== id);
     },
+    clearCart: (state) => {
+      state.items = [];
+    },
   },
 });
 
@@ -47,6 +50,7 @@ export const {
   closeStatusTab,
   updateItemQuantity,
   removeItem,
+  clearCart,
 } = cartReducer.actions;
 
 export default cartReducer.reducer;
