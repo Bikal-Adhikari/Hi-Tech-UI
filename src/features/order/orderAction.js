@@ -10,7 +10,7 @@ export const addNewOrderAction = (orderData) => async (dispatch) => {
 
 export const fetchOrderAction = (userId) => async (dispatch) => {
   const { status, orders } = await fetchAllOrders(userId);
-
+  console.log(orders);
   if (status === "success") {
     dispatch(setOrders(orders));
   }

@@ -1,21 +1,33 @@
 import { useEffect } from "react";
-import { Row, Col, Button, Image } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Button,
+  Image,
+  Tab,
+  Tabs,
+  Container,
+  Spinner,
+} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Header } from "../../../components/layout/Header/Header";
 import { Footer } from "../../../components/layout/Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   fetchSingleUserProfileAction,
   updateUserProfilePicAction,
 } from "../../../features/users/userAction";
-
 import useForm from "../../../Hooks/useForm";
 import ProfilePicUploader from "../../../components/common/custom-modal/ProfilePicUploader";
+import { fetchOrderAction } from "../../../features/order/orderAction";
 
 const userEp = import.meta.env.VITE_APP_SERVER_ROOT;
+
 const ProfilePage = () => {
   const { user } = useSelector((state) => state.userInfo);
+  const { orders } = useSelector((state) => state.orderInfo);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { form, setForm, setImages } = useForm({ user });
 
   useEffect(() => {
@@ -25,11 +37,37 @@ const ProfilePage = () => {
     }
   }, [dispatch, user, form]);
 
+  useEffect(() => {
+    // Fetch user orders
+    if (user?._id) {
+      dispatch(fetchOrderAction(user._id));
+    }
+  }, [dispatch, user]);
+
   const handleProfilePicUpload = (file) => {
     const formData = new FormData();
     formData.append("profilePic", file);
 
     dispatch(updateUserProfilePicAction(user._id, formData));
+  };
+
+  // Filter orders based on 10-day condition
+  const currentDate = new Date();
+  const trackOrders = orders.filter(
+    (order) =>
+      new Date(order.createdAt) >=
+      new Date(currentDate.setDate(currentDate.getDate() - 10))
+  );
+
+  const orderHistory = orders.filter(
+    (order) =>
+      new Date(order.createdAt) <
+      new Date(currentDate.setDate(currentDate.getDate() - 10))
+  );
+
+  const handleViewDetails = (orderId) => {
+    // Redirect to the order details page
+    navigate(`/order-details/${orderId}`);
   };
 
   return (
@@ -126,6 +164,73 @@ const ProfilePage = () => {
               </Col>
             </Row>
           </Col>
+        </Row>
+        <Row>
+          <Tabs
+            defaultActiveKey="Track your orders"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+          >
+            <Tab eventKey="Track your orders" title="Track your orders">
+              {trackOrders.length > 0 ? (
+                <Container>
+                  <Row>
+                    {trackOrders.map((order) => (
+                      <Col key={order._id} md={12} className="mb-3">
+                        <div className="order-item">
+                          <h5>Order ID: {order._id}</h5>
+                          <p>Status: {order.status}</p>
+                          <p>
+                            Ordered At:{" "}
+                            {new Date(order.createdAt).toLocaleString()}
+                          </p>
+                          {/* Add "View Details" button */}
+                          <Button
+                            variant="info"
+                            onClick={() => handleViewDetails(order._id)}
+                          >
+                            View Details
+                          </Button>
+                        </div>
+                      </Col>
+                    ))}
+                  </Row>
+                </Container>
+              ) : (
+                <p>No orders to track.</p>
+              )}
+            </Tab>
+
+            <Tab eventKey="Order History" title="Order History">
+              {orderHistory.length > 0 ? (
+                <Container>
+                  <Row>
+                    {orderHistory.map((order) => (
+                      <Col key={order._id} md={12} className="mb-3">
+                        <div className="order-item">
+                          <h5>Order ID: {order._id}</h5>
+                          <p>Status: {order.status}</p>
+                          <p>
+                            Ordered At:{" "}
+                            {new Date(order.createdAt).toLocaleString()}
+                          </p>
+                          {/* Add "View Details" button */}
+                          <Button
+                            variant="info"
+                            onClick={() => handleViewDetails(order._id)}
+                          >
+                            View Details
+                          </Button>
+                        </div>
+                      </Col>
+                    ))}
+                  </Row>
+                </Container>
+              ) : (
+                <p>No past orders found.</p>
+              )}
+            </Tab>
+          </Tabs>
         </Row>
       </main>
       <Footer />
