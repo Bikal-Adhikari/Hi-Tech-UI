@@ -17,6 +17,7 @@ import { addToCart } from "../../features/cart/cartSlice";
 import { fetchAllReviewsAction } from "../../features/review/reviewAction";
 import { fetchSingleCategoryAction } from "../../features/category/categoryAction";
 import "./ProductPage.css"; // Import custom CSS
+import StarRating from "../../components/rating/StarRating";
 
 const ProductPage = () => {
   const { _id } = useParams();
@@ -204,9 +205,11 @@ const ProductPage = () => {
             {reviews && reviews.length > 0 ? (
               reviews.map((review, index) => (
                 <div key={index} className="mb-3">
-                  <strong>{review.userName}</strong>
-                  <p>Rating: {review.rating} ★</p>
-                  <p>{review.comment}</p>
+                  <strong>{review.fName}</strong>
+                  <div>
+                    <StarRating rating={review.rating} />
+                  </div>
+                  <p>{review.review}</p>
                 </div>
               ))
             ) : (
