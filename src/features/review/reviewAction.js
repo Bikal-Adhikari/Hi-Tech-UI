@@ -18,8 +18,8 @@ export const fetchAllUserReviewsAction = (userId) => async (dispatch) => {
     dispatch(setUserReview(reviews));
   }
 };
-export const fetchAllReviewsAction = (userId) => async (dispatch) => {
-  const { status, reviews } = await fetchAllReviews(userId);
+export const fetchAllReviewsAction = (productId) => async (dispatch) => {
+  const { status, reviews } = await fetchAllReviews(productId);
 
   if (status === "success") {
     dispatch(setReviews(reviews));

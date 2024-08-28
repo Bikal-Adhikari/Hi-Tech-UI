@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { fetchSingleProductAction } from "../../features/products/productAction";
 import { Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
 import { addToCart } from "../../features/cart/cartSlice";
+import { fetchAllReviewsAction } from "../../features/review/reviewAction";
 
 const ProductPage = () => {
   const { _id } = useParams();
@@ -13,10 +14,17 @@ const ProductPage = () => {
   const dispatch = useDispatch();
   const { prod } = useSelector((state) => state.productInfo);
   const imgEp = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
+  const { reviews } = useSelector((state) => state.reviewInfo);
 
   useEffect(() => {
     dispatch(fetchSingleProductAction(_id));
   }, [dispatch, _id]);
+
+  useEffect(() => {
+    if (_id === prod._id) {
+      dispatch(fetchAllReviewsAction(_id));
+    }
+  }, [dispatch, prod, _id]);
 
   const handleMinusQuantity = () => {
     setQuantity(quantity - 1 < 1 ? 1 : quantity - 1);

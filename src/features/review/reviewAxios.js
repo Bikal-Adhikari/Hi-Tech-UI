@@ -9,9 +9,9 @@ export const fetchAllUserReviews = (userId) => {
 
   return apiProcessor(obj);
 };
-export const fetchAllReviews = () => {
+export const fetchAllReviews = (productId) => {
   const obj = {
-    url: reviewEP + "/all",
+    url: `${reviewEP}/all?productId=${productId}`,
     method: "get",
   };
 
