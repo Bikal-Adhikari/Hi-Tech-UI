@@ -34,7 +34,7 @@ const OrderDetails = () => {
   }, [dispatch, user]);
 
   useEffect(() => {
-    if (order && userReview) {
+    if (order && order.items && userReview) {
       const initialReviews = {};
       const initialRatings = {};
 
@@ -97,67 +97,71 @@ const OrderDetails = () => {
               <Col xs={12}>
                 <h3>Products:</h3>
                 {order?.items?.length > 0 ? (
-                  order?.items?.map((product) => (
-                    <Row key={product._id} className="mb-3">
-                      <Col xs={8}>
-                        <h4>{product.name}</h4>
-                        <p>Quantity: {product.quantity}</p>
-                        <p>Price: ${product.price}</p>
-                        {userReview?.find(
-                          (review) =>
-                            review.productId.toString() ===
-                            product.productId.toString()
-                        ) ? (
-                          <>
-                            <p>
-                              <strong>Rating:</strong>{" "}
-                              {rating[product.productId] || 0} &#9733;
-                            </p>
-                            <p>
-                              <strong>Review:</strong>{" "}
-                              {review[product.productId] || "No review"}
-                            </p>
-                          </>
-                        ) : (
-                          <>
-                            <Form.Group controlId={`rating-${product._id}`}>
-                              <Form.Label>Rating:</Form.Label>
-                              <StarRating
-                                rating={rating[product.productId] || 0}
-                                onRatingChange={(value) =>
-                                  handleRatingChange(product.productId, value)
+                  order?.items?.map((product) => {
+                    const userProdReview = userReview.find(
+                      (review) =>
+                        review.productId.toString() ===
+                        product.productId.toString()
+                    );
+                    return (
+                      <Row key={product._id} className="mb-3">
+                        <Col xs={8}>
+                          <h4>{product.name}</h4>
+                          <p>Quantity: {product.quantity}</p>
+                          <p>Price: ${product.price}</p>
+                          {userProdReview ? (
+                            // Display read-only rating and review if already given
+                            <>
+                              <p>
+                                <strong>Rating:</strong>
+                                <StarRating rating={userProdReview.rating} />
+                              </p>
+                              <p>
+                                <strong>Review:</strong> {userProdReview.review}
+                              </p>
+                            </>
+                          ) : (
+                            // Show input fields for new rating and review
+                            <>
+                              <Form.Group controlId={`rating-${product._id}`}>
+                                <Form.Label>Rating:</Form.Label>
+                                <StarRating
+                                  rating={rating[product.productId] || 0}
+                                  onRatingChange={(value) =>
+                                    handleRatingChange(product.productId, value)
+                                  }
+                                />
+                              </Form.Group>
+                              <Form.Group controlId={`review-${product._id}`}>
+                                <Form.Label>Write a Review:</Form.Label>
+                                <Form.Control
+                                  as="textarea"
+                                  rows={3}
+                                  placeholder="Write your review here..."
+                                  value={review[product.productId] || ""}
+                                  onChange={(e) =>
+                                    handleReviewChange(
+                                      product.productId,
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </Form.Group>
+                              <Button
+                                variant="primary"
+                                onClick={() =>
+                                  handleSubmitReview(product.productId)
                                 }
-                              />
-                            </Form.Group>
-                            <Form.Group controlId={`review-${product._id}`}>
-                              <Form.Label>Write a Review:</Form.Label>
-                              <Form.Control
-                                as="textarea"
-                                rows={3}
-                                placeholder="Write your review here..."
-                                value={review[product.productId] || ""}
-                                onChange={(e) =>
-                                  handleReviewChange(
-                                    product.productId,
-                                    e.target.value
-                                  )
-                                }
-                              />
-                            </Form.Group>
-                            <Button
-                              variant="primary"
-                              onClick={() =>
-                                handleSubmitReview(product.productId)
-                              }
-                              className="mt-2"
-                            >
-                              Submit Review
-                            </Button>
-                          </>
-                        )}
-                      </Col>
-                    </Row>
-                  ))
+                                className="mt-2"
+                              >
+                                Submit Review
+                              </Button>
+                            </>
+                          )}
+                        </Col>
+                      </Row>
+                    );
+                  })
                 ) : (
                   <p>No products found in this order.</p>
                 )}
