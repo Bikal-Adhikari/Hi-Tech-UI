@@ -16,11 +16,12 @@ import {
 import { addToCart } from "../../features/cart/cartSlice";
 import { fetchAllReviewsAction } from "../../features/review/reviewAction";
 import { fetchSingleCategoryAction } from "../../features/category/categoryAction";
+import "./ProductPage.css"; // Import custom CSS
 
 const ProductPage = () => {
   const { _id } = useParams();
   const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(""); // State to track the currently displayed image
+  const [selectedImage, setSelectedImage] = useState("");
   const dispatch = useDispatch();
   const { prod } = useSelector((state) => state.productInfo);
   const imgEp = import.meta.env.VITE_APP_ADMINSERVER_ROOT;
@@ -40,9 +41,10 @@ const ProductPage = () => {
   useEffect(() => {
     dispatch(fetchSingleCategoryAction(prod.parentCatId));
   }, [prod, dispatch]);
+
   useEffect(() => {
     if (prod && prod.thumbnail) {
-      setSelectedImage(`${imgEp}/${prod.thumbnail}`); // Set the default image on load
+      setSelectedImage(`${imgEp}/${prod.thumbnail}`);
     }
   }, [prod, imgEp]);
 
@@ -82,10 +84,8 @@ const ProductPage = () => {
     <div>
       <Header />
       <Container className="my-5">
-        {/* Product Image and Information */}
         <Row>
           <Col md={6} className="text-center">
-            {/* Image Gallery */}
             <Card>
               <Card.Img
                 src={selectedImage || "placeholder.jpg"}
@@ -94,7 +94,6 @@ const ProductPage = () => {
                 style={{ maxHeight: "400px", objectFit: "contain" }}
               />
               <Card.Body>
-                {/* Display additional product images here */}
                 {prod.images && prod.images.length > 0 && (
                   <div className="d-flex justify-content-center mt-2">
                     {prod.images.map((img, index) => (
@@ -108,7 +107,7 @@ const ProductPage = () => {
                           height: "60px",
                           cursor: "pointer",
                         }}
-                        onClick={() => handleImageClick(`${imgEp}/${img}`)} // Change main image on click
+                        onClick={() => handleImageClick(`${imgEp}/${img}`)}
                       />
                     ))}
                   </div>
@@ -118,7 +117,6 @@ const ProductPage = () => {
           </Col>
 
           <Col md={6}>
-            {/* Product Overview */}
             <h1 className="fs-3 text-uppercase fw-bold">{prod.name}</h1>
             <p className="text-muted">{prod.category}</p>
             <p className="fw-bold fs-4 text-success">${prod.price}</p>
@@ -131,7 +129,6 @@ const ProductPage = () => {
               Read More
             </Button>
 
-            {/* Quantity and Add to Cart */}
             <div className="d-flex align-items-center mb-3 mt-2">
               <Button
                 variant="info"
@@ -162,16 +159,13 @@ const ProductPage = () => {
           </Col>
         </Row>
 
-        {/* Detailed View */}
         <Row className="mt-4">
           <Col>
-            {/* Description Section */}
             <h4 className="fs-5">Description</h4>
             <p>{prod.description}</p>
 
-            {/* Specifications Section */}
             <h4 className="fs-5 mt-4">Specifications</h4>
-            <Table striped bordered hover>
+            <Table striped bordered hover className="small-table">
               <tbody>
                 <tr>
                   <td>
@@ -206,22 +200,17 @@ const ProductPage = () => {
               </tbody>
             </Table>
 
-            {/* Reviews Section */}
             <h4 className="fs-5 mt-4">Reviews</h4>
             {reviews && reviews.length > 0 ? (
               reviews.map((review, index) => (
                 <div key={index} className="mb-3">
-                  <div className="d-flex align-items-center">
-                    <span className="fw-bold">{review.rating} ★</span>
-                    <span className="ms-2 text-muted">
-                      {new Date(review.date).toLocaleDateString()}
-                    </span>
-                  </div>
+                  <strong>{review.userName}</strong>
+                  <p>Rating: {review.rating} ★</p>
                   <p>{review.comment}</p>
                 </div>
               ))
             ) : (
-              <p>No reviews yet. Be the first to review!</p>
+              <p>No reviews yet.</p>
             )}
           </Col>
         </Row>
