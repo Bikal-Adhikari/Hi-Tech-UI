@@ -92,6 +92,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Acknowledgments
 
 - [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
 - [React Bootstrap](https://react-bootstrap.github.io/)
 - [Axios](https://axios-http.com/)
 
