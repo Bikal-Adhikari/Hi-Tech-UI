@@ -11,14 +11,15 @@ import {
 } from "react-icons/fa";
 import "./service.css";
 import { useState } from "react";
+import { createNewServiceAction } from "../../features/services/serviceAction";
 
 const Service = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    serviceType: "",
-    preferredDate: "",
+    services: "",
+    datePreferred: "",
     message: "",
   });
 
@@ -29,9 +30,10 @@ const Service = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form Data Submitted:", formData);
+    console.log(formData); // Check if all values are logged correctly here.
+    createNewServiceAction(formData);
   };
+
   return (
     <div>
       <Header />
@@ -155,16 +157,16 @@ const Service = () => {
                       required
                     />
                   </Form.Group>
-                  <Form.Group className="mb-3" controlId="formServiceType">
+                  <Form.Group className="mb-3" controlId="formServices">
                     <Form.Label>Type of Service</Form.Label>
                     <Form.Control
                       as="select"
-                      name="serviceType"
-                      value={formData.serviceType}
+                      name="services"
+                      value={formData.services}
                       onChange={handleChange}
                       required
                     >
-                      <option value="">Select Service Type</option>
+                      <option value="">Select Services</option>
                       <option value="Product Installation">
                         Product Installation
                       </option>
@@ -183,8 +185,8 @@ const Service = () => {
                     <Form.Label>Preferred Date</Form.Label>
                     <Form.Control
                       type="date"
-                      name="preferredDate"
-                      value={formData.preferredDate}
+                      name="datePreferred"
+                      value={formData.datePreferred}
                       onChange={handleChange}
                       required
                     />
