@@ -11,8 +11,25 @@ import {
 } from "react-bootstrap";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import "./contact.css";
+import useForm from "../../Hooks/useForm";
+import { createNewContactAction } from "../../features/contact/contactAction";
 
+const initialState = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+};
 const Contact = () => {
+  const { form, setForm, handleOnChange } = useForm(initialState);
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+
+    const status = createNewContactAction(form);
+    if (status === "success") {
+      setForm(initialState);
+    }
+  };
   return (
     <div>
       <Header />
@@ -51,27 +68,48 @@ const Contact = () => {
             <Card>
               <Card.Body>
                 <Card.Title>Contact Form</Card.Title>
-                <Form>
+                <Form onSubmit={handleOnSubmit}>
                   <Form.Group className="mb-3" controlId="formName">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your name" />
+                    <Form.Control
+                      type="text"
+                      name="name"
+                      value={form.name}
+                      onChange={handleOnChange}
+                      placeholder="Enter your name"
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter your email" />
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleOnChange}
+                      placeholder="Enter your email"
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formSubject">
                     <Form.Label>Subject</Form.Label>
-                    <Form.Control type="text" placeholder="Enter subject" />
+                    <Form.Control
+                      type="text"
+                      name="subject"
+                      value={form.subject}
+                      onChange={handleOnChange}
+                      placeholder="Enter subject"
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formMessage">
                     <Form.Label>Message</Form.Label>
                     <Form.Control
                       as="textarea"
+                      name="message"
                       rows={4}
+                      value={form.message}
+                      onChange={handleOnChange}
                       placeholder="Enter your message"
                     />
                   </Form.Group>
