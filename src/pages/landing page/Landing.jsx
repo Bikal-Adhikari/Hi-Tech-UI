@@ -16,7 +16,7 @@ const Landing = () => {
         <Carousel>
           <Carousel.Item>
             <img
-              className="d-block w-100" // Bootstrap class for responsive image
+              className="d-block w-100"
               src={watchBackground}
               alt="Smart Watches"
               height={"600px"}
