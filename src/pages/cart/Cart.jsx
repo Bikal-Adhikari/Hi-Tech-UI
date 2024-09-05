@@ -228,6 +228,7 @@ const Cart = () => {
                       variant="success"
                       className="w-100 shadow-0 mb-2"
                       onClick={() => handleMakePurchase()}
+                      disabled={items.length === 0}
                     >
                       Make Purchase
                     </Button>
