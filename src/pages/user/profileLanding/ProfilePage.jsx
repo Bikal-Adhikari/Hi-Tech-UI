@@ -1,14 +1,5 @@
 import { useEffect } from "react";
-import {
-  Row,
-  Col,
-  Button,
-  Image,
-  Tab,
-  Tabs,
-  Container,
-  Spinner,
-} from "react-bootstrap";
+import { Row, Col, Button, Image, Tab, Tabs, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Header } from "../../../components/layout/Header/Header";
 import { Footer } from "../../../components/layout/Footer/Footer";
@@ -51,15 +42,19 @@ const ProfilePage = () => {
     dispatch(updateUserProfilePicAction(user._id, formData));
   };
 
-  // Filter orders based on 10-day condition
+  // Filter active orders only
+  const activeOrders = orders.filter((order) => order.status === "active");
+
+  // Filter recent active orders (within the last 10 days)
   const currentDate = new Date();
-  const trackOrders = orders.filter(
+  const trackOrders = activeOrders.filter(
     (order) =>
       new Date(order.createdAt) >=
       new Date(currentDate.setDate(currentDate.getDate() - 10))
   );
 
-  const orderHistory = orders.filter(
+  // Filter older active orders (more than 10 days old)
+  const orderHistory = activeOrders.filter(
     (order) =>
       new Date(order.createdAt) <
       new Date(currentDate.setDate(currentDate.getDate() - 10))
@@ -73,7 +68,7 @@ const ProfilePage = () => {
   return (
     <div>
       <Header />
-      <main className="vh-100 pt-10">
+      <main className="m-vh-100 pt-10">
         <Row className="my-4">
           <Col md={4} className="text-center">
             {/* Display user's profile picture if it exists, otherwise show a placeholder */}
@@ -197,7 +192,7 @@ const ProfilePage = () => {
                   </Row>
                 </Container>
               ) : (
-                <p>No orders to track.</p>
+                <p>No active orders to track.</p>
               )}
             </Tab>
 
@@ -227,7 +222,7 @@ const ProfilePage = () => {
                   </Row>
                 </Container>
               ) : (
-                <p>No past orders found.</p>
+                <p>No past active orders found.</p>
               )}
             </Tab>
           </Tabs>
