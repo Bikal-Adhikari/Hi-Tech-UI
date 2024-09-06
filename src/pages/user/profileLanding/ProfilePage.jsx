@@ -1,14 +1,5 @@
 import { useEffect } from "react";
-import {
-  Row,
-  Col,
-  Button,
-  Image,
-  Tab,
-  Tabs,
-  Container,
-  Spinner,
-} from "react-bootstrap";
+import { Row, Col, Button, Image, Tab, Tabs, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Header } from "../../../components/layout/Header/Header";
 import { Footer } from "../../../components/layout/Footer/Footer";
@@ -73,7 +64,7 @@ const ProfilePage = () => {
   return (
     <div>
       <Header />
-      <main className="vh-100 pt-10">
+      <main className="m-vh-100 pt-10">
         <Row className="my-4">
           <Col md={4} className="text-center">
             {/* Display user's profile picture if it exists, otherwise show a placeholder */}

@@ -1,46 +1,39 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import { Header } from "../../components/layout/Header/Header";
 import { Footer } from "../../components/layout/Footer/Footer";
-import {
-  getPublishableKey,
-  postPaymentIntentAction,
-} from "../../features/payment/paymentaction";
 import { loadStripe } from "@stripe/stripe-js";
 import { CheckoutForm } from "../../components/common/checkout/CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { useLocation } from "react-router-dom";
+import {
+  getPublishableKey,
+  postPaymentIntentAction,
+} from "../../features/payment/paymentaction";
 
 const Payment = () => {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
   const location = useLocation();
   const { state } = location;
-
   const { user, items, totalAmount, shippingAddress, billingAddress } =
     state || {};
 
   useEffect(() => {
-    // Fetch and set the Stripe publishable key
     const fetchStripeKey = async () => {
       try {
         const publishableKey = await getPublishableKey();
-        if (publishableKey) {
-          const stripe = loadStripe(publishableKey);
-          setStripePromise(stripe);
-        } else {
-          console.error("Publishable key is invalid or missing.");
-        }
+        const stripe = loadStripe(publishableKey);
+        setStripePromise(stripe);
       } catch (error) {
-        console.error("Error fetching Stripe publishable key:", error);
+        console.error("Error fetching Stripe key", error);
       }
     };
 
     fetchStripeKey();
-  }, []); // Run once on component mount
+  }, []);
 
   useEffect(() => {
-    // Create a payment intent only if stripePromise is available
     const createPaymentIntent = async () => {
       if (stripePromise && totalAmount) {
         try {
@@ -48,7 +41,7 @@ const Payment = () => {
             user,
             items: items.map((item) => ({
               name: item.name,
-              productId: item._id, 
+              productId: item._id,
               price: item.price,
               quantity: item.quantity,
             })),
@@ -72,34 +65,41 @@ const Payment = () => {
     shippingAddress,
     billingAddress,
   ]);
-  if (!stripePromise) {
-    return (
-      <div>
-        <Header />
-        <Container className="mt-5">
-          <Row className="justify-content-center">
-            <h2 className="text-center">Loading payment form...</h2>
-          </Row>
-        </Container>
-        <Footer />
-      </div>
-    );
-  }
 
   return (
     <>
       <Header />
       <Container className="mt-5 vh-100">
         <Row className="justify-content-center">
-          <h2 className="text-center">Payment Form</h2>
           <Col md={6}>
-            {clientSecret ? (
-              <Elements stripe={stripePromise} options={{ clientSecret }}>
-                <CheckoutForm />
-              </Elements>
-            ) : (
-              <div>Loading payment form...</div>
-            )}
+            <Card>
+              <Card.Body>
+                <h2 className="text-center">Payment</h2>
+
+                {/* Order Summary */}
+                <Card className="mb-4">
+                  <Card.Header>Order Summary</Card.Header>
+                  <Card.Body>
+                    {items?.map((item, index) => (
+                      <div key={index}>
+                        <p>
+                          {item.name} - {item.quantity} x ${item.price}
+                        </p>
+                      </div>
+                    ))}
+                    <h5>Total: ${totalAmount}</h5>
+                  </Card.Body>
+                </Card>
+
+                {clientSecret ? (
+                  <Elements stripe={stripePromise} options={{ clientSecret }}>
+                    <CheckoutForm />
+                  </Elements>
+                ) : (
+                  <p>Loading payment form...</p>
+                )}
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
       </Container>

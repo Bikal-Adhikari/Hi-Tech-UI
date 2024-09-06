@@ -10,11 +10,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 const Checkout = () => {
   const { user } = useSelector((state) => state.userInfo);
   const navigate = useNavigate();
-  const location = useLocation(); // Retrieve the location object
-  const { state } = location; // Destructure state from location
-  const { items, totalAmount } = state || {}; // Get product and total amount from state
+  const location = useLocation();
+  const state = location.state || {};
+  const { items, totalAmount } = state || {};
 
-  // Initialize state for addresses
+  console.log("items:", items);
+  console.log("totalAmount", totalAmount);
+
   const [shippingAddress, setShippingAddress] = useState({
     street: "",
     city: "",
@@ -51,15 +53,6 @@ const Checkout = () => {
   };
 
   const handleProceedToPayment = () => {
-    console.log(
-      "Proceeding to payment with address:",
-      shippingAddress,
-      user,
-      totalAmount,
-      items
-    );
-
-    // Navigate to payment page and pass required data in state
     navigate("/payment", {
       state: {
         user,
@@ -80,9 +73,25 @@ const Checkout = () => {
             <Card>
               <Card.Body>
                 <h2 className="text-center mb-4">Checkout</h2>
+
+                {/* Order Summary */}
+                <Card className="mb-4">
+                  <Card.Header>Order Summary</Card.Header>
+                  <Card.Body>
+                    {items?.map((item, index) => (
+                      <div key={index}>
+                        <p>
+                          {item.name} - {item.quantity} x ${item.price}
+                        </p>
+                      </div>
+                    ))}
+                    <h5>Total: ${totalAmount}</h5>
+                  </Card.Body>
+                </Card>
+
+                {/* Address Form */}
                 <Form>
                   <Row>
-                    {/* Shipping Address Section */}
                     <Col md={12} lg={6}>
                       <Card className="mb-4">
                         <Card.Header>Shipping Address</Card.Header>
@@ -136,7 +145,6 @@ const Checkout = () => {
                       </Card>
                     </Col>
 
-                    {/* Billing Address Section */}
                     {!useBillingAsShipping && (
                       <Col md={12} lg={6}>
                         <Card>
@@ -190,13 +198,7 @@ const Checkout = () => {
                       type="checkbox"
                       label="Use billing address as shipping address"
                       checked={useBillingAsShipping}
-                      onChange={() => {
-                        setUseBillingAsShipping((prev) => !prev);
-                        // Update billing address when toggling
-                        if (!useBillingAsShipping) {
-                          setBillingAddress(shippingAddress);
-                        }
-                      }}
+                      onChange={() => setUseBillingAsShipping((prev) => !prev)}
                     />
                   </Row>
                   <Button
